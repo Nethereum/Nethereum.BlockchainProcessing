@@ -6,7 +6,7 @@ using Nethereum.RPC.Eth.DTOs;
 
 namespace Nethereum.BlockchainProcessing.Processing.Logs
 {
-    public interface IEventLogProcessor
+    public interface ILogProcessor
     {
         bool IsLogForEvent(FilterLog log);
         Task ProcessLogsAsync(params FilterLog[] eventLogs);

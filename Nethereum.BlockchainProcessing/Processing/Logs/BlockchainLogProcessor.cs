@@ -1,22 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using Nethereum.BlockchainProcessing.Web3Abstractions;
 using Nethereum.RPC.Eth.DTOs;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Nethereum.BlockchainProcessing.Processing.Logs
 {
-    public class BlockchainEventLogProcessor : IBlockchainProcessor
+    public class BlockchainLogProcessor : IBlockchainProcessor
     {
         private readonly IEventLogProxy _eventLogProxy;
-        private readonly IEnumerable<IEventLogProcessor> _logProcessors;
+        private readonly IEnumerable<ILogProcessor> _logProcessors;
 
-        public BlockchainEventLogProcessor(IEventLogProxy eventLogProxy, IEnumerable<IEventLogProcessor> logProcessors)
+        public BlockchainLogProcessor(IEventLogProxy eventLogProxy, IEnumerable<ILogProcessor> logProcessors)
         {
-            _eventLogProxy = eventLogProxy;
-            _logProcessors = logProcessors;
+            _eventLogProxy = eventLogProxy ?? throw new ArgumentNullException(nameof(eventLogProxy));
+            _logProcessors = logProcessors ?? throw new ArgumentNullException(nameof(logProcessors));
         }
 
         public async Task ProcessAsync(ulong fromBlockNumber, ulong toBlockNumber)
@@ -32,26 +32,19 @@ namespace Nethereum.BlockchainProcessing.Processing.Logs
                 ToBlock = new BlockParameter(toBlockNumber)
             });
 
-            if (logs == null) return;
+            if (logs == null || logs.Length == 0) return;
 
-            var processingCollection = new List<LogsMatchedForProcessing>();
+            if (cancellationToken.IsCancellationRequested) return;
 
-            foreach (var logProcessor in _logProcessors)
+            var processorWorkQueue = _logProcessors
+                .ToDictionary((processor) => processor, (processor) => logs.Where(processor.IsLogForEvent));
+
+            foreach (var processor in processorWorkQueue.Keys)
             {
-                processingCollection.Add(new LogsMatchedForProcessing(logProcessor));
-            }
+                if (cancellationToken.IsCancellationRequested) return;
 
-            foreach (var log in logs)
-            {
-                foreach (var matchedForProcessing in processingCollection)
-                {
-                    matchedForProcessing.AddIfMatched(log);
-                }
-            }
-
-            foreach (var matchedForProcessing in processingCollection)
-            {
-                await matchedForProcessing.ProcessLogsAsync();
+                var logsToProcess = processorWorkQueue[processor].ToArray();
+                await processor.ProcessLogsAsync(logsToProcess);
             }
         }
     }
