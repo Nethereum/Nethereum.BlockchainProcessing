@@ -34,11 +34,11 @@ Create simple or complex filters to isolate and process the data you want with m
 
 **Architecture**
 
-In additition to the processors there are a library of tools and components that can be used separately.
+In addition to the processors there are a library of tools and components that can be used separately.
 
 **Related projects**
 
-The following projects build on the processing libary to provide pluggable off the shelf and re-usable components.
+The following projects build on the processing library to provide pluggable off the shelf and re-usable components.
 * Blockchain storage, store chain data - includes adapters for Azure Table Storage, CSV, SQL Server, Sqlite, Cosmos.  https://github.com/Nethereum/Nethereum.BlockchainStorage/
 * Azure Search - index chain data easily  https://github.com/Nethereum/Nethereum.BlockchainStorage/tree/master/Nethereum.BlockchainStore.Search.Samples
 
@@ -50,7 +50,8 @@ Start with the samples!!  https://github.com/Nethereum/Nethereum.BlockchainProce
 # Component Level Information
 
 ## Processors
-Processors are orchestrators. They navigate and retrieve or receive block chain data, filter it, invoke custom handlers and invoke lower level processors.
+
+Processors are orchestrators. They navigate and retrieve or receive blockchain data, filter it, invoke custom handlers and invoke lower level processors.
 In general the processors do not need customisation and you don't need to write your own. They are there to walk the chain and pass the relevant data to *your* handlers.
 
 Handlers are pluggable interfaces.  To inject your own behaviour - you should create a class that implements the relevant handler interface and inject it.
@@ -58,7 +59,7 @@ Handlers are pluggable interfaces.  To inject your own behaviour - you should cr
 ## PROCESSING COMPONENTS
 Here is a high level processing overview. 
 
-* Block Chain Processing
+* Blockchain Processing
 	* Sequentially enumerating the block chain using the injected processing strategy
 * Processing Strategy 
 	* start and end block configuration
@@ -66,7 +67,7 @@ Here is a high level processing overview.
 	* minimum block confirmation configuration
 	* invokes injected Block Processor with the current block number
 * Block Processor
-	* retrieves block data and it's transactions from the chain 
+	* retrieves block data and its transactions from the chain 
 	* applies filters
 	* invokes injected block handler
 	* invokes Transaction Processor
@@ -125,7 +126,7 @@ The blockchain processor uses the strategy to:
 
 ### TransactionRouter
 * This implements the ITransactionHandler interface.
-* It's purpose is to take a transaction and route it (conditionally) to one or many transaction handlers.
+* Its purpose is to take a transaction and route it (conditionally) to one or many transaction handlers.
 * It allows specific handlers to be invoked when the transaction meets their criteria.
 For example, this means handlers can be added to handle calls to specific functions on a contract.
 For a token contract, one handler may handle calls to "transfer" whilst another may handle a call to "approve".
@@ -133,7 +134,7 @@ For a token contract, one handler may handle calls to "transfer" whilst another 
 
 ### TransactionLogRouter
 * This implements the ITransactionLogHandler interface.
-* It's purpose is to take a transaction log and route it (conditionally) to one or many handlers.
+* Its purpose is to take a transaction log and route it (conditionally) to one or many handlers.
 * It allows specific handlers to be invoked when the log meets their criteria.
 For example, this means handlers can be added to handle specific events on a contract.
 For a token contract, one handler may handle "Transfer" whilst another may handle "Approval".
