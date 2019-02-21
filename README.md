@@ -6,7 +6,7 @@
 
 Why??!!!
 
-Loads of reason!  Here are a few:
+Loads of reasons!  Here are a few:
 
 * Store chain data locally for analysis, auditing or easy lookup
 * Trigger custom functionality based on chain activity
