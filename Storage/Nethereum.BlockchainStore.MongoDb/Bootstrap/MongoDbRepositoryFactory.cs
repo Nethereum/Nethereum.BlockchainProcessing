@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using Nethereum.BlockchainStore.MongoDb.Repositories;
 using Nethereum.BlockchainStore.Repositories;
@@ -48,6 +49,14 @@ namespace Nethereum.BlockchainStore.MongoDb.Bootstrap
         {
             foreach (var collection in Enum.GetNames(typeof(MongoDbCollectionName)))
             {
+                var collections = await db.ListCollectionsAsync(new ListCollectionsOptions
+                    {Filter = new BsonDocument("name", collection)});
+
+                if (await collections.AnyAsync())
+                {
+                    continue;
+                }
+
                 await db.CreateCollectionAsync(collection);
             }
         }
