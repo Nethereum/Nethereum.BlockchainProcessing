@@ -25,11 +25,18 @@ namespace Nethereum.BlockchainStore.MongoDb.Repositories
 
         public async Task<ulong?> GetMaxBlockNumberAsync()
         {
+            var count = await Collection.CountDocumentsAsync(FilterDefinition<MongoDbBlock>.Empty);
+
+            if (count == 0)
+            {
+                return null;
+            }
+
             var max = await Collection.Find(FilterDefinition<MongoDbBlock>.Empty).Limit(1)
                 .Sort(new SortDefinitionBuilder<MongoDbBlock>().Descending(block => block.BlockNumber))
                 .Project(block => block.BlockNumber).SingleOrDefaultAsync();
 
-            return string.IsNullOrEmpty(max) ? (ulong?) null : ulong.Parse(max);
+            return max;
         }
 
         public async Task UpsertBlockAsync(Block source)
