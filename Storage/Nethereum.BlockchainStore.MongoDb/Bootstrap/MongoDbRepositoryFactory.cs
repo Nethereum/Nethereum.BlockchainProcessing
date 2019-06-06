@@ -57,7 +57,8 @@ namespace Nethereum.BlockchainStore.MongoDb.Bootstrap
                     continue;
                 }
 
-                await db.CreateCollectionAsync(collection);
+                await db.CreateCollectionAsync(collection,
+                    new CreateCollectionOptions() {Collation = new Collation("en", numericOrdering: true)});
             }
         }
 
