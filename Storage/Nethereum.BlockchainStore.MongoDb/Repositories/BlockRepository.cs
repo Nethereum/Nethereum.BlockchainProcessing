@@ -36,7 +36,7 @@ namespace Nethereum.BlockchainStore.MongoDb.Repositories
                 .Sort(new SortDefinitionBuilder<MongoDbBlock>().Descending(block => block.BlockNumber))
                 .Project(block => block.BlockNumber).SingleOrDefaultAsync();
 
-            return max;
+            return ulong.Parse(max);
         }
 
         public async Task UpsertBlockAsync(Block source)
