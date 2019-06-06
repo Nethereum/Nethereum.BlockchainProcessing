@@ -14,5 +14,10 @@ namespace Nethereum.BlockchainStore.MongoDb.Bootstrap
         {
             return config.GetOrThrow(ConfigurationKeyNames.MongoDbConnectionString);
         }
+
+        public static string GetMongoDbTag(this IConfigurationRoot config)
+        {
+            return config[ConfigurationKeyNames.MongoDbTag];
+        }
     }
 }

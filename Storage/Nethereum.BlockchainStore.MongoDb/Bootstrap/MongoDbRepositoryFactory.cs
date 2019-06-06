@@ -13,8 +13,9 @@ namespace Nethereum.BlockchainStore.MongoDb.Bootstrap
         public static MongoDbRepositoryFactory Create(IConfigurationRoot config, bool deleteAllExistingCollections = false)
         {
             var connectionString = config.GetMongoDbConnectionStringOrThrow();
+            var tag = config.GetMongoDbTag();
 
-            var factory = new MongoDbRepositoryFactory(connectionString);
+            var factory = new MongoDbRepositoryFactory(connectionString, tag);
 
             var db = factory.CreateDbIfNotExists();
 
@@ -29,9 +30,9 @@ namespace Nethereum.BlockchainStore.MongoDb.Bootstrap
         private readonly IMongoClient _client;
         private readonly string _databaseName;
 
-        public MongoDbRepositoryFactory(string connectionString)
+        public MongoDbRepositoryFactory(string connectionString, string dbTag)
         {
-            _databaseName = "BlockchainStorage";
+            _databaseName = "BlockchainStorage" + dbTag ?? string.Empty;
             _client = new MongoClient(connectionString);
         }
 
