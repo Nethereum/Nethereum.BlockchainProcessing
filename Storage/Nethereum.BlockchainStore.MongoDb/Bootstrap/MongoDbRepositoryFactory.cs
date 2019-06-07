@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using MongoDB.Bson;
@@ -14,6 +14,7 @@ namespace Nethereum.BlockchainStore.MongoDb.Bootstrap
         {
             var connectionString = config.GetMongoDbConnectionStringOrThrow();
             var tag = config.GetMongoDbTag();
+            var locale = config.GetMongoDbLocale();
 
             var factory = new MongoDbRepositoryFactory(connectionString, tag);
 
@@ -22,7 +23,7 @@ namespace Nethereum.BlockchainStore.MongoDb.Bootstrap
             if (deleteAllExistingCollections)
                 factory.DeleteAllCollections(db).Wait();
 
-            factory.CreateCollectionsIfNotExist(db).Wait();
+            factory.CreateCollectionsIfNotExist(db, locale).Wait();
 
             return factory;
         }
@@ -46,12 +47,12 @@ namespace Nethereum.BlockchainStore.MongoDb.Bootstrap
             await _client.DropDatabaseAsync(_databaseName);
         }
 
-        public async Task CreateCollectionsIfNotExist(IMongoDatabase db)
+        public async Task CreateCollectionsIfNotExist(IMongoDatabase db, string locale)
         {
             foreach (var collection in Enum.GetNames(typeof(MongoDbCollectionName)))
             {
                 var collections = await db.ListCollectionsAsync(new ListCollectionsOptions
-                    {Filter = new BsonDocument("name", collection)});
+                    {Filter = new BsonDocument("name", collectionName.ToString())});
 
                 if (await collections.AnyAsync())
                 {

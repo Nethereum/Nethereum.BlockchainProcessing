@@ -4,5 +4,6 @@
     {
         public static readonly string MongoDbConnectionString = "MongoDbConnectionString";
         public static readonly string MongoDbTag = "MongoDbTag";
+        public static readonly string MongoDbLocale = "MongoDbLocale";
     }
 }

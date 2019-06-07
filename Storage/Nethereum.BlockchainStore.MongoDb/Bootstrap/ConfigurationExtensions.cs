@@ -19,5 +19,10 @@ namespace Nethereum.BlockchainStore.MongoDb.Bootstrap
         {
             return config[ConfigurationKeyNames.MongoDbTag];
         }
+
+        public static string GetMongoDbLocale(this IConfigurationRoot config)
+        {
+            return config[ConfigurationKeyNames.MongoDbLocale] ?? "en";
+        }
     }
 }
