@@ -1,8 +1,9 @@
-using System;
+﻿using System;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using Nethereum.BlockchainStore.MongoDb.IndexBuilders;
 using Nethereum.BlockchainStore.MongoDb.Repositories;
 using Nethereum.BlockchainStore.Repositories;
 
@@ -49,26 +50,49 @@ namespace Nethereum.BlockchainStore.MongoDb.Bootstrap
 
         public async Task CreateCollectionsIfNotExist(IMongoDatabase db, string locale)
         {
-            foreach (var collection in Enum.GetNames(typeof(MongoDbCollectionName)))
+            foreach (var collectionName in (MongoDbCollectionName[]) Enum.GetValues(typeof(MongoDbCollectionName)))
             {
                 var collections = await db.ListCollectionsAsync(new ListCollectionsOptions
                     {Filter = new BsonDocument("name", collectionName.ToString())});
 
-                if (await collections.AnyAsync())
+                if (!await collections.AnyAsync())
+                    await db.CreateCollectionAsync(collectionName.ToString(),
+                        new CreateCollectionOptions() {Collation = new Collation(locale, numericOrdering: true)});
+
+                IIndexBuilder builder;
+                switch (collectionName)
                 {
-                    continue;
+                    case MongoDbCollectionName.AddressTransactions:
+                        builder = new AddressTransactionIndexBuilder(db);
+                        break;
+                    case MongoDbCollectionName.Blocks:
+                        builder = new BlockIndexBuilder(db);
+                        break;
+                    case MongoDbCollectionName.Contracts:
+                        builder = new ContractIndexBuilder(db);
+                        break;
+                    case MongoDbCollectionName.Transactions:
+                        builder = new TransactionIndexBuilder(db);
+                        break;
+                    case MongoDbCollectionName.TransactionLogs:
+                        builder = new TransactionLogIndexBuilder(db);
+                        break;
+                    case MongoDbCollectionName.TransactionVMStacks:
+                        builder = new TransactionVmStackIndexBuilder(db);
+                        break;
+                    default:
+                        return;
                 }
 
-                await db.CreateCollectionAsync(collection,
-                    new CreateCollectionOptions() {Collation = new Collation("en", numericOrdering: true)});
+                builder.EnsureIndexes();
             }
         }
 
         public async Task DeleteAllCollections(IMongoDatabase db)
         {
-            foreach (var collection in Enum.GetNames(typeof(MongoDbCollectionName)))
+            foreach (var collectionName in (MongoDbCollectionName[]) Enum.GetValues(typeof(MongoDbCollectionName)))
             {
-                await db.DropCollectionAsync(collection);
+                await db.DropCollectionAsync(collectionName.ToString());
             }
         }
 
