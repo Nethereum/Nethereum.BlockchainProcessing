@@ -15,6 +15,6 @@
     </providers>
   </entityFramework>
   <connectionStrings>
-    <add name="BlockchainDbContext_hana" providerName="Sap.Data.Hana" connectionString="server=54.224.209.200:39013;UserID=system;password=pwd" />
+    <add name="BlockchainDbContext_hana" providerName="Sap.Data.Hana" connectionString="server=52.207.150.45:39013;UserID=system;password=pwd" />
   </connectionStrings>
 </configuration>

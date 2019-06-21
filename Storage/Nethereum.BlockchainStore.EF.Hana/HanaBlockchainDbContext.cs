@@ -4,7 +4,7 @@ using System.Configuration;
 using System.Data.Entity;
 using System.Reflection;
 using Nethereum.BlockchainStore.Entities;
-using Sap.Data.Hana;
+//using Sap.Data.Hana; // Note: add this for access to the HANA data provider objects
 
 namespace Nethereum.BlockchainStore.EF.Hana
 {    
@@ -17,7 +17,7 @@ namespace Nethereum.BlockchainStore.EF.Hana
         {
             Schema = schema;
             ConnectionName = connectionName;
-            // Note DefaultConnectionFactory is defined in App.config as HanaConnectionFactory();
+            // Note: DefaultConnectionFactory is defined in App.config as HanaConnectionFactory();
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
