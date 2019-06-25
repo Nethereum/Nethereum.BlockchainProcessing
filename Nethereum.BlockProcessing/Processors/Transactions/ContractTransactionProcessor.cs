@@ -3,6 +3,7 @@ using Nethereum.Hex.HexTypes;
 using Nethereum.RPC.Eth.DTOs;
 using Nethereum.Web3;
 using Newtonsoft.Json.Linq;
+using Nethereum.Util;
 using System;
 using System.Threading.Tasks;
 using Transaction = Nethereum.RPC.Eth.DTOs.Transaction;

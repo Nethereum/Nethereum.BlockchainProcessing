@@ -11,9 +11,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Nethereum.Geth" Version="3.2.0-CI-20190613-203709" />
-    <PackageReference Include="Nethereum.Web3" Version="3.2.0-CI-20190613-203709" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="2.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Nethereum\src\Nethereum.ABI\Nethereum.ABI.csproj" />
+    <ProjectReference Include="..\..\Nethereum\src\Nethereum.Geth\Nethereum.Geth.csproj" />
+    <ProjectReference Include="..\..\Nethereum\src\Nethereum.Hex\Nethereum.Hex.csproj" />
+    <ProjectReference Include="..\..\Nethereum\src\Nethereum.RPC\Nethereum.RPC.csproj" />
+    <ProjectReference Include="..\..\Nethereum\src\Nethereum.Util\Nethereum.Util.csproj" />
+    <ProjectReference Include="..\..\Nethereum\src\Nethereum.Web3\Nethereum.Web3.csproj" />
   </ItemGroup>
   
 </Project>
