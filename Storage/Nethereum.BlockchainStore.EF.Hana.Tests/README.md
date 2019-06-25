@@ -7,7 +7,7 @@ To build for HANA:
 
 1. Install HANA data provider on the same PC that build will happen. Instructions here: https://help.sap.com/viewer/1efad1691c1f496b8b580064a6536c2d/Cloud/en-US/7017cce72a054111b71cc713762e365c.html
 2. Rename  `App.config.EXAMPLE` to be `App.config`.
-3. Edit `App.config` file to have the correct connection string for your HANA system.
+3. Edit the `App.config` file to have the correct connection string for your HANA system. Note the port number is `3<instance>13`. For example, to connect to a HANA system with instance 90 you should specify port `39013` in the connection string.
 4. Build project `Nethereum.BlockchainStore.EF.Hana.Tests`.
 
 The build should complete successfully.

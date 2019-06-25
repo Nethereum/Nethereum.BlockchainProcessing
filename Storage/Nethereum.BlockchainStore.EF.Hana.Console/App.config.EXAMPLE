@@ -11,10 +11,9 @@
     <defaultConnectionFactory type="Sap.Data.Hana.HanaConnectionFactory, Sap.Data.Hana.v4.5, Version=2.3.134.0, Culture=neutral, PublicKeyToken=0326b8ea63db4bc4"></defaultConnectionFactory>
     <providers>
       <provider invariantName="Sap.Data.Hana" type="Sap.Data.Hana.HanaProviderServices, Sap.Data.Hana.v4.5, Version=2.3.134.0, Culture=neutral, PublicKeyToken=0326b8ea63db4bc4"/>
-      <provider invariantName="System.Data.SqlClient" type="System.Data.Entity.SqlServer.SqlProviderServices, EntityFramework.SqlServer"/>
     </providers>
   </entityFramework>
   <connectionStrings>
-    <add name="BlockchainDbContext_hana" providerName="Sap.Data.Hana" connectionString="server=3.93.55.81:39013;UserID=system;password=pwd"/>
+    <add name="BlockchainDbContext_hana" providerName="Sap.Data.Hana" connectionString="server=3.90.152.107:39013;UserID=system;password=pwd"/>
   </connectionStrings>
 </configuration>
