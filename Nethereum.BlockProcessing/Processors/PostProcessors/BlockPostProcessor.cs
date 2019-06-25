@@ -6,6 +6,7 @@ using Nethereum.Web3;
 using System;
 using System.Numerics;
 using System.Threading.Tasks;
+using Nethereum.Hex.HexTypes;
 
 namespace Nethereum.BlockchainProcessing.Processors.PostProcessors
 {

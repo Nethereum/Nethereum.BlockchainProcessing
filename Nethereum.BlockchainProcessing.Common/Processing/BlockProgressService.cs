@@ -3,6 +3,7 @@ using System.Numerics;
 using System.Threading.Tasks;
 using Nethereum.RPC.Eth.Services;
 using Nethereum.Web3;
+using Nethereum.Hex.HexTypes;
 
 namespace Nethereum.BlockchainProcessing.Processing
 {

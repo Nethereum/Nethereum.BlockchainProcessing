@@ -7,6 +7,7 @@ using Nethereum.BlockchainProcessing.Handlers;
 using Nethereum.BlockchainProcessing.Nethereum.RPC.Eth.DTOs;
 using Nethereum.RPC.Eth.DTOs;
 using Newtonsoft.Json.Linq;
+using Nethereum.Util;
 
 namespace Nethereum.BlockchainProcessing.Processors
 {
