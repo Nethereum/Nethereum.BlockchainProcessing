@@ -10,6 +10,7 @@ using Nethereum.BlockchainProcessing.Processing;
 using Microsoft.Configuration.Utils;
 using Microsoft.Logging.Utils;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Configuration;
 
 namespace Nethereum.BlockchainStore.EF.Hana.Console
 {
@@ -23,9 +24,16 @@ namespace Nethereum.BlockchainStore.EF.Hana.Console
                 .Build(args, userSecretsId: "PurchaseOrderEthereumToSap");
 
             var configuration = BlockchainSourceConfigurationFactory.Get(appConfig);
-            var hanaDbContextFactory = new HanaBlockchainDbContextFactory("BlockchainDbContext_hana", "DEMO");
+            var hanaSchema = GetHanaSchema(appConfig);
+            var hanaDbContextFactory = new HanaBlockchainDbContextFactory("BlockchainDbContext_hana", hanaSchema);
             var repositoryFactory = new BlockchainStoreRepositoryFactory(hanaDbContextFactory);
             return StorageProcessorConsole.Execute(repositoryFactory, configuration, log: log).Result;
+        }
+
+        private static string GetHanaSchema(IConfigurationRoot config)
+        {
+            string hanaSchema = config["HanaSchema"] ?? "DEMO";
+            return hanaSchema;
         }
     }
 }

@@ -16,8 +16,9 @@ The build should complete successfully.
 # Running HANA Console Program: Nethereum.BlockchainStore.EF.Hana.Console
 
 1. A HANA 2.x system is required.
-2. Ensure that the schemas `dbo` and `DEMO` exist on the HANA system. (Edit `Program.cs` to write blockchain data to a schema other than `DEMO`, but `dbo` is always required for EF).
-3. Open a command prompt in folder `\Nethereum.BlockchainProcessing\Storage\Nethereum.BlockchainStore.EF.Hana.Console\bin\Release` or `bin\Debug`. Process a block range like this:
+2. Ensure that the schema `dbo` exists on the HANA system. This schema is required by EF, but we can write blockchain data to any schema.
+3. Open a command prompt in folder `\Nethereum.BlockchainProcessing\Storage\Nethereum.BlockchainStore.EF.Hana.Console\bin\Release` or `bin\Debug`.
+4. Process a block range like this, note how we specify the source blockchain and the target schema  on HANA:
 
 ```
 > Nethereum.BlockchainStore.EF.Hana.Console     

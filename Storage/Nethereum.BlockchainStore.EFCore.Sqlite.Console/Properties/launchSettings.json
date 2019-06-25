@@ -2,7 +2,7 @@
   "profiles": {
     "Nethereum.BlockchainStore.Sqlite.Console": {
       "commandName": "Project",
-      "commandLineArgs": "--Blockchain rinkeby --DbSchema rinkeby --FromBlock 3014873 --ToBlock 3015873"
+      "commandLineArgs": " --BlockchainUrl \"https://mainnet.infura.io/v3/7238211010344719ad14a89db874158c\" --DbSchema rinkeby --FromBlock 3014873 --ToBlock 3015873"
     }
   }
 }
