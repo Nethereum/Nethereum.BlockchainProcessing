@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27703.2047
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28922.388
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nethereum.BlockchainStore", "Nethereum.BlockchainStore\Nethereum.BlockchainStore.csproj", "{63EE26BD-D2AF-465D-A2C3-749B57C34493}"
 EndProject
@@ -80,9 +80,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sqlite", "Sqlite", "{D9D241
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SqlServer", "SqlServer", "{EEDCA637-8CC5-4390-8C10-8BD09AB24947}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nethereum.BlockchainStore.EF.Sqlite.Tests", "Nethereum.BlockchainStore.EF.Sqlite.Tests\Nethereum.BlockchainStore.EF.Sqlite.Tests.csproj", "{374D65D7-EF59-414D-9A9E-B743DD2683BD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nethereum.BlockchainStore.EF.Sqlite.Tests", "Nethereum.BlockchainStore.EF.Sqlite.Tests\Nethereum.BlockchainStore.EF.Sqlite.Tests.csproj", "{374D65D7-EF59-414D-9A9E-B743DD2683BD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nethereum.BlockchainStore.EF.SqlServer.Tests", "Nethereum.BlockchainStore.EF.SqlServer.Tests\Nethereum.BlockchainStore.EF.SqlServer.Tests.csproj", "{9CEBB355-7B4B-4CC0-A572-69B886D928CE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nethereum.BlockchainStore.EF.SqlServer.Tests", "Nethereum.BlockchainStore.EF.SqlServer.Tests\Nethereum.BlockchainStore.EF.SqlServer.Tests.csproj", "{9CEBB355-7B4B-4CC0-A572-69B886D928CE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Search", "Search", "{FB329F89-6656-49DA-8948-DBB1017C15B1}"
 EndProject
@@ -90,7 +90,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nethereum.BlockchainStore.S
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nethereum.BlockchainStore.Search.Tests", "Nethereum.BlockchainStore.Search.Tests\Nethereum.BlockchainStore.Search.Tests.csproj", "{656AF237-5BFA-40F1-9C2F-5FF3917A9EB4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nethereum.BlockchainStore.Search.Samples", "Nethereum.BlockchainStore.Search.Samples\Nethereum.BlockchainStore.Search.Samples.csproj", "{B9F537DD-D7FD-4CCC-9E7D-2D13403C8515}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nethereum.BlockchainStore.Search.Samples", "Nethereum.BlockchainStore.Search.Samples\Nethereum.BlockchainStore.Search.Samples.csproj", "{B9F537DD-D7FD-4CCC-9E7D-2D13403C8515}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Hana", "Hana", "{7A7F1CD8-2C56-49A5-8891-1E886878DEEE}"
+	ProjectSection(SolutionItems) = preProject
+		Nethereum.BlockchainStore.EF.Hana.Console\Nethereum.BlockchainStore.EF.Hana.Console.csproj = Nethereum.BlockchainStore.EF.Hana.Console\Nethereum.BlockchainStore.EF.Hana.Console.csproj
+		Nethereum.BlockchainStore.EF.Hana\Nethereum.BlockchainStore.EF.Hana.csproj = Nethereum.BlockchainStore.EF.Hana\Nethereum.BlockchainStore.EF.Hana.csproj
+		Nethereum.BlockchainStore.EF.Hana.Tests\Nethereum.BlockchainStore.EF.Hana.Tests.csproj = Nethereum.BlockchainStore.EF.Hana.Tests\Nethereum.BlockchainStore.EF.Hana.Tests.csproj
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -263,6 +270,7 @@ Global
 		{30F1A98B-A6E0-4AAE-9102-662AC8353994} = {FB329F89-6656-49DA-8948-DBB1017C15B1}
 		{656AF237-5BFA-40F1-9C2F-5FF3917A9EB4} = {FB329F89-6656-49DA-8948-DBB1017C15B1}
 		{B9F537DD-D7FD-4CCC-9E7D-2D13403C8515} = {FB329F89-6656-49DA-8948-DBB1017C15B1}
+		{7A7F1CD8-2C56-49A5-8891-1E886878DEEE} = {DB94E59A-6469-49BC-8629-6174990EE133}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1B38D1C4-9FAE-4BA6-A315-8451597A4E9C}

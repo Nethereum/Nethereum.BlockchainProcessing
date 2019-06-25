@@ -149,17 +149,19 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nethereum.LogsProcessing.Pe
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Hana", "Hana", "{2CA6C6DF-F034-4B3F-9D32-BE901C5005BF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nethereum.BlockchainStore.EF.Hana", "Storage\Nethereum.BlockchainStore.EF.Hana\Nethereum.BlockchainStore.EF.Hana.csproj", "{1E4FAE0D-6D6D-4545-A182-B3FF36C40DE9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nethereum.BlockchainStore.EF.Hana", "Storage\Nethereum.BlockchainStore.EF.Hana\Nethereum.BlockchainStore.EF.Hana.csproj", "{1E4FAE0D-6D6D-4545-A182-B3FF36C40DE9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nethereum.BlockchainStore.EF.Hana.Tests", "Storage\Nethereum.BlockchainStore.EF.Hana.Tests\Nethereum.BlockchainStore.EF.Hana.Tests.csproj", "{647E192F-1C46-47C2-B7AA-0C0F764D5368}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nethereum.BlockchainStore.EF.Hana.Tests", "Storage\Nethereum.BlockchainStore.EF.Hana.Tests\Nethereum.BlockchainStore.EF.Hana.Tests.csproj", "{647E192F-1C46-47C2-B7AA-0C0F764D5368}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nethereum.BlockchainStore.EFCore.Sqlite.Tests", "Storage\Nethereum.BlockchainStore.EFCore.Sqlite.Tests\Nethereum.BlockchainStore.EFCore.Sqlite.Tests.csproj", "{F3732FD0-99FE-45DE-ACE4-7C34810FE1B6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nethereum.LogProcessing.Dynamic", "Nethereum.LogProcessing.Dynamic\Nethereum.LogProcessing.Dynamic.csproj", "{13EDC235-F6D3-455A-9582-2F9D05B2821A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nethereum.LogProcessing.Dynamic", "Nethereum.LogProcessing.Dynamic\Nethereum.LogProcessing.Dynamic.csproj", "{13EDC235-F6D3-455A-9582-2F9D05B2821A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nethereum.LogProcessing.Dynamic.Tests", "Nethereum.LogProcessing.Dynamic.Tests\Nethereum.LogProcessing.Dynamic.Tests.csproj", "{1DA9C0B4-9F7C-4D7D-B879-D35E4207CFBF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dynamic", "Dynamic", "{223C7BEA-E691-45FA-BBDB-5F4DFC6EA9D3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nethereum.BlockchainStore.EF.Hana.Console", "Storage\Nethereum.BlockchainStore.EF.Hana.Console\Nethereum.BlockchainStore.EF.Hana.Console.csproj", "{37CC9CD9-76A2-47B1-B3C6-2EC5FE0F741F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -363,6 +365,10 @@ Global
 		{1DA9C0B4-9F7C-4D7D-B879-D35E4207CFBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1DA9C0B4-9F7C-4D7D-B879-D35E4207CFBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1DA9C0B4-9F7C-4D7D-B879-D35E4207CFBF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{37CC9CD9-76A2-47B1-B3C6-2EC5FE0F741F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37CC9CD9-76A2-47B1-B3C6-2EC5FE0F741F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37CC9CD9-76A2-47B1-B3C6-2EC5FE0F741F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37CC9CD9-76A2-47B1-B3C6-2EC5FE0F741F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -436,6 +442,7 @@ Global
 		{13EDC235-F6D3-455A-9582-2F9D05B2821A} = {223C7BEA-E691-45FA-BBDB-5F4DFC6EA9D3}
 		{1DA9C0B4-9F7C-4D7D-B879-D35E4207CFBF} = {223C7BEA-E691-45FA-BBDB-5F4DFC6EA9D3}
 		{223C7BEA-E691-45FA-BBDB-5F4DFC6EA9D3} = {9ED190C5-B88B-4458-91AD-F1BC88C08F70}
+		{37CC9CD9-76A2-47B1-B3C6-2EC5FE0F741F} = {2CA6C6DF-F034-4B3F-9D32-BE901C5005BF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E8BDA708-C821-4538-93BC-8FC3DCC98B7B}

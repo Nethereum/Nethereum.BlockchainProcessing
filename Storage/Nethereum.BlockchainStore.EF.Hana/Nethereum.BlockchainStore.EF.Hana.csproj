@@ -6,6 +6,9 @@
     <Description>Store Ethereum blockchain data in SAP Hana using Entity Framework (not core).</Description>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
+  <ItemGroup>
+    <None Remove="App.config" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="SQLite.CodeFirst" Version="1.5.2.28" />
