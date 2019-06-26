@@ -111,7 +111,8 @@ namespace Nethereum.BlockchainProcessing.Processing.Logs.Handling
                 return true;
             }
 
-            var abi = abis.FirstOrDefault(a => log.IsLogForEvent(a.Sha3Signature));
+
+            var abi = abis.FirstOrDefault(a => a.IsLogForEvent(log));
             if (abi is null) return false;
 
             try
@@ -119,7 +120,7 @@ namespace Nethereum.BlockchainProcessing.Processing.Logs.Handling
                 decodedEvent = log.ToDecodedEvent(abi);
                 return true;
             }
-            catch (Exception x) when (x.IsEventDecodingIndexMisMatch())
+            catch
             {
                 return false;
             }
@@ -136,7 +137,7 @@ namespace Nethereum.BlockchainProcessing.Processing.Logs.Handling
                 decodedEvent = log.ToDecodedEvent<TEventDto>(abi);
                 return true;
             }
-            catch (Exception x) when (x.IsEventDecodingIndexMisMatch())
+            catch
             {
                 return false;
             }

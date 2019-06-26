@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Nethereum.BlockchainProcessing.Handlers;
+using Nethereum.BlockProcessing.ValueObjects;
 
-namespace Nethereum.BlockchainProcessing.Processors.Transactions
+namespace Nethereum.BlockProcessing.Filters.Transactions
 {
     public class TransactionLogFilter : Filter<TransactionLogWrapper>, ITransactionLogFilter
     {

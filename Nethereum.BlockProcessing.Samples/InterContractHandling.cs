@@ -5,6 +5,7 @@ using Nethereum.Geth;
 using Nethereum.RPC.Eth.DTOs;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Nethereum.BlockProcessing.ValueObjects;
 using Xunit;
 
 namespace Nethereum.BlockProcessing.Samples

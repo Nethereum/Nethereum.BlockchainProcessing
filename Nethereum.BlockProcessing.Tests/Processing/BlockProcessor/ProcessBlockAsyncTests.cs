@@ -4,7 +4,7 @@ using Nethereum.Hex.HexTypes;
 using Nethereum.RPC.Eth.DTOs;
 using System.Threading.Tasks;
 using Xunit;
-using IBlockFilter = Nethereum.BlockchainProcessing.Processors.IBlockFilter;
+using IBlockFilter = Nethereum.BlockProcessing.Filters.IBlockFilter;
 using System;
 
 namespace Nethereum.BlockProcessing.Tests

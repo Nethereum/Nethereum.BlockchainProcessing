@@ -2,6 +2,8 @@
 using Nethereum.BlockchainProcessing.Processors.Transactions;
 using Nethereum.RPC.Eth.DTOs;
 using System.Threading.Tasks;
+using Nethereum.BlockProcessing.Filters.Transactions;
+using Nethereum.Util;
 using Xunit;
 
 namespace Nethereum.BlockProcessing.Tests
@@ -37,7 +39,7 @@ namespace Nethereum.BlockProcessing.Tests
 
             // non contract creation transaction
             Assert.True(await builder.TransactionReceiptFilter.IsMatchAsync(
-                new TransactionReceipt() {ContractAddress = AddressExtensions.EmptyAddressHex}));
+                new TransactionReceipt() {ContractAddress = AddressUtil.AddressEmptyAsHex}));
         }
 
         [Fact]

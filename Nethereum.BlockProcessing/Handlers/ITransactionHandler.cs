@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Nethereum.BlockProcessing.ValueObjects;
 using Nethereum.Contracts;
 
 namespace Nethereum.BlockchainProcessing.Handlers

@@ -1,5 +1,6 @@
 ﻿using Nethereum.RPC.Eth.DTOs;
 using System.Linq;
+using Nethereum.Contracts;
 
 namespace Nethereum.BlockchainStore.Entities.Mapping
 {

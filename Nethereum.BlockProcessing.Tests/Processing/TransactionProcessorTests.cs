@@ -6,6 +6,7 @@ using Nethereum.RPC.Eth.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Nethereum.BlockProcessing.Filters.Transactions;
 using Xunit;
 
 namespace Nethereum.BlockProcessing.Tests

@@ -2,6 +2,7 @@
 using Nethereum.BlockchainProcessing.Handlers;
 using Nethereum.Contracts;
 using System.Threading.Tasks;
+using Nethereum.BlockProcessing.ValueObjects;
 using Xunit;
 
 namespace Nethereum.BlockProcessing.Tests.Handlers.Routers

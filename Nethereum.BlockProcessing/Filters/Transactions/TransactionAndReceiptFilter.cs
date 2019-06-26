@@ -1,8 +1,7 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Nethereum.RPC.Eth.DTOs;
 
-namespace Nethereum.BlockchainProcessing.Processors.Transactions
+namespace Nethereum.BlockProcessing.Filters.Transactions
 {
     public class TransactionAndReceiptFilter : 
         Filter<(Transaction, TransactionReceipt)>, ITransactionAndReceiptFilter

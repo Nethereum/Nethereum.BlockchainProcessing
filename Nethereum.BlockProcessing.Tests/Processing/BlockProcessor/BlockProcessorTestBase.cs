@@ -4,6 +4,7 @@ using Nethereum.BlockchainProcessing.Handlers;
 using Nethereum.BlockchainProcessing.Processors;
 using Nethereum.BlockchainProcessing.Processors.Transactions;
 using System.Collections.Generic;
+using Nethereum.BlockProcessing.Filters;
 
 namespace Nethereum.BlockProcessing.Tests
 {

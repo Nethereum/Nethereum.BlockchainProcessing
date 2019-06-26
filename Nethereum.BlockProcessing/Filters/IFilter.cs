@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace Nethereum.BlockchainProcessing.Processors
+namespace Nethereum.BlockProcessing.Filters
 {
     public interface IFilter<in T>
     {
