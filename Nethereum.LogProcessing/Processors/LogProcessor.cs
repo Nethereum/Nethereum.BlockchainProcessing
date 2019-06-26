@@ -17,7 +17,7 @@ namespace Nethereum.BlockchainProcessing.Processing.Logs
 
         public override async Task ProcessLogsAsync(params FilterLog[] eventLogs)
         {
-            var list = eventLogs.DecodeAllEventsIgnoringIndexMisMatches<TEventDto>();
+            var list = eventLogs.DecodeAllEvents<TEventDto>();
             await CallBack(list);
         }
     }
