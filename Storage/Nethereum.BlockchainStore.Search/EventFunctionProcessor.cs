@@ -57,7 +57,7 @@ namespace Nethereum.BlockchainStore.Search
         {
             var receipt = await _web3.Eth.Transactions.GetTransactionReceipt.SendRequestAsync(transactionHash).ConfigureAwait(false);
 
-            if (transaction.CreatedContract(receipt))
+            if (transaction.IsForContractCreation(receipt))
             {
                 var code = await _web3.Eth.GetCode.SendRequestAsync(receipt.ContractAddress).ConfigureAwait(false);
                 var contractCreationFailure = (code == null) || (code == "0x");
