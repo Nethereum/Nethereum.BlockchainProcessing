@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace Nethereum.BlockchainProcessing.Processors
+namespace Nethereum.BlockProcessing.Filters
 {
     public class Filter<T>: IFilter<T>
     {

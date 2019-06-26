@@ -1,9 +1,9 @@
-﻿using Nethereum.RPC.Eth.DTOs;
-using Newtonsoft.Json.Linq;
-using System;
+﻿using System;
 using System.Linq;
+using Nethereum.RPC.Eth.DTOs;
+using Newtonsoft.Json.Linq;
 
-namespace Nethereum.BlockchainProcessing.Handlers
+namespace Nethereum.BlockProcessing.ValueObjects
 {
     public class TransactionVmStack
     {

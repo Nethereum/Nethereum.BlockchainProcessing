@@ -1,5 +1,6 @@
 ﻿using Nethereum.BlockchainProcessing.Nethereum.RPC.Eth.DTOs;
 using System.Threading.Tasks;
+using Nethereum.BlockProcessing.ValueObjects;
 
 namespace Nethereum.BlockchainProcessing.Handlers
 {

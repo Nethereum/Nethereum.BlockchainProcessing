@@ -3,6 +3,9 @@ using Nethereum.BlockchainProcessing.Processing;
 using Nethereum.BlockchainProcessing.Processors.Transactions;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Nethereum.BlockProcessing.Filters;
+using Nethereum.BlockProcessing.Filters.Transactions;
+using Nethereum.BlockProcessing.ValueObjects;
 using Xunit;
 
 namespace Nethereum.BlockProcessing.Samples

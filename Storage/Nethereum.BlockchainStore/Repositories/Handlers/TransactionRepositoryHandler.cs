@@ -2,8 +2,10 @@
 using System.Threading.Tasks;
 using Nethereum.BlockchainProcessing.Handlers;
 using Nethereum.BlockchainProcessing.Processors;
+using Nethereum.BlockProcessing.ValueObjects;
 using Nethereum.Hex.HexTypes;
 using Nethereum.RPC.Eth.DTOs;
+using Nethereum.Util;
 
 namespace Nethereum.BlockchainStore.Repositories.Handlers
 {

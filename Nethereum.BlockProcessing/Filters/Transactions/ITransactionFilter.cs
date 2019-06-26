@@ -1,6 +1,6 @@
 ﻿using Nethereum.RPC.Eth.DTOs;
 
-namespace Nethereum.BlockchainProcessing.Processors.Transactions
+namespace Nethereum.BlockProcessing.Filters.Transactions
 {
     public interface ITransactionFilter: IFilter<Transaction>
     {

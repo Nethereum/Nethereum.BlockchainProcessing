@@ -1,6 +1,7 @@
 ﻿using Nethereum.BlockchainProcessing.Processors.Transactions;
 using Nethereum.RPC.Eth.DTOs;
 using System.Threading.Tasks;
+using Nethereum.BlockProcessing.Filters.Transactions;
 using Xunit;
 
 namespace Nethereum.BlockProcessing.Tests

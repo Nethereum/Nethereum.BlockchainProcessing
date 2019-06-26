@@ -11,6 +11,7 @@ using Nethereum.Hex.HexTypes;
 using Nethereum.Contracts.Services;
 using Nethereum.Web3;
 using System.Numerics;
+using Nethereum.BlockProcessing.Filters;
 
 namespace Nethereum.BlockchainProcessing.Processors
 {

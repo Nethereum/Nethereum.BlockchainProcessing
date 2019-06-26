@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Nethereum.BlockProcessing.ValueObjects;
 
 namespace Nethereum.BlockchainProcessing.Handlers
 {

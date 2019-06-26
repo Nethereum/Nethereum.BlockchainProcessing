@@ -1,6 +1,7 @@
 ﻿using Nethereum.BlockchainProcessing.Handlers;
 using Nethereum.Contracts;
 using System.Threading.Tasks;
+using Nethereum.BlockProcessing.ValueObjects;
 
 namespace Nethereum.BlockchainProcessing.InMemory.Console
 {

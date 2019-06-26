@@ -5,6 +5,7 @@ using Nethereum.Hex.HexTypes;
 using Nethereum.RPC.Eth.DTOs;
 using Newtonsoft.Json.Linq;
 using System.Numerics;
+using Nethereum.BlockProcessing.ValueObjects;
 using Xunit;
 
 namespace Nethereum.BlockchainProcessing.Tests.DtoWrappers

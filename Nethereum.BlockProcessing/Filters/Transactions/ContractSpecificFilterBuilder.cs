@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Nethereum.BlockchainProcessing.Processing;
 
-namespace Nethereum.BlockchainProcessing.Processors.Transactions
+namespace Nethereum.BlockProcessing.Filters.Transactions
 {
     public class ContractSpecificFilterBuilder
     {

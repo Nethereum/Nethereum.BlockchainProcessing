@@ -4,6 +4,7 @@ using Nethereum.RPC.Eth.DTOs;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Nethereum.BlockProcessing.Filters;
 using Xunit;
 using BigInteger = System.Numerics.BigInteger;
 

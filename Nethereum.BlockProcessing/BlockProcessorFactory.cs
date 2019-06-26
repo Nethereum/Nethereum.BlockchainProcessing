@@ -2,6 +2,7 @@
 using Nethereum.BlockchainProcessing.Processors;
 using Nethereum.BlockchainProcessing.Processors.PostProcessors;
 using Nethereum.BlockchainProcessing.Processors.Transactions;
+using Nethereum.BlockProcessing.Filters;
 using Nethereum.Web3;
 
 namespace Nethereum.BlockchainProcessing.Processing

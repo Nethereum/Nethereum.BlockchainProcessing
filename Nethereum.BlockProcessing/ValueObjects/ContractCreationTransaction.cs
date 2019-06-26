@@ -1,9 +1,8 @@
 ﻿using Nethereum.Contracts;
-using Nethereum.Contracts.Extensions;
 using Nethereum.Hex.HexTypes;
 using Nethereum.RPC.Eth.DTOs;
 
-namespace Nethereum.BlockchainProcessing.Handlers
+namespace Nethereum.BlockProcessing.ValueObjects
 {
     public class ContractCreationTransaction: TransactionWithReceipt
     {

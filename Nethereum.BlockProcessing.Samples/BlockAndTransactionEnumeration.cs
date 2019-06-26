@@ -2,6 +2,7 @@
 using Nethereum.BlockchainProcessing.Processing;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Nethereum.BlockProcessing.ValueObjects;
 using Xunit;
 
 namespace Nethereum.BlockProcessing.Samples

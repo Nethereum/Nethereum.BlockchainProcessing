@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Nethereum.BlockchainProcessing.Processors;
+using Nethereum.BlockProcessing.Filters;
 using Xunit;
 
 namespace Nethereum.BlockProcessing.Tests

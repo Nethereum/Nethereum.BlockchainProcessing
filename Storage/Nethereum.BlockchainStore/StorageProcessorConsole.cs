@@ -6,6 +6,7 @@ using Nethereum.Web3;
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using Nethereum.BlockProcessing.Filters;
 
 namespace Nethereum.BlockchainStore.Processing
 {

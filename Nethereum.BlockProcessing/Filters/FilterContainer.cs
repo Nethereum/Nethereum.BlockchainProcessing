@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
-using Nethereum.BlockchainProcessing.Processors;
-using Nethereum.BlockchainProcessing.Processors.Transactions;
+using Nethereum.BlockProcessing.Filters.Transactions;
 
-namespace Nethereum.BlockchainProcessing.Processing
+namespace Nethereum.BlockProcessing.Filters
 {
     public class FilterContainer
     {

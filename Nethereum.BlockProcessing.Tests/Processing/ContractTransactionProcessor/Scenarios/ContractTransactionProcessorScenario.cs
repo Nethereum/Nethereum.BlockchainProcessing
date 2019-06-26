@@ -7,6 +7,7 @@ using Nethereum.Hex.HexTypes;
 using Nethereum.RPC.Eth.DTOs;
 using System;
 using System.Collections.Generic;
+using Nethereum.BlockProcessing.Filters.Transactions;
 
 namespace Nethereum.BlockchainStore.Tests.Processing.ContractTransactionProcessorTests.Scenarios
 {

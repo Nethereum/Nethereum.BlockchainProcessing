@@ -6,6 +6,7 @@ using Newtonsoft.Json.Linq;
 using Nethereum.Util;
 using System;
 using System.Threading.Tasks;
+using Nethereum.BlockProcessing.ValueObjects;
 using Transaction = Nethereum.RPC.Eth.DTOs.Transaction;
 
 namespace Nethereum.BlockchainProcessing.Processors.Transactions

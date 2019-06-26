@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Moq;
 using Nethereum.BlockchainProcessing.Processing;
 using Nethereum.Contracts;
+using Nethereum.Hex.HexTypes;
 using Xunit;
 
 namespace Nethereum.BlockchainProcessing.Common.Tests

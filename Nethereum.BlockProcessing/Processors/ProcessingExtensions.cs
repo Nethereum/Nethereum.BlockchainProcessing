@@ -5,6 +5,8 @@ using System.Numerics;
 using System.Threading.Tasks;
 using Nethereum.BlockchainProcessing.Handlers;
 using Nethereum.BlockchainProcessing.Nethereum.RPC.Eth.DTOs;
+using Nethereum.BlockProcessing.Filters;
+using Nethereum.BlockProcessing.ValueObjects;
 using Nethereum.RPC.Eth.DTOs;
 using Newtonsoft.Json.Linq;
 using Nethereum.Util;

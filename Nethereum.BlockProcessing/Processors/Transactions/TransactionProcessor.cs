@@ -3,6 +3,7 @@ using Nethereum.RPC.Eth.Services;
 using Nethereum.Web3;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Nethereum.BlockProcessing.Filters.Transactions;
 
 namespace Nethereum.BlockchainProcessing.Processors.Transactions
 {

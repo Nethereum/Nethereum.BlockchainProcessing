@@ -4,6 +4,7 @@ using Nethereum.BlockchainProcessing.Processing;
 using Nethereum.BlockchainProcessing.Processors.Transactions;
 using Microsoft.Configuration.Utils;
 using Microsoft.Logging.Utils;
+using Nethereum.BlockProcessing.Filters.Transactions;
 
 namespace Nethereum.BlockchainProcessing.InMemory.Console
 {
