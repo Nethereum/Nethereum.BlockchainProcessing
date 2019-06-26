@@ -30,7 +30,7 @@ namespace Nethereum.BlockchainProcessing.Processors.Transactions
             TransactionReceipt transactionReceipt, 
             HexBigInteger blockTimestamp)
         {
-            if (!transaction.CreatedContract(transactionReceipt)) return;
+            if (!transaction.IsForContractCreation(transactionReceipt)) return;
 
             var contractAddress = transactionReceipt.ContractAddress;
             var code = await _getCodeProxy.SendRequestAsync(contractAddress).ConfigureAwait(false);

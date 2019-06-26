@@ -65,7 +65,7 @@ namespace Nethereum.BlockchainProcessing.Processors.Transactions
             await _transactionLogProcessor.ProcessAsync(tx, receipt)
                 .ConfigureAwait(false);
 
-            if (tx.CreatedContract(receipt))
+            if (tx.IsForContractCreation(receipt))
             {
                 await ProcessContractCreation(block, tx, receipt)
                     .ConfigureAwait(false);
