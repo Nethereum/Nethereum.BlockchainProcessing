@@ -66,6 +66,7 @@ namespace Nethereum.BlockchainProcessing.Processing
 
                     await _processBlock(_currentBlock).ConfigureAwait(false);
 
+                    _log.LogBlockFinished(_currentBlock, _retryNumber);
                     IncrementBlockAndResetRetries();
                 }
                 catch (BlockNotFoundException blockNotFoundException)

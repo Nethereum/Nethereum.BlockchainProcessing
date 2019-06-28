@@ -409,7 +409,7 @@ namespace Nethereum.LogProcessing.Samples
             //we should have captured some events
             Assert.True(erc20Transfers.Any());
             //clean up
-            await new CloudTableSetup(azureStorageConnectionString, "EventLogProcessingSample")
+            await new BlockProgressCloudTableSetup(azureStorageConnectionString, "EventLogProcessingSample")
                 .GetCountersTable()
                 .DeleteIfExistsAsync();
         }
@@ -549,7 +549,7 @@ namespace Nethereum.LogProcessing.Samples
             };
 
             //verify
-            var cloudTableSetup = new CloudTableSetup(azureStorageConnectionString, "septransfers");
+            var cloudTableSetup = new BlockProcessingCloudTableSetup(azureStorageConnectionString, "septransfers");
             var repo = cloudTableSetup.CreateTransactionLogRepository();
             foreach(var logId in expectedLogs)
             {

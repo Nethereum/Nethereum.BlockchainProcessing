@@ -83,7 +83,7 @@ namespace Nethereum.LogProcessing.Samples
             // Azure storage setup
             // - this example reads and writes block progress to an Azure storage table
             // - to avoid collision with other samples we provide a prefix
-            var storageCloudSetup = new CloudTableSetup(azureStorageConnectionString, prefix: $"makerdaotransfersstorage");
+            var storageCloudSetup = new BlockProgressCloudTableSetup(azureStorageConnectionString, prefix: $"makerdaotransfersstorage");
 
             // Create a progress repository
             //  - It stores and retrieves the most recent block processed
@@ -215,7 +215,7 @@ namespace Nethereum.LogProcessing.Samples
             // Azure storage setup (for storing Block Progress)
             // - this example reads and writes block progress to an Azure storage table
             // - to avoid collision with other samples we provide a prefix
-            var storageCloudSetup = new CloudTableSetup(azureStorageConnectionString, prefix: $"makerdaoalleventstorage");
+            var storageCloudSetup = new BlockProgressCloudTableSetup(azureStorageConnectionString, prefix: $"makerdaoalleventstorage");
 
             // Create a progress repository
             //  - It stores and retrieves the most recent block processed

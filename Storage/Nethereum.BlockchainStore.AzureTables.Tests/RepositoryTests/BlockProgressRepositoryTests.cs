@@ -13,8 +13,8 @@ namespace Nethereum.BlockchainStore.AzureTables.Tests.RepositoryTests
 
         public BlockProgressRepositoryTests(AzureTablesFixture fixture)
         {
-            _repo = fixture.Factory.CreateBlockProgressRepository() as BlockProgressRepository;
-            _repoCopy = fixture.Factory.CreateBlockProgressRepository() as BlockProgressRepository;
+            _repo = fixture.BlockProgressCloudTableSetup.CreateBlockProgressRepository() as BlockProgressRepository;
+            _repoCopy = fixture.BlockProgressCloudTableSetup.CreateBlockProgressRepository() as BlockProgressRepository;
         }
 
         [Fact]

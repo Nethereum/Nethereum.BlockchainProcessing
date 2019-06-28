@@ -19,7 +19,7 @@ namespace Nethereum.BlockchainStore.EFCore.Sqlite.Console
             var contextFactory = new SqliteBlockchainDbContextFactory(appConfig.GetBlockchainStorageConnectionString());
             var repositoryFactory = new BlockchainStoreRepositoryFactory(contextFactory);
 
-            return StorageProcessorConsole.Execute(repositoryFactory, blockchainSourceConfiguration, log: log).Result;
+            return StorageProcessorConsole.Execute(repositoryFactory, repositoryFactory.CreateBlockProgressRepository(), blockchainSourceConfiguration, log: log).Result;
         }
     }
 }

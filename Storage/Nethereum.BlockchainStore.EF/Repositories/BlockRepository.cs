@@ -1,13 +1,9 @@
-﻿using System.Data.Entity;
-using System.Data.Entity.Migrations;
-using System.Linq;
-using System.Numerics;
-using System.Threading.Tasks;
-using Nethereum.BlockchainStore.Entities;
+﻿using Nethereum.BlockchainStore.Entities;
 using Nethereum.BlockchainStore.Entities.Mapping;
 using Nethereum.BlockchainStore.Repositories;
 using Nethereum.Hex.HexTypes;
-using Nethereum.RPC.Eth.DTOs;
+using System.Data.Entity.Migrations;
+using System.Threading.Tasks;
 using Block = Nethereum.BlockchainStore.Entities.Block;
 
 namespace Nethereum.BlockchainStore.EF.Repositories
@@ -23,15 +19,6 @@ namespace Nethereum.BlockchainStore.EF.Repositories
             using (var context = _contextFactory.CreateContext())
             {
                 return await context.Blocks.FindByBlockNumberAsync(blockNumber).ConfigureAwait(false);
-            }
-        }
-
-        public async Task<BigInteger?> GetMaxBlockNumberAsync()
-        {
-            using (var context = _contextFactory.CreateContext())
-            {
-                var max = await context.Blocks.MaxAsync(b => b.BlockNumber).ConfigureAwait(false);
-                return string.IsNullOrEmpty(max) ? (BigInteger?)null : BigInteger.Parse(max);
             }
         }
 

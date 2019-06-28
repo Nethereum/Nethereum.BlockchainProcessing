@@ -1,4 +1,5 @@
-﻿using Nethereum.BlockchainStore.Csv.Repositories;
+﻿using Nethereum.BlockchainProcessing.Processing;
+using Nethereum.BlockchainStore.Csv.Repositories;
 using Nethereum.BlockchainStore.Repositories;
 using System;
 using System.IO;
@@ -17,6 +18,11 @@ namespace Nethereum.BlockchainStore.Csv
             {
                 throw new ArgumentException($"Directory does not exist. '{_csvFolderPath}'");
             }
+        }
+
+        public IBlockProgressRepository CreateBlockProgressRepository()
+        {
+            return new BlockProgressRepository(_csvFolderPath);
         }
 
         public IAddressTransactionRepository CreateAddressTransactionRepository()

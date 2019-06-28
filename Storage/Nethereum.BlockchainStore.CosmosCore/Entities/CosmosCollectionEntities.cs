@@ -32,6 +32,18 @@ namespace Nethereum.BlockchainStore.CosmosCore.Entities
         }
     }
 
+    public class CosmosBlockProgress : BlockProgress, ICosmosEntity
+    {
+        private string _id;
+
+        [JsonProperty(PropertyName = "id")]
+        public string Id
+        {
+            get => _id ?? LastBlockProcessed;
+            set => _id = value;
+        }
+    }
+
     public class CosmosBlock : Block, ICosmosEntity
     {
         private string _id;

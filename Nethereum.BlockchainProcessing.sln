@@ -19,8 +19,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Storage", "Storage", "{38C3
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nethereum.BlockchainStore", "Storage\Nethereum.BlockchainStore\Nethereum.BlockchainStore.csproj", "{FAAC941D-A476-4BBD-9970-1EA5D3D342DC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nethereum.BlockchainStore.AzureTables", "Storage\Nethereum.BlockchainStore.AzureTables\Nethereum.BlockchainStore.AzureTables.csproj", "{679AAF6C-7BD5-49AB-8C56-C40F33DAFE7B}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nethereum.BlockchainStore.AzureTables.Core.Console", "Storage\Nethereum.BlockchainStore.AzureTables.Core.Console\Nethereum.BlockchainStore.AzureTables.Core.Console.csproj", "{C8A571C5-19DA-4A0E-BFD0-EDDE94341CD8}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nethereum.BlockchainStore.CosmosCore", "Storage\Nethereum.BlockchainStore.CosmosCore\Nethereum.BlockchainStore.CosmosCore.csproj", "{02F9ABCB-B5C0-4EEF-A2E9-723A56629327}"
@@ -149,9 +147,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nethereum.LogsProcessing.Pe
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Hana", "Hana", "{2CA6C6DF-F034-4B3F-9D32-BE901C5005BF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nethereum.BlockchainStore.EF.Hana", "Storage\Nethereum.BlockchainStore.EF.Hana\Nethereum.BlockchainStore.EF.Hana.csproj", "{1E4FAE0D-6D6D-4545-A182-B3FF36C40DE9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nethereum.BlockchainStore.EF.Hana", "Storage\Nethereum.BlockchainStore.EF.Hana\Nethereum.BlockchainStore.EF.Hana.csproj", "{1E4FAE0D-6D6D-4545-A182-B3FF36C40DE9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nethereum.BlockchainStore.EF.Hana.Tests", "Storage\Nethereum.BlockchainStore.EF.Hana.Tests\Nethereum.BlockchainStore.EF.Hana.Tests.csproj", "{647E192F-1C46-47C2-B7AA-0C0F764D5368}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nethereum.BlockchainStore.EF.Hana.Tests", "Storage\Nethereum.BlockchainStore.EF.Hana.Tests\Nethereum.BlockchainStore.EF.Hana.Tests.csproj", "{647E192F-1C46-47C2-B7AA-0C0F764D5368}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nethereum.BlockchainStore.EFCore.Sqlite.Tests", "Storage\Nethereum.BlockchainStore.EFCore.Sqlite.Tests\Nethereum.BlockchainStore.EFCore.Sqlite.Tests.csproj", "{F3732FD0-99FE-45DE-ACE4-7C34810FE1B6}"
 EndProject
@@ -168,11 +166,22 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nethereum.ABI", "..\Nethereum\src\Nethereum.ABI\Nethereum.ABI.csproj", "{F86BB126-0341-4F39-B907-A03AF6C2140B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nethereum.Hex", "..\Nethereum\src\Nethereum.Hex\Nethereum.Hex.csproj", "{040376DC-6D31-4EC7-A038-6ACABCD09A40}"
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nethereum.LogProcessing.Dynamic", "Nethereum.LogProcessing.Dynamic\Nethereum.LogProcessing.Dynamic.csproj", "{13EDC235-F6D3-455A-9582-2F9D05B2821A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nethereum.LogProcessing.Dynamic", "Nethereum.LogProcessing.Dynamic\Nethereum.LogProcessing.Dynamic.csproj", "{13EDC235-F6D3-455A-9582-2F9D05B2821A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nethereum.LogProcessing.Dynamic.Tests", "Nethereum.LogProcessing.Dynamic.Tests\Nethereum.LogProcessing.Dynamic.Tests.csproj", "{1DA9C0B4-9F7C-4D7D-B879-D35E4207CFBF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dynamic", "Dynamic", "{223C7BEA-E691-45FA-BBDB-5F4DFC6EA9D3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nethereum.BlockchainStore.AzureTables.Base", "Storage\Nethereum.BlockchainStore.AzureTables.Base\Nethereum.BlockchainStore.AzureTables.Base.csproj", "{5F58A9D0-CC39-4C22-AFAE-317AC3EB9324}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nethereum.BlockchainStore.Azure.BlockProcessing", "Storage\Nethereum.BlockchainStore.Azure.BlockProcessing\Nethereum.BlockchainStore.Azure.BlockProcessing.csproj", "{DDE2E4F0-55D4-4149-B853-95C9477BAD9D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nethereum.BlockchainStore.Azure.LogProcessor.Db", "Storage\Nethereum.BlockchainStore.Azure.LogProcessor.Db\Nethereum.BlockchainStore.Azure.LogProcessor.Db.csproj", "{D5662D70-016C-4B40-8FD1-E69DA24CF70A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nethereum.BlockchainStore.Azure.LogProcessing", "Storage\Nethereum.BlockchainStore.Azure.LogProcessing\Nethereum.BlockchainStore.Azure.LogProcessing.csproj", "{BA98FE11-B0FE-4F1B-8D6E-BC0497C76132}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nethereum.BlockchainStore.Azure.BlockProgress", "Storage\Nethereum.BlockchainStore.Azure.BlockProgress\Nethereum.BlockchainStore.Azure.BlockProgress.csproj", "{C2BBFBFE-ED34-442A-B855-CF23C476F082}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -192,10 +201,6 @@ Global
 		{FAAC941D-A476-4BBD-9970-1EA5D3D342DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FAAC941D-A476-4BBD-9970-1EA5D3D342DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FAAC941D-A476-4BBD-9970-1EA5D3D342DC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{679AAF6C-7BD5-49AB-8C56-C40F33DAFE7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{679AAF6C-7BD5-49AB-8C56-C40F33DAFE7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{679AAF6C-7BD5-49AB-8C56-C40F33DAFE7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{679AAF6C-7BD5-49AB-8C56-C40F33DAFE7B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C8A571C5-19DA-4A0E-BFD0-EDDE94341CD8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C8A571C5-19DA-4A0E-BFD0-EDDE94341CD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C8A571C5-19DA-4A0E-BFD0-EDDE94341CD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -404,6 +409,26 @@ Global
 		{1DA9C0B4-9F7C-4D7D-B879-D35E4207CFBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1DA9C0B4-9F7C-4D7D-B879-D35E4207CFBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1DA9C0B4-9F7C-4D7D-B879-D35E4207CFBF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F58A9D0-CC39-4C22-AFAE-317AC3EB9324}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F58A9D0-CC39-4C22-AFAE-317AC3EB9324}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F58A9D0-CC39-4C22-AFAE-317AC3EB9324}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F58A9D0-CC39-4C22-AFAE-317AC3EB9324}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DDE2E4F0-55D4-4149-B853-95C9477BAD9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DDE2E4F0-55D4-4149-B853-95C9477BAD9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DDE2E4F0-55D4-4149-B853-95C9477BAD9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DDE2E4F0-55D4-4149-B853-95C9477BAD9D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5662D70-016C-4B40-8FD1-E69DA24CF70A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5662D70-016C-4B40-8FD1-E69DA24CF70A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5662D70-016C-4B40-8FD1-E69DA24CF70A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5662D70-016C-4B40-8FD1-E69DA24CF70A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA98FE11-B0FE-4F1B-8D6E-BC0497C76132}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA98FE11-B0FE-4F1B-8D6E-BC0497C76132}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA98FE11-B0FE-4F1B-8D6E-BC0497C76132}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA98FE11-B0FE-4F1B-8D6E-BC0497C76132}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2BBFBFE-ED34-442A-B855-CF23C476F082}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2BBFBFE-ED34-442A-B855-CF23C476F082}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2BBFBFE-ED34-442A-B855-CF23C476F082}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2BBFBFE-ED34-442A-B855-CF23C476F082}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -412,7 +437,6 @@ Global
 		{3D6FBCF1-6B29-4184-B47A-8F99A4AD1FDD} = {98B1E95E-E41C-4F2F-AB50-E79AEA0B005C}
 		{51308750-B91F-4AF7-934D-1B7DF809A0C8} = {EFB15A00-7A8C-47E0-BC88-517E5E2FFA74}
 		{FAAC941D-A476-4BBD-9970-1EA5D3D342DC} = {5F863173-5A5E-460C-BC8F-F11F66595957}
-		{679AAF6C-7BD5-49AB-8C56-C40F33DAFE7B} = {D44F6868-27B9-4F10-B12A-A81A65C720DB}
 		{C8A571C5-19DA-4A0E-BFD0-EDDE94341CD8} = {D44F6868-27B9-4F10-B12A-A81A65C720DB}
 		{02F9ABCB-B5C0-4EEF-A2E9-723A56629327} = {DF8339B8-A6E1-4BE1-AE6D-26395F4A34F9}
 		{8C01A591-3F1F-4A7E-9DA6-3B4AD6F98F0A} = {DF8339B8-A6E1-4BE1-AE6D-26395F4A34F9}
@@ -477,6 +501,11 @@ Global
 		{13EDC235-F6D3-455A-9582-2F9D05B2821A} = {223C7BEA-E691-45FA-BBDB-5F4DFC6EA9D3}
 		{1DA9C0B4-9F7C-4D7D-B879-D35E4207CFBF} = {223C7BEA-E691-45FA-BBDB-5F4DFC6EA9D3}
 		{223C7BEA-E691-45FA-BBDB-5F4DFC6EA9D3} = {9ED190C5-B88B-4458-91AD-F1BC88C08F70}
+		{5F58A9D0-CC39-4C22-AFAE-317AC3EB9324} = {D44F6868-27B9-4F10-B12A-A81A65C720DB}
+		{DDE2E4F0-55D4-4149-B853-95C9477BAD9D} = {D44F6868-27B9-4F10-B12A-A81A65C720DB}
+		{D5662D70-016C-4B40-8FD1-E69DA24CF70A} = {D44F6868-27B9-4F10-B12A-A81A65C720DB}
+		{BA98FE11-B0FE-4F1B-8D6E-BC0497C76132} = {D44F6868-27B9-4F10-B12A-A81A65C720DB}
+		{C2BBFBFE-ED34-442A-B855-CF23C476F082} = {D44F6868-27B9-4F10-B12A-A81A65C720DB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E8BDA708-C821-4538-93BC-8FC3DCC98B7B}

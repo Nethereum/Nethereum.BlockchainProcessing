@@ -44,7 +44,7 @@ namespace Nethereum.LogProcessing.Samples.SAS
 
             // progress repo (dictates which block ranges to process next)
             // maintain separate progress per partition via a prefix
-            var storageCloudSetup = new CloudTableSetup(azureStorageConnectionString, prefix: $"Partition{PARTITION}");
+            var storageCloudSetup = new BlockProgressCloudTableSetup(azureStorageConnectionString, prefix: $"Partition{PARTITION}");
             var blockProgressRepo = storageCloudSetup.CreateBlockProgressRepository();
 
             //this ensures we only query the chain for events relating to this contract
@@ -82,8 +82,8 @@ namespace Nethereum.LogProcessing.Samples.SAS
 
 
         private async Task ClearDown(
-            EventProcessingConfigContext repo, 
-            CloudTableSetup cloudTableSetup, 
+            EventProcessingConfigContext repo,
+            BlockProgressCloudTableSetup cloudTableSetup, 
             AzureSubscriberQueueFactory subscriberQueueFactory)
         {
             foreach (var queue in repo.SubscriberSearchIndexes)

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
 using Microsoft.Azure.Documents.Linq;
+using Nethereum.BlockchainProcessing.Processing;
 using Nethereum.BlockchainStore.CosmosCore.Entities;
 using Nethereum.BlockchainStore.Entities.Mapping;
 using Nethereum.BlockchainStore.Repositories;
@@ -35,30 +36,6 @@ namespace Nethereum.BlockchainStore.CosmosCore.Repositories
             }
         }
 
-        public async Task<BigInteger?> GetMaxBlockNumberAsync()
-        {
-            var countQuery = await Client.CreateDocumentQuery<CosmosBlock>(
-                UriFactory.CreateDocumentCollectionUri(DatabaseName, CollectionName)).CountAsync();
-
-            if (countQuery == 0)
-                return null;
-
-            var sqlQuery = "SELECT VALUE MAX(b.BlockNumber) FROM Blocks b";
-
-            var query = Client.CreateDocumentQuery<BigInteger>(
-                UriFactory.CreateDocumentCollectionUri(DatabaseName, CollectionName),
-                sqlQuery).AsDocumentQuery();
-
-            while (query.HasMoreResults)
-            {
-                var results = await query.ExecuteNextAsync();
-                var result = results.AsEnumerable().First();
-                return result;
-            }
-
-            return 0;
-        }
-
         public async Task UpsertBlockAsync(Block source)
         {
             var block = new CosmosBlock { };
@@ -66,5 +43,6 @@ namespace Nethereum.BlockchainStore.CosmosCore.Repositories
             block.UpdateRowDates();
             await UpsertDocumentAsync(block);
         }
+
     }
 }

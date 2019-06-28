@@ -11,15 +11,11 @@ namespace Nethereum.BlockchainStore.Repositories
         private readonly RepositoryHandlerContext _repositoryHandlerContext;
 
         public StorageProcessingStrategy(
-            RepositoryHandlerContext repositoryHandlerContext, 
-            IBlockProcessor blockProcessor):base(blockProcessor)
+            RepositoryHandlerContext repositoryHandlerContext,
+            IBlockProgressRepository blockProgressRepository,
+            IBlockProcessor blockProcessor):base(blockProcessor, blockProgressRepository)
         {
             _repositoryHandlerContext = repositoryHandlerContext;
-        }
-
-        public override async Task<BigInteger?> GetLastBlockProcessedAsync()
-        {
-            return await _repositoryHandlerContext.BlockRepository.GetMaxBlockNumberAsync().ConfigureAwait(false);
         }
 
         public override async Task FillContractCacheAsync()

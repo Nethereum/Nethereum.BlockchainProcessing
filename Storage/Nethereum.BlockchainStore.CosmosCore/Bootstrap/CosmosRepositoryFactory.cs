@@ -1,6 +1,7 @@
 ﻿using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
 using Microsoft.Extensions.Configuration;
+using Nethereum.BlockchainProcessing.Processing;
 using Nethereum.BlockchainStore.CosmosCore.Repositories;
 using Nethereum.BlockchainStore.Repositories;
 using System;
@@ -102,5 +103,7 @@ namespace Nethereum.BlockchainStore.CosmosCore.Bootstrap
         public ITransactionLogRepository CreateTransactionLogRepository() => new TransactionLogRepository(_client, _databaseName);
         public ITransactionRepository CreateTransactionRepository() => new TransactionRepository(_client, _databaseName);
         public ITransactionVMStackRepository CreateTransactionVmStackRepository() => new TransactionVMStackRepository(_client, _databaseName);
+
+        public IBlockProgressRepository CreateBlockProgressRepository() => new BlockProgressRepository(_client, _databaseName);
     }
 }

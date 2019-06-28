@@ -1,16 +1,15 @@
-using System.Threading.Tasks;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Table;
-using Nethereum.BlockchainProcessing.Processing;
 using Nethereum.BlockchainStore.AzureTables.Repositories;
 using Nethereum.BlockchainStore.Repositories;
+using System.Threading.Tasks;
 
 namespace Nethereum.BlockchainStore.AzureTables.Bootstrap
 {
 
-    public class CloudTableSetup: CloudTableSetupBase, IBlockchainStoreRepositoryFactory
+    public class BlockProcessingCloudTableSetup: CloudTableSetupBase, IBlockchainStoreRepositoryFactory
     {
-        public CloudTableSetup(string connectionString, string prefix):base(connectionString, prefix){ }
+        public BlockProcessingCloudTableSetup(string connectionString, string prefix):base(connectionString, prefix){ }
 
         public CloudTable GetTransactionsVmStackTable()
         {
@@ -42,24 +41,17 @@ namespace Nethereum.BlockchainStore.AzureTables.Bootstrap
             return GetPrefixedTable("Contracts");
         }
 
-        public CloudTable GetCountersTable()
-        {
-            return GetPrefixedTable("Counters");
-        }
-
         public IAddressTransactionRepository CreateAddressTransactionRepository() => new AddressTransactionRepository(GetTransactionsLogTable());
-        public IBlockRepository CreateBlockRepository() => new BlockRepository(GetBlocksTable(), GetCountersTable());
+        public IBlockRepository CreateBlockRepository() => new BlockRepository(GetBlocksTable());
         public IContractRepository CreateContractRepository() => new ContractRepository(GetContractsTable());
         public ITransactionLogRepository CreateTransactionLogRepository() => new TransactionLogRepository(GetTransactionsLogTable());
         public ITransactionRepository CreateTransactionRepository() => new TransactionRepository(GetTransactionsTable());
         public ITransactionVMStackRepository CreateTransactionVmStackRepository() => new TransactionVMStackRepository(GetTransactionsVmStackTable());
-        public IBlockProgressRepository CreateBlockProgressRepository() => new BlockProgressRepository(GetCountersTable());
 
         public async Task DeleteAllTables()
         {
             var options = new TableRequestOptions { };
             var operationContext = new OperationContext() { };
-            await GetCountersTable().DeleteIfExistsAsync(options, operationContext);
             await GetContractsTable().DeleteIfExistsAsync(options, operationContext);
             await GetAddressTransactionsTable().DeleteIfExistsAsync(options, operationContext);
             await GetBlocksTable().DeleteIfExistsAsync(options, operationContext);

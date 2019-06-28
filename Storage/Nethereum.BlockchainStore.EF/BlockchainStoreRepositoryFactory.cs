@@ -1,4 +1,5 @@
-﻿using Nethereum.BlockchainStore.EF.Repositories;
+﻿using Nethereum.BlockchainProcessing.Processing;
+using Nethereum.BlockchainStore.EF.Repositories;
 using Nethereum.BlockchainStore.Repositories;
 
 namespace Nethereum.BlockchainStore.EF
@@ -18,6 +19,8 @@ namespace Nethereum.BlockchainStore.EF
         public ITransactionLogRepository CreateTransactionLogRepository() => new TransactionLogRepository(_blockchainDbContextFactory);
         public ITransactionVMStackRepository CreateTransactionVmStackRepository() => new TransactionVMStackRepository(_blockchainDbContextFactory);
         public ITransactionRepository CreateTransactionRepository() => new TransactionRepository(_blockchainDbContextFactory);
+
+        public IBlockProgressRepository CreateBlockProgressRepository() => new BlockProgressRepository(_blockchainDbContextFactory);
 
     }
 }

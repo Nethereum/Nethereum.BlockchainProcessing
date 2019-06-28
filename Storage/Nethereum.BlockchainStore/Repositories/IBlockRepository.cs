@@ -8,7 +8,6 @@ namespace Nethereum.BlockchainStore.Repositories
     public interface IBlockRepository
     {
         Task UpsertBlockAsync(Nethereum.RPC.Eth.DTOs.Block source);
-        Task<BigInteger?> GetMaxBlockNumberAsync();
         Task<IBlockView> FindByBlockNumberAsync(HexBigInteger blockNumber);
     }
 }
