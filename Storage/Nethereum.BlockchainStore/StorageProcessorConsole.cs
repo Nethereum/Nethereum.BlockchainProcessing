@@ -34,7 +34,7 @@ namespace Nethereum.BlockchainStore.Processing
                             postVm: configuration.PostVm,
                             processTransactionsInParallel: configuration.ProcessBlockTransactionsInParallel);
 
-                var storageProcessingStrategy = new StorageProcessingStrategy(
+                var storageProcessingStrategy = new StorageBlockchainProcessingStrategy(
                     repositoryHandlerContext, blockProcessor)
                 {
                     MinimumBlockNumber = configuration.MinimumBlockNumber ?? 0,

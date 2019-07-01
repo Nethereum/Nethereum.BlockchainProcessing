@@ -5,7 +5,7 @@ namespace Nethereum.BlockchainProcessing.Handlers
 {
     public interface ITransactionLogHandler
     {
-        Task HandleAsync(TransactionLogWrapper transactionLog);
+        Task HandleAsync(FilterLogWithReceiptAndTransaction filterLogWithReceiptAndTransactionLog);
     }
 
     public interface ITransactionLogHandler<TEvent> : ITransactionLogHandler where TEvent : new(){

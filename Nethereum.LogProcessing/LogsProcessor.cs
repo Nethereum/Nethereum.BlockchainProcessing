@@ -79,7 +79,7 @@ namespace Nethereum.LogProcessing
 
                 return range;
             }
-            catch (TooManyRecordsException ex)
+            catch (InfuraTooManyRecordsException ex)
             {
                 _log.TooManyRecords(ex);
 

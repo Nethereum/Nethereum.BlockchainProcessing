@@ -87,7 +87,7 @@ namespace Nethereum.BlockProcessing.Samples
                 processTransactionsInParallel: false,
                 postVm: true);
 
-            var processingStrategy = new ProcessingStrategy(blockProcessor){ };
+            var processingStrategy = new BlockchainProcessingStrategy(blockProcessor){ };
 
             var blockchainProcessor = new BlockchainProcessor(processingStrategy);
 

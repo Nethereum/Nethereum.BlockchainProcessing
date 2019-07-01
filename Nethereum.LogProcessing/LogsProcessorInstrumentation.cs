@@ -32,7 +32,7 @@ namespace Nethereum.LogProcessing
             if(IsInfoEnabled) Logger.Info($"Updating current process progress to: {range.To}");
         }
 
-        public void TooManyRecords(TooManyRecordsException ex)
+        public void TooManyRecords(InfuraTooManyRecordsException ex)
         {
             if(IsWarnEnabled) Logger.Warn($"Too many results error. : {ex.Message}");
         }

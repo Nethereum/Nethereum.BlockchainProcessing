@@ -35,24 +35,24 @@ namespace Nethereum.BlockProcessing.Samples
 
         public class CatchAllEventLogHandler : ITransactionLogHandler
         {
-            public List<TransactionLogWrapper> EventsHandled = new List<TransactionLogWrapper>();
+            public List<FilterLogWithReceiptAndTransaction> EventsHandled = new List<FilterLogWithReceiptAndTransaction>();
 
-            public Task HandleAsync(TransactionLogWrapper transactionLog)
+            public Task HandleAsync(FilterLogWithReceiptAndTransaction filterLogWithReceiptAndTransactionLog)
             {
-                EventsHandled.Add(transactionLog);
+                EventsHandled.Add(filterLogWithReceiptAndTransactionLog);
                 return Task.CompletedTask;
             }
         }
 
         public class SpecificEventLogHandler<TEvent> : ITransactionLogHandler<TEvent> where TEvent : new()
         {
-            public List<(TransactionLogWrapper, EventLog<TransferEvent>)> EventsHandled = 
-                new List<(TransactionLogWrapper, EventLog<TransferEvent>)>();
+            public List<(FilterLogWithReceiptAndTransaction, EventLog<TransferEvent>)> EventsHandled = 
+                new List<(FilterLogWithReceiptAndTransaction, EventLog<TransferEvent>)>();
 
-            public Task HandleAsync(TransactionLogWrapper transactionLog)
+            public Task HandleAsync(FilterLogWithReceiptAndTransaction filterLogWithReceiptAndTransactionLog)
             {
-                var eventValues = transactionLog.Decode<TransferEvent>();
-                EventsHandled.Add((transactionLog, eventValues));
+                var eventValues = filterLogWithReceiptAndTransactionLog.Decode<TransferEvent>();
+                EventsHandled.Add((filterLogWithReceiptAndTransactionLog, eventValues));
                 return Task.CompletedTask;
             }
         }
@@ -82,7 +82,7 @@ namespace Nethereum.BlockProcessing.Samples
                 handlers,
                 processTransactionsInParallel: false);
 
-            var processingStrategy = new ProcessingStrategy(blockProcessor);
+            var processingStrategy = new BlockchainProcessingStrategy(blockProcessor);
             var blockchainProcessor = new BlockchainProcessor(processingStrategy);
 
             var result = await blockchainProcessor.ExecuteAsync(3146684, 3146684);

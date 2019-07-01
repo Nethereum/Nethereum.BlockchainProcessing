@@ -4,12 +4,12 @@ using System.Threading.Tasks;
 
 namespace Nethereum.BlockchainProcessing.Processing
 {
-    public class ProcessingStrategy : IBlockchainProcessingStrategy
+    public class BlockchainProcessingStrategy : IBlockchainProcessingStrategy
     {
         private static readonly Task<BigInteger?> TaskReturnNull = Task.FromResult((BigInteger?)null);
         protected readonly IBlockProcessor BlockProcessor;
 
-        public ProcessingStrategy(IBlockProcessor blockProcessor)
+        public BlockchainProcessingStrategy(IBlockProcessor blockProcessor)
         {
             BlockProcessor = blockProcessor;
         }

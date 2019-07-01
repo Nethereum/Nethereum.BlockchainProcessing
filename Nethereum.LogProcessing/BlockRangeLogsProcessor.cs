@@ -169,10 +169,10 @@ namespace Nethereum.BlockchainProcessing.Processing.Logs
 
                 return await _eventLogProxy.SendRequestAsync(filter).ConfigureAwait(false);
             }
-            catch (RpcResponseException rpcResponseEx) when (rpcResponseEx.TooManyRecords())
+            catch (RpcResponseException rpcResponseEx) when (rpcResponseEx.IsInfuraTooManyRecords())
             {
                 _logger.TooManyRecords(range, rpcResponseEx);
-                throw rpcResponseEx.TooManyRecordsException();
+                throw rpcResponseEx.CreateInfuraTooManyRecordsException();
             }
             catch (Exception ex)
             {

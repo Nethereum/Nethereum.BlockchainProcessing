@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 namespace Nethereum.BlockchainStore.Repositories
 {
 
-    public class StorageProcessingStrategy: ProcessingStrategy, IBlockchainProcessingStrategy
+    public class StorageBlockchainProcessingStrategy: BlockchainProcessingStrategy, IBlockchainProcessingStrategy
     {
         private readonly RepositoryHandlerContext _repositoryHandlerContext;
 
-        public StorageProcessingStrategy(
+        public StorageBlockchainProcessingStrategy(
             RepositoryHandlerContext repositoryHandlerContext, 
             IBlockProcessor blockProcessor):base(blockProcessor)
         {

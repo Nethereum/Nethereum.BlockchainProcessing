@@ -28,13 +28,13 @@ namespace Nethereum.BlockProcessing.Tests
 
         public class ProcessAsync : TransactionLogProcessorTests
         {
-            List<TransactionLogWrapper> _logsSentToHandler = new List<TransactionLogWrapper>();
+            List<FilterLogWithReceiptAndTransaction> _logsSentToHandler = new List<FilterLogWithReceiptAndTransaction>();
 
             public ProcessAsync()
             {
                 _mockHandler
-                    .Setup(h => h.HandleAsync(It.IsAny<TransactionLogWrapper>()))
-                    .Callback<TransactionLogWrapper>(l => { _logsSentToHandler.Add(l); })
+                    .Setup(h => h.HandleAsync(It.IsAny<FilterLogWithReceiptAndTransaction>()))
+                    .Callback<FilterLogWithReceiptAndTransaction>(l => { _logsSentToHandler.Add(l); })
                     .Returns(Task.CompletedTask);
             }
 

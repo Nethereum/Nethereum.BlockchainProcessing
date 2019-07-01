@@ -57,7 +57,7 @@ namespace Nethereum.BlockchainProcessing.InMemory.Console
                 filters, 
                 processTransactionsInParallel: false);
 
-            var strategy = new ProcessingStrategy(blockProcessor)
+            var strategy = new BlockchainProcessingStrategy(blockProcessor)
             {
                 MinimumBlockConfirmations = 6 //wait for 6 block confirmations before processing block
             };

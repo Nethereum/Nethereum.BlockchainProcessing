@@ -14,12 +14,12 @@ namespace Nethereum.BlockchainProcessing.InMemory.Console
             _eventName = ABITypedRegistry.GetEvent<TEvent>().Name;
         }
 
-        public Task HandleAsync(TransactionLogWrapper transactionLog)
+        public Task HandleAsync(FilterLogWithReceiptAndTransaction filterLogWithReceiptAndTransactionLog)
         {
-            if (!transactionLog.IsForEvent<TEvent>())
+            if (!filterLogWithReceiptAndTransactionLog.IsForEvent<TEvent>())
                 return Task.CompletedTask;
 
-            var eventValues = transactionLog.Decode<TEvent>();
+            var eventValues = filterLogWithReceiptAndTransactionLog.Decode<TEvent>();
             if (eventValues == null) return Task.CompletedTask;
 
             System.Console.WriteLine($"[EVENT]");
