@@ -2,7 +2,6 @@
 using Nethereum.BlockchainProcessing.Processing;
 using Nethereum.BlockchainProcessing.Processors.Transactions;
 using Nethereum.RPC.Eth.DTOs;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Nethereum.BlockchainProcessing.Nethereum.RPC.Eth.DTOs;
@@ -11,10 +10,65 @@ using Nethereum.Hex.HexTypes;
 using Nethereum.Contracts.Services;
 using Nethereum.Web3;
 using System.Numerics;
+using Nethereum.BlockchainProcessing.Common.Processing;
 using Nethereum.BlockProcessing.Filters;
+using Nethereum.BlockProcessing.ValueObjects;
 
 namespace Nethereum.BlockchainProcessing.Processors
 {
+
+    //Logic
+    //StorageProcessingHandling
+
+    //QueueHandling but only for Address in X to X y Z
+    //QueueHandling but only for Address in Y to M y Z
+
+    //BlockchainProcessinHandling
+    //BlockStepHandler(IBlockHandler, BlockStepMatchCriteria)
+    //TransactionStepHandler(IContractCreationHandler, 
+
+    /*
+      public class BlockchainNavigatorProcessor
+    {
+        public virtual IBlockProcessor BlockStepProcessor { get; set;} = new NullBlockHandler();
+        public virtual ITransactionProcessor TransactionHandler { get; set;} = new NullTransactionHandler();
+        public virtual ITransactionLogHandler TransactionLogHandler { get; set;} = new NullTransactionLogHandler();
+        public virtual ITransactionVMStackHandler TransactionVmStackHandler { get; set;} = new NullTransactionVMStackHandler();
+        public virtual IContractHandler ContractHandler { get; set;} = new NullContractHandler();
+        
+    }
+     
+     */
+
+    //ProcessingStepMatch
+    //MatchCriteria(Predicate, Async)
+    //MatchCriteria(Predicate)
+    //MatchCriteria(Async)
+    //IsMatchAsync(T)
+    //BlockStepMatch 
+    //TransactionStepMatch
+    //TransactionReceiptMatch
+
+    //Processor (blockStepMatch 
+    // Processing...
+    // BlockProccesing predicateMatch (Step1) Date starting X and  Date end Y (BlockMatching)
+    // TransactionProcessing predicateMatch (Step2) (TransactionMatching)  two types one examine the data in memory (Business rules loaded and standup data)
+    // use external stuff as we cannot hold it in memory.
+    // ReceiptProcessing predicateMatch (Step3) (ReceiptMatching)
+
+
+    /*
+     var filters = new FilterCollection()                .Add<Block>(b => b.Author == "Dave")                .Add<Transaction>(tx => tx.IsFrom("x"))   //             .Add<Transaction> tx => Task.FromResult(true)) /* simulate async db lookup */
+    // .Add<TransactionWithReceipt>(tr => tr.TransactionReceipt.Succeeded())
+    // .Add<TransactionLogWrapper>(l => l.Log.Removed == false);
+
+    /*
+     * var blockProcessorMatcher =  new BPM() with step handlers
+     *   .SetBlockStepMatchCriteria(b => b.Author == "dave")
+     *   .HandleBlockStepAsync(block => xx)
+     *   .SetTransactionStepMatchCriteria(tx => tx.IsFrom("x) && tx.IsForCreation(), async (tx) => dbLookup.(tx) address) tx
+     *   .SetTransactionReceiptMatchCriteria(receipt.ContractAddress == "xx")
+     */
     public class BlockProcessor : IBlockProcessor
     {
         protected IEthApiContractService BlockProxy { get; }

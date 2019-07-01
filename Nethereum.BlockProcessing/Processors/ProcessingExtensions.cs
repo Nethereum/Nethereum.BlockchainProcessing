@@ -36,8 +36,8 @@ namespace Nethereum.BlockchainProcessing.Processors
 
             return false;
         }
-
-        public static IEnumerable<TransactionLogWrapper> GetTransactionLogs(this Transaction transaction, TransactionReceipt receipt)
+        //TODO: JB mOVE TO TXN EXTENSION
+        public static IEnumerable<FilterLogWithReceiptAndTransaction> GetTransactionLogs(this Transaction transaction, TransactionReceipt receipt)
         {
             for (var i = 0; i < receipt.Logs?.Count; i++)
             {
@@ -46,11 +46,11 @@ namespace Nethereum.BlockchainProcessing.Processors
                     var typedLog = log.ToObject<FilterLog>();
 
                     yield return
-                        new TransactionLogWrapper(transaction, receipt, typedLog);
+                        new FilterLogWithReceiptAndTransaction(transaction, receipt, typedLog);
                 }
             }
         }
-
+        //TODO: JB mOVE TO TXN EXTENSION
         public static string[] GetAllRelatedAddresses(this Transaction tx, TransactionReceipt receipt)
         {
             if (tx == null)

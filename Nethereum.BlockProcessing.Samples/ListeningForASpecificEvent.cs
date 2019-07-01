@@ -33,26 +33,26 @@ namespace Nethereum.BlockProcessing.Samples
 
         public class TransferEventHandler: ITransactionLogHandler<TransferEvent>
         {
-            public List<(TransactionLogWrapper, EventLog<TransferEvent>)> TransferEventsHandled = 
-                new List<(TransactionLogWrapper, EventLog<TransferEvent>)>();
+            public List<(FilterLogWithReceiptAndTransaction, EventLog<TransferEvent>)> TransferEventsHandled = 
+                new List<(FilterLogWithReceiptAndTransaction, EventLog<TransferEvent>)>();
 
-            public List<TransactionLogWrapper> TransferEventsWithDifferentSignature = 
-                new List<TransactionLogWrapper>();
+            public List<FilterLogWithReceiptAndTransaction> TransferEventsWithDifferentSignature = 
+                new List<FilterLogWithReceiptAndTransaction>();
 
-            public Task HandleAsync(TransactionLogWrapper transactionLog)
+            public Task HandleAsync(FilterLogWithReceiptAndTransaction filterLogWithReceiptAndTransactionLog)
             {
                 try
                 {
-                    if(!transactionLog.IsForEvent<TransferEvent>()) return Task.CompletedTask;
+                    if(!filterLogWithReceiptAndTransactionLog.IsForEvent<TransferEvent>()) return Task.CompletedTask;
 
-                    var eventValues = transactionLog.Decode<TransferEvent>();
-                    TransferEventsHandled.Add((transactionLog, eventValues));
+                    var eventValues = filterLogWithReceiptAndTransactionLog.Decode<TransferEvent>();
+                    TransferEventsHandled.Add((filterLogWithReceiptAndTransactionLog, eventValues));
                 }
                 catch (Exception)
                 {
                     //Error whilst handling transaction log
                     //expected event signature may differ from the expected event.
-                    TransferEventsWithDifferentSignature.Add(transactionLog);
+                    TransferEventsWithDifferentSignature.Add(filterLogWithReceiptAndTransactionLog);
                 }
 
                 return Task.CompletedTask;
@@ -71,7 +71,7 @@ namespace Nethereum.BlockProcessing.Samples
                 handlers,
                 processTransactionsInParallel: false);
 
-            var processingStrategy = new ProcessingStrategy(blockProcessor);
+            var processingStrategy = new BlockchainProcessingStrategy(blockProcessor);
             var blockchainProcessor = new BlockchainProcessor(processingStrategy);
 
             var result = await blockchainProcessor.ExecuteAsync(3146684, 3146684);

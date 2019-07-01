@@ -48,7 +48,7 @@ namespace Nethereum.BlockProcessing.Samples
                 filter,
                 processTransactionsInParallel: false);
 
-            var processingStrategy = new ProcessingStrategy(blockProcessor);
+            var processingStrategy = new BlockchainProcessingStrategy(blockProcessor);
             var blockchainProcessor = new BlockchainProcessor(processingStrategy);
 
             var result = await blockchainProcessor.ExecuteAsync(2830143, 2830153);

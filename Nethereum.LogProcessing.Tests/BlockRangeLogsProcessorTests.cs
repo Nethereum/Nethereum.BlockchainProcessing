@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Nethereum.JsonRpc.Client;
 using Xunit;
 
 namespace Nethereum.LogProcessing.Tests
@@ -110,10 +111,15 @@ namespace Nethereum.LogProcessing.Tests
             Assert.DoesNotContain(duplicateLog, processedLogs);
         }
 
+        public static RpcResponseException CreateFakeTooManyRecordsRpcException()
+        {
+            return new RpcResponseException(new RpcError(0, InfuraRpcResponseExceptionExtensions.TooManyRecordsMessagePrefix));
+        }
+
         [Fact]
         public async Task Catches_Too_Many_Records_RpcException_And_Throws_Specific_Too_Many_Records_Exception()
         {
-            var tooManyRecordsRpcEx = RpcResponseExceptionExtensions.CreateFakeTooManyRecordsRpcException();
+            var tooManyRecordsRpcEx = CreateFakeTooManyRecordsRpcException();
             var web3Mock = new Web3Mock();
             var catchAllProcessor = new Mock<ILogProcessor>();
 
@@ -126,7 +132,7 @@ namespace Nethereum.LogProcessing.Tests
                 .Setup(p => p.SendRequestAsync(filter1, null))
                 .Throws(tooManyRecordsRpcEx);
 
-            var actualException = await Assert.ThrowsAsync<TooManyRecordsException>(async () => await logProcessor.ProcessAsync(new BlockRange(0, 0)));
+            var actualException = await Assert.ThrowsAsync<InfuraTooManyRecordsException>(async () => await logProcessor.ProcessAsync(new BlockRange(0, 0)));
             Assert.Same(tooManyRecordsRpcEx, actualException.InnerException);
 
         }

@@ -11,9 +11,9 @@ namespace Nethereum.BlockchainProcessing.InMemory.Console
         {
         }
 
-        public Task HandleAsync(TransactionLogWrapper transactionLog)
+        public Task HandleAsync(FilterLogWithReceiptAndTransaction filterLogWithReceiptAndTransactionLog)
         {
-            Log($"[TransactionLog] Hash:{transactionLog.Transaction.TransactionHash}, Index:{transactionLog.LogIndex}, Address:{transactionLog.Log.Address}");
+            Log($"[TransactionLog] Hash:{filterLogWithReceiptAndTransactionLog.Transaction.TransactionHash}, Index:{filterLogWithReceiptAndTransactionLog.LogIndex}, Address:{filterLogWithReceiptAndTransactionLog.Log.Address}");
             return Task.CompletedTask;
         }
     }

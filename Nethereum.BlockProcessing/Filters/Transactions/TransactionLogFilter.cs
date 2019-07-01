@@ -5,15 +5,15 @@ using Nethereum.BlockProcessing.ValueObjects;
 
 namespace Nethereum.BlockProcessing.Filters.Transactions
 {
-    public class TransactionLogFilter : Filter<TransactionLogWrapper>, ITransactionLogFilter
+    public class TransactionLogFilter : Filter<FilterLogWithReceiptAndTransaction>, ITransactionLogFilter
     {
         public TransactionLogFilter(){}
 
-        public TransactionLogFilter(Func<TransactionLogWrapper, Task<bool>> condition) : base(condition)
+        public TransactionLogFilter(Func<FilterLogWithReceiptAndTransaction, Task<bool>> condition) : base(condition)
         {
         }
 
-        public TransactionLogFilter(Func<TransactionLogWrapper, bool> condition) : base(condition)
+        public TransactionLogFilter(Func<FilterLogWithReceiptAndTransaction, bool> condition) : base(condition)
         {
         }
     }

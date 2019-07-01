@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Nethereum.BlockchainProcessing.Processing
 {
-    public class ProcessingStrategy : IBlockchainProcessingStrategy
+    public class BlockchainProcessingStrategy : IBlockchainProcessingStrategy
     {
         protected readonly IBlockProcessor BlockProcessor;
 

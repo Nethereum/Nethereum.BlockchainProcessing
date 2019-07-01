@@ -17,7 +17,7 @@ namespace Nethereum.BlockchainStore.Tests.Processing.ContractTransactionProcesso
         {
             protected readonly string[] logAddresses = new [] { "address1", "address2" };
 
-            protected readonly List<TransactionLogWrapper> argsPassedToLogRepo = new List<TransactionLogWrapper>();
+            protected readonly List<FilterLogWithReceiptAndTransaction> argsPassedToLogRepo = new List<FilterLogWithReceiptAndTransaction>();
             
             protected ProcessTransactionScenario()
             {

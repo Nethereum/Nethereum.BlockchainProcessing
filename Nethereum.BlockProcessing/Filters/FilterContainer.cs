@@ -3,6 +3,15 @@ using Nethereum.BlockProcessing.Filters.Transactions;
 
 namespace Nethereum.BlockProcessing.Filters
 {
+    //Block block is between date x and y
+    //Transaction  And transaction.blockNumber == block.Number && transaction.From == x Or transaction.From in (collection async?)
+    //TransactionReceipt Or transactionReceipt.CreatedContract
+    //Log and log from transaction.hash and Event matches something
+
+    //can we remove the value objects by using predicates like (and transaction belongs to block)
+    //can we delay the async calls for and / or and do them later.
+    // PredicateMatch and/or ExternalMatch
+
     public class FilterContainer
     {
         public IEnumerable<IBlockFilter> BlockFilters { get; }

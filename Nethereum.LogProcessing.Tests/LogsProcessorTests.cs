@@ -82,7 +82,7 @@ namespace Nethereum.LogProcessing.Tests
                 // mock a too-many-records exception
                 MockProcessor
                     .Setup(p => p.ProcessAsync(largeRange, It.IsAny<CancellationToken>()))
-                    .ThrowsAsync(new TooManyRecordsException());
+                    .ThrowsAsync(new InfuraTooManyRecordsException());
 
                 //expect max of 5 blocks to be requested
                 MockProgressService
@@ -123,9 +123,9 @@ namespace Nethereum.LogProcessing.Tests
                 MockProcessor
                     .Setup(p => p.ProcessAsync(It.IsAny<BlockRange>(), It.IsAny<CancellationToken>()))
                     .Callback<BlockRange, CancellationToken>((range, token) => rangesAttempted.Add(range))
-                    .ThrowsAsync(new TooManyRecordsException());
+                    .ThrowsAsync(new InfuraTooManyRecordsException());
 
-                await Assert.ThrowsAsync<TooManyRecordsException>(async () => await Service.ProcessOnceAsync());
+                await Assert.ThrowsAsync<InfuraTooManyRecordsException>(async () => await Service.ProcessOnceAsync());
 
                 Assert.Equal(10, rangesAttempted[0].To.Value);
                 Assert.Equal(5, rangesAttempted[1].To.Value);
