@@ -8,7 +8,7 @@ namespace Nethereum.BlockchainProcessing.Processing.Logs
     {
         public static Func<IEnumerable<T>, Task> ToFunc<T>(this Action<IEnumerable<T>> action)
         {
-            return new Func<IEnumerable<T>, Task>(async (events) => await Task.Run(() => action(events)).ConfigureAwait(false));
+            return new Func<IEnumerable<T>, Task>((events) => { action(events); return Task.CompletedTask;});
         }
     }
 }
