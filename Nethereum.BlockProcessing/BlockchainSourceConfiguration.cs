@@ -1,4 +1,6 @@
-﻿namespace Nethereum.BlockchainProcessing.Processing
+﻿using System.Numerics;
+
+namespace Nethereum.BlockchainProcessing.Processing
 {
     public class BlockchainSourceConfiguration
     {
@@ -12,8 +14,8 @@
         public string Name { get; set; }
         public ulong? MinimumBlockNumber { get; set; }
         public uint? MinimumBlockConfirmations { get; set; }
-        public ulong? FromBlock { get; set; }
-        public ulong? ToBlock { get; set; }
+        public BigInteger? FromBlock { get; set; }
+        public BigInteger? ToBlock { get; set; }
         public bool PostVm { get; set; } = false;
         public bool ProcessBlockTransactionsInParallel { get; set; } = true;
     }

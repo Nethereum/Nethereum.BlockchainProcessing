@@ -6,12 +6,12 @@ namespace Nethereum.BlockchainProcessing.Processing
 {
     public class BlockchainProcessingStrategy : IBlockchainProcessingStrategy
     {
-        private static readonly Task<BigInteger?> TaskReturnNull = Task.FromResult((BigInteger?)null);
         protected readonly IBlockProcessor BlockProcessor;
 
-        public BlockchainProcessingStrategy(IBlockProcessor blockProcessor)
+        public ProcessingStrategy(IBlockProcessor blockProcessor, IBlockProgressRepository blockProgressRepository = null)
         {
             BlockProcessor = blockProcessor;
+            BlockProgressRepository = blockProgressRepository ?? new InMemoryBlockchainProgressRepository(null);
         }
 
         public virtual IWaitStrategy WaitStrategy { get; set; } = new WaitStrategy();
@@ -19,13 +19,18 @@ namespace Nethereum.BlockchainProcessing.Processing
         public virtual uint MaxRetries { get; set; } = 3;
         public virtual ulong MinimumBlockNumber { get; set; } = 0;
         public virtual uint MinimumBlockConfirmations { get; set; } = 0;
+        public IBlockProgressRepository BlockProgressRepository { get; }
 
         public virtual Task FillContractCacheAsync() { return Task.CompletedTask; }
-
-        public virtual Task<BigInteger?> GetLastBlockProcessedAsync() => TaskReturnNull;
+        public virtual Task<BigInteger?> GetLastBlockProcessedAsync() => BlockProgressRepository.GetLastBlockNumberProcessedAsync();
+        
         public virtual Task PauseFollowingAnError(uint retryNumber) => WaitStrategy.Apply(retryNumber);
         public virtual Task WaitForNextBlock(uint retryNumber) => WaitStrategy.Apply(retryNumber);
-        public virtual Task ProcessBlockAsync(BigInteger blockNumber) => BlockProcessor.ProcessBlockAsync(blockNumber);
+        public virtual async Task ProcessBlockAsync(BigInteger blockNumber) 
+        {
+            await BlockProcessor.ProcessBlockAsync(blockNumber).ConfigureAwait(false); 
+            await BlockProgressRepository.UpsertProgressAsync(blockNumber).ConfigureAwait(false);
+        }
         public virtual Task<BigInteger> GetMaxBlockNumberAsync() => BlockProcessor.GetMaxBlockNumberAsync();
     }
 }

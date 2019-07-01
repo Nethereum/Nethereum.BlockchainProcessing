@@ -70,7 +70,7 @@ namespace Nethereum.LogProcessing.Samples
             // Azure storage setup
             // - this example reads and writes block progress to an Azure storage table
             // - to avoid collision with other samples we provide a prefix
-            var storageCloudSetup = new CloudTableSetup(azureStorageConnectionString, prefix: $"makerdao");
+            var storageCloudSetup = new BlockProgressCloudTableSetup(azureStorageConnectionString, prefix: $"makerdao");
            
             // Create a progress repository
             //  - It stores and retrieves the most recent block processed
@@ -186,7 +186,7 @@ namespace Nethereum.LogProcessing.Samples
             // Azure storage setup
             // - this example reads and writes block progress to an Azure storage table
             // - to avoid collision with other samples we provide a prefix
-            var storageCloudSetup = new CloudTableSetup(azureStorageConnectionString, prefix: $"makerdaotransfers");
+            var storageCloudSetup = new BlockProgressCloudTableSetup(azureStorageConnectionString, prefix: $"makerdaotransfers");
 
             // Create a progress repository
             //  - It stores and retrieves the most recent block processed
@@ -299,7 +299,7 @@ namespace Nethereum.LogProcessing.Samples
             // Azure storage setup
             // - this example reads and writes block progress to an Azure storage table
             // - to avoid collision with other samples we provide a prefix
-            var storageCloudSetup = new CloudTableSetup(azureStorageConnectionString, prefix: $"makerdaotransferscustom");
+            var storageCloudSetup = new BlockProgressCloudTableSetup(azureStorageConnectionString, prefix: $"makerdaotransferscustom");
 
             // Create a progress repository
             //  - It stores and retrieves the most recent block processed
@@ -514,7 +514,7 @@ namespace Nethereum.LogProcessing.Samples
 
         private async Task ClearDown(
             IQueue queue,
-            CloudTableSetup cloudTableSetup,
+            BlockProgressCloudTableSetup cloudTableSetup,
             AzureSubscriberQueueFactory subscriberQueueFactory)
         {
 

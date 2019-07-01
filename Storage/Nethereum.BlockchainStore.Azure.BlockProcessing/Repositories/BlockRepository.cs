@@ -16,12 +16,10 @@ namespace Nethereum.BlockchainStore.AzureTables.Repositories
     {
         private bool _maxBlockInitialised = false;
         private readonly SemaphoreSlim _lock = new SemaphoreSlim(1);
-        private Counter _maxBlockCounter = new Counter() {Name = "MaxBlockNumber", Value = "0"};
         private readonly CloudTable _countersTable;
 
-        public BlockRepository(CloudTable table, CloudTable countersTable) : base(table)
+        public BlockRepository(CloudTable table) : base(table)
         {
-            _countersTable = countersTable;
         }
 
         public async Task UpsertBlockAsync(RPC.Eth.DTOs.Block source)
@@ -29,11 +27,8 @@ namespace Nethereum.BlockchainStore.AzureTables.Repositories
             await _lock.WaitAsync();
             try
             {
-                await InitialiseMaxBlock();
-
                 var blockEntity = MapBlock(source, new Block(source.Number.Value.ToString()));
                 await UpsertAsync(blockEntity);
-                await UpdateMaxBlockNumber(blockEntity);
             }
             finally
             {
@@ -41,28 +36,6 @@ namespace Nethereum.BlockchainStore.AzureTables.Repositories
             }
         }
 
-        private async Task UpdateMaxBlockNumber(Block blockEntity)
-        {
-            var blockNumber = BigInteger.Parse(blockEntity.BlockNumber);
-
-            if (blockNumber > BigInteger.Parse(_maxBlockCounter.Value))
-            {
-                _maxBlockCounter.Value = blockNumber.ToString();
-                await UpsertAsync(_maxBlockCounter, _countersTable).ConfigureAwait(false);
-            }
-        }
-
-        private async Task InitialiseMaxBlock()
-        {
-            if (!_maxBlockInitialised)
-            {
-                var operation = TableOperation.Retrieve<Counter>(_maxBlockCounter.Name, "");
-                var results = await _countersTable.ExecuteAsync(operation);
-
-                _maxBlockCounter = results.Result as Counter ?? _maxBlockCounter;
-                _maxBlockInitialised = true;
-            }
-        }
 
         public Block MapBlock(RPC.Eth.DTOs.Block blockSource, Block blockOutput)
         {
@@ -84,19 +57,6 @@ namespace Nethereum.BlockchainStore.AzureTables.Repositories
             return blockOutput;
         }
 
-        public async Task<BigInteger?> GetMaxBlockNumberAsync()
-        {
-            await _lock.WaitAsync();
-            try
-            {
-                await InitialiseMaxBlock();
-                return _maxBlockCounter.Value == null ? (BigInteger?)null : BigInteger.Parse(_maxBlockCounter.Value);
-            }
-            finally
-            {
-                _lock.Release();
-            }
-        }
 
         public async Task<IBlockView> FindByBlockNumberAsync(HexBigInteger blockNumber)
         {

@@ -1,13 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
-using CsvHelper.Configuration;
+﻿using CsvHelper.Configuration;
 using Nethereum.BlockchainStore.Entities;
 using Nethereum.BlockchainStore.Entities.Mapping;
 using Nethereum.BlockchainStore.Repositories;
 using Nethereum.Hex.HexTypes;
-using Nethereum.RPC.Eth.DTOs;
+using System.Threading.Tasks;
 using Block = Nethereum.BlockchainStore.Entities.Block;
 
 namespace Nethereum.BlockchainStore.Csv.Repositories
@@ -21,23 +17,6 @@ namespace Nethereum.BlockchainStore.Csv.Repositories
         public async Task<IBlockView> FindByBlockNumberAsync(HexBigInteger blockNumber)
         {
             return await FindAsync(b => b.BlockNumber == blockNumber.Value.ToString());
-        }
-
-        public async Task<BigInteger?> GetMaxBlockNumberAsync()
-        {
-            BigInteger? maxBlock = null;
-
-            await EnumerateAsync(e =>
-            {
-                var blockNumber = BigInteger.Parse(e.BlockNumber);
-
-                if (maxBlock == null || maxBlock.Value < blockNumber)
-                {
-                    maxBlock = blockNumber;
-                }
-            });
-
-            return maxBlock;
         }
 
         public async Task UpsertBlockAsync(Nethereum.RPC.Eth.DTOs.Block source)

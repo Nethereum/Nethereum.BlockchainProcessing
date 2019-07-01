@@ -10,7 +10,7 @@ namespace Nethereum.BlockchainStore.AzureTables.Factories
 {
     public class AzureTablesSubscriberRepositoryFactory : ISubscriberStorageFactory
     {
-        Dictionary<string, CloudTableSetup> _cloudTableSetups = new Dictionary<string, CloudTableSetup>();
+        Dictionary<string, BlockProcessingCloudTableSetup> _cloudTableSetups = new Dictionary<string, BlockProcessingCloudTableSetup>();
         public AzureTablesSubscriberRepositoryFactory( 
             string azureStorageConnectionString)
         {
@@ -21,7 +21,7 @@ namespace Nethereum.BlockchainStore.AzureTables.Factories
 
         public Task<ILogHandler> GetLogRepositoryHandlerAsync(string tablePrefix)
         {
-            CloudTableSetup cloudTableSetup = GetCloudTableSetup(tablePrefix);
+            BlockProcessingCloudTableSetup cloudTableSetup = GetCloudTableSetup(tablePrefix);
             var repo = cloudTableSetup.CreateTransactionLogRepository();
             var handler = new TransactionLogRepositoryHandler(repo);
             return Task.FromResult(handler as ILogHandler);
@@ -29,11 +29,11 @@ namespace Nethereum.BlockchainStore.AzureTables.Factories
 
         public Task<ILogHandler> GetLogRepositoryHandlerAsync(ISubscriberStorageDto config) => GetLogRepositoryHandlerAsync(config.Name);
 
-        private CloudTableSetup GetCloudTableSetup(string tablePrefix)
+        private BlockProcessingCloudTableSetup GetCloudTableSetup(string tablePrefix)
         {
-            if(!_cloudTableSetups.TryGetValue(tablePrefix, out CloudTableSetup setup))
+            if(!_cloudTableSetups.TryGetValue(tablePrefix, out BlockProcessingCloudTableSetup setup))
             {
-                setup = new CloudTableSetup(AzureStorageConnectionString, tablePrefix);
+                setup = new BlockProcessingCloudTableSetup(AzureStorageConnectionString, tablePrefix);
                 _cloudTableSetups.Add(tablePrefix, setup);
             }
             return setup;

@@ -15,14 +15,17 @@ namespace Nethereum.BlockchainStore.AzureTables.Tests.RepositoryTests
             ConfigurationUtils.SetEnvironmentAsDevelopment();
             var appConfig = ConfigurationUtils.Build(CommandLineArgs, UserSecretsId);
             var connectionString = appConfig["AzureStorageConnectionString"];
-            Factory = new CloudTableSetup(connectionString, "UnitTest");
+            BlockProcessingCloudTableSetup = new BlockProcessingCloudTableSetup(connectionString, "UnitTest");
+            BlockProgressCloudTableSetup = new BlockProgressCloudTableSetup(connectionString, "UnitTest");
         }
 
-        public CloudTableSetup Factory { get; }
+        public BlockProcessingCloudTableSetup BlockProcessingCloudTableSetup { get; }
+        public BlockProgressCloudTableSetup BlockProgressCloudTableSetup { get; }
 
         public void Dispose()
         {
-            Factory?.DeleteAllTables().Wait();
+            BlockProcessingCloudTableSetup?.DeleteAllTables().Wait();
+            BlockProgressCloudTableSetup?.DeleteAllTables().Wait();
         }
     }
 

@@ -18,7 +18,7 @@ namespace Nethereum.BlockchainStore.AzureTables.Tests.RepositoryTests
 
         public AddressTransactionRepositoryTests(AzureTablesFixture fixture)
         {
-            this._repo = fixture.Factory.CreateAddressTransactionRepository() as AddressTransactionRepository;
+            this._repo = fixture.BlockProcessingCloudTableSetup.CreateAddressTransactionRepository() as AddressTransactionRepository;
         }
 
         [Fact]

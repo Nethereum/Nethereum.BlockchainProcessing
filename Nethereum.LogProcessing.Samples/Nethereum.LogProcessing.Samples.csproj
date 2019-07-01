@@ -15,7 +15,10 @@
     <ProjectReference Include="..\Nethereum.Logging.Utils\Microsoft.Logging.Utils.csproj" />
     <ProjectReference Include="..\Nethereum.LogProcessing.Dynamic\Nethereum.LogProcessing.Dynamic.csproj" />
     <ProjectReference Include="..\Nethereum.LogProcessing\Nethereum.LogProcessing.csproj" />
-    <ProjectReference Include="..\Storage\Nethereum.BlockchainStore.AzureTables\Nethereum.BlockchainStore.AzureTables.csproj" />
+    <ProjectReference Include="..\Storage\Nethereum.BlockchainStore.Azure.BlockProcessing\Nethereum.BlockchainStore.Azure.BlockProcessing.csproj" />
+    <ProjectReference Include="..\Storage\Nethereum.BlockchainStore.Azure.BlockProgress\Nethereum.BlockchainStore.Azure.BlockProgress.csproj" />
+    <ProjectReference Include="..\Storage\Nethereum.BlockchainStore.Azure.LogProcessing\Nethereum.BlockchainStore.Azure.LogProcessing.csproj" />
+    <ProjectReference Include="..\Storage\Nethereum.BlockchainStore.Azure.LogProcessor.Db\Nethereum.BlockchainStore.Azure.LogProcessor.Db.csproj" />
     <ProjectReference Include="..\Storage\Nethereum.BlockchainStore.Entities.Mapping\Nethereum.BlockchainStore.Entities.Mapping.csproj" />
     <ProjectReference Include="..\Storage\Nethereum.BlockchainStore.Search\Nethereum.BlockchainStore.Search.csproj" />
   </ItemGroup>

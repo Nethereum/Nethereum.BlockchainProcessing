@@ -29,6 +29,17 @@ namespace Nethereum.BlockchainStore.MongoDb.Entities
         }
     }
 
+    public class MongoDbBlockProgress : BlockProgress, IMongoDbEntity
+    {
+        private string _id;
+
+        public string Id
+        {
+            get => _id ?? LastBlockProcessed;
+            set => _id = value;
+        }
+    }
+
     public class MongoDbBlock : Block, IMongoDbEntity
     {
         private string _id;

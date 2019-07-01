@@ -1,16 +1,12 @@
-﻿using Microsoft.Extensions.Configuration;
-using Nethereum.BlockchainProcessing.Processing;
+﻿using Nethereum.BlockchainProcessing.Processing;
 using Nethereum.BlockchainProcessing.Processing.Logs;
 using Nethereum.BlockchainProcessing.Processing.Logs.Configuration;
 using Nethereum.BlockchainProcessing.Queue.Azure.Processing.Logs;
 using Nethereum.BlockchainStore.AzureTables.Bootstrap;
 using Nethereum.BlockchainStore.AzureTables.Factories;
 using Nethereum.BlockchainStore.Search.Azure;
-using Microsoft.Configuration.Utils;
 using Nethereum.Contracts;
 using Nethereum.Hex.HexTypes;
-using Nethereum.LogProcessing;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
@@ -56,7 +52,7 @@ namespace Nethereum.LogProcessing.Samples.SAS
 
             // progress repo (dictates which block ranges to process next)
             // maintain separate progress per partition via a prefix
-            var storageCloudSetup = new CloudTableSetup(azureStorageConnectionString, prefix: $"Partition{PARTITION}");
+            var storageCloudSetup = new BlockProgressCloudTableSetup(azureStorageConnectionString, prefix: $"Partition{PARTITION}");
             var blockProgressRepo = storageCloudSetup.CreateBlockProgressRepository();
 
             // load service
@@ -102,7 +98,7 @@ namespace Nethereum.LogProcessing.Samples.SAS
 
         private async Task ClearDown(
             EventProcessingConfigContext repo, 
-            CloudTableSetup cloudTableSetup, 
+            BlockProgressCloudTableSetup cloudTableSetup, 
             IAzureSearchService searchService, 
             AzureSubscriberQueueFactory subscriberQueueFactory,
             AzureTablesSubscriberRepositoryFactory azureTablesSubscriberRepositoryFactory)

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Nethereum.BlockchainProcessing.Handlers;
+using Nethereum.BlockchainProcessing.Processing;
 using Nethereum.BlockchainStore.Repositories.Handlers;
 
 namespace Nethereum.BlockchainStore.Repositories
@@ -16,7 +17,7 @@ namespace Nethereum.BlockchainStore.Repositories
         public ITransactionVMStackRepository TransactionVmStackRepository { get; }
         public IAddressTransactionRepository AddressTransactionRepository { get; }
 
-        public RepositoryHandlerContext(IBlockchainStoreRepositoryFactory repositoryFactory)
+        public RepositoryHandlerContext(IBlockchainStoreRepositoryFactory repositoryFactory, IBlockProgressRepository blockProgressRepository )
         {
             BlockRepository = repositoryFactory.CreateBlockRepository();
             ContractRepository = repositoryFactory.CreateContractRepository();
@@ -31,6 +32,7 @@ namespace Nethereum.BlockchainStore.Repositories
             _repositories.Add(AddressTransactionRepository);
             _repositories.Add(TransactionLogRepository);
             _repositories.Add(TransactionVmStackRepository);
+            _repositories.Add(blockProgressRepository);
 
             Handlers = new HandlerContainer
             {
@@ -40,9 +42,11 @@ namespace Nethereum.BlockchainStore.Repositories
                 TransactionLogHandler = new TransactionLogRepositoryHandler(TransactionLogRepository),
                 TransactionVmStackHandler = new TransactionVMStackRepositoryHandler(TransactionVmStackRepository)
             };
+            BlockProgressRepository = blockProgressRepository;
         }
 
         public HandlerContainer Handlers { get; private set; }
+        public IBlockProgressRepository BlockProgressRepository { get; }
 
         #region IDisposable Support
         private bool disposed = false; // To detect redundant calls

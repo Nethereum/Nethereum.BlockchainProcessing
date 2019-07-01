@@ -16,6 +16,11 @@ namespace Nethereum.BlockchainProcessing.Processing
             if(IsInfoEnabled) Logger.Info($"Block Process Attempt.  Block: {currentBlock}, Attempt: {retryNumber}.");
         }
 
+        public void LogBlockFinished(BigInteger currentBlock, uint retryNumber)
+        {
+            if (IsInfoEnabled) Logger.Info($"Block Finished.  Block: {currentBlock}, Retries: {retryNumber}.");
+        }
+
         public void WaitingForBlockAvailability(BigInteger currentBlock, uint minimumBlockConfirmations, BigInteger? maxBlockOnChain, uint attempt)
         {
             if(IsInfoEnabled) Logger.Info($"Waiting for current block ({currentBlock}) to be more than {minimumBlockConfirmations} confirmations behind the max block on the chain ({maxBlockOnChain}). Attempt: {attempt}.");

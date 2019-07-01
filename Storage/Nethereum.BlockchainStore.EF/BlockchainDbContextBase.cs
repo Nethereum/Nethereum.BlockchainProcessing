@@ -15,6 +15,7 @@ namespace Nethereum.BlockchainStore.EF
         protected BlockchainDbContextBase(){}
         protected BlockchainDbContextBase(string connectionName) : base(connectionName){}
 
+        public DbSet<BlockProgress> BlockProgress { get; set; }
         public DbSet<Block> Blocks { get; set; }
         public DbSet<AddressTransaction> AddressTransactions { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
@@ -24,6 +25,7 @@ namespace Nethereum.BlockchainStore.EF
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Configurations.Add(new BlockProgressEntityBuilder());
             modelBuilder.Configurations.Add(new BlockEntityBuilder());
             modelBuilder.Configurations.Add(new ContractEntityBuilder());
             modelBuilder.Configurations.Add(new TransactionEntityBuilder());

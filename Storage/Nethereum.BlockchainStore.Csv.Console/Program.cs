@@ -18,7 +18,8 @@ namespace Nethereum.BlockchainStore.Csv.Console
             var configuration = BlockchainSourceConfigurationFactory.Get(appConfig);
             var outputPath = appConfig["CsvOutputPath"];
             var repositoryFactory = new CsvBlockchainStoreRepositoryFactory(outputPath);
-            return StorageProcessorConsole.Execute(repositoryFactory, configuration, log: log).Result;
+            return StorageProcessorConsole.Execute(
+                repositoryFactory, repositoryFactory.CreateBlockProgressRepository(), configuration, log: log).Result;
         }
     }
 }

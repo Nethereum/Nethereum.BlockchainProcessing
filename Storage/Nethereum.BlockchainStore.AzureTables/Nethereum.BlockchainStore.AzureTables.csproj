@@ -20,8 +20,15 @@
     <!--<ProjectReference Include="..\..\Nethereum.BlockchainProcessing.Common\Nethereum.BlockchainProcessing.Common.csproj" />-->
     <ProjectReference Include="..\..\Nethereum.LogProcessing.Dynamic\Nethereum.LogProcessing.Dynamic.csproj" />
     <ProjectReference Include="..\..\Nethereum.LogProcessing\Nethereum.LogProcessing.csproj" />
+    <ProjectReference Include="..\Nethereum.BlockchainStore.AzureTables.Base\Nethereum.BlockchainStore.AzureTables.Base.csproj" />
     <ProjectReference Include="..\Nethereum.BlockchainStore.Entities\Nethereum.BlockchainStore.Entities.csproj" />
     <ProjectReference Include="..\Nethereum.BlockchainStore\Nethereum.BlockchainStore.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Entities\EventProcessingConfiguration\" />
+    <Folder Include="Factories\" />
+    <Folder Include="Repositories\EventProcessingConfiguration\" />
   </ItemGroup>
   
 </Project>

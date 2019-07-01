@@ -18,7 +18,7 @@ namespace Nethereum.BlockchainStore.CosmosCore.Console
 
             var configuration = BlockchainSourceConfigurationFactory.Get(appConfig);
             var repositoryFactory = CosmosRepositoryFactory.Create(appConfig);
-            return StorageProcessorConsole.Execute(repositoryFactory, configuration, log: log).Result;
+            return StorageProcessorConsole.Execute(repositoryFactory, repositoryFactory.CreateBlockProgressRepository(), configuration, log: log).Result;
         }
     }
 }
