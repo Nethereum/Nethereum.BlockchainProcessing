@@ -47,7 +47,7 @@ The event signature will match (as it "indexed" is not part of the signature) bu
             public List<(FilterLog, EventLog<TransferEventERC721>)> ProcessedEvents = new List<(FilterLog, EventLog<TransferEventERC721>)>();
             public List<(FilterLog, Exception)> DecodingErrors = new List<(FilterLog, Exception)>();
 
-            public bool IsLogForEvent(FilterLog log) => log.IsLogForEvent<TransferEventERC721>();
+            public Task<bool> IsLogForMeAsync(FilterLog log) => Task.FromResult(log.IsLogForEvent<TransferEventERC721>());
 
             public Task ProcessLogsAsync(params FilterLog[] eventLogs)
             {
@@ -73,7 +73,7 @@ The event signature will match (as it "indexed" is not part of the signature) bu
         {
             public List<FilterLog> ProcessedEvents = new List<FilterLog>();
 
-            public bool IsLogForEvent(FilterLog log) => true;
+            public Task<bool> IsLogForMeAsync(FilterLog log) => Task.FromResult(true);
 
             public Task ProcessLogsAsync(params FilterLog[] eventLogs)
             {

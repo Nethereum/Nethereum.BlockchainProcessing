@@ -15,7 +15,7 @@ namespace Nethereum.LogProcessing.Tests.Processors
     public class EventLogQueueProcessorOfTTests
     {
         [Fact]
-        public void IsLogForEvent_WhenTheEventMatchesReturnsTrue()
+        public async Task IsLogForEvent_WhenTheEventMatchesReturnsTrue()
         {
             var queue = new Mock<IQueue>();
 
@@ -24,8 +24,8 @@ namespace Nethereum.LogProcessing.Tests.Processors
             var transferEvent = TestData.Contracts.StandardContract.SampleTransferLog();
             var nonTransferLog = new FilterLog();
 
-            Assert.True(processor.IsLogForEvent(transferEvent));
-            Assert.False(processor.IsLogForEvent(nonTransferLog));
+            Assert.True(await processor.IsLogForMeAsync(transferEvent));
+            Assert.False(await processor.IsLogForMeAsync(nonTransferLog));
         }
 
         [Fact]

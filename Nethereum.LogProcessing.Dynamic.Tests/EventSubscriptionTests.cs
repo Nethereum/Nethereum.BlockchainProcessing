@@ -60,12 +60,12 @@ namespace Nethereum.LogProcessing.Tests
         [Theory]
         [InlineData(true)]
         [InlineData(false)]
-        public void InvokesMatcher(bool match)
+        public async Task InvokesMatcher(bool match)
         {
             var log = new FilterLog();
             _matcher.Setup(m => m.IsMatch(log)).Returns(match);
 
-            Assert.Equal(match, _eventSubscription.IsLogForEvent(log));
+            Assert.Equal(match, await _eventSubscription.IsLogForMeAsync(log));
         }
 
         [Fact]
@@ -89,7 +89,7 @@ namespace Nethereum.LogProcessing.Tests
         }
 
         [Fact]
-        public void FromEventAbis()
+        public async Task FromEventAbis()
         {
             var eventsToMatch = TestData.Contracts.StandardContract.ContractAbi.Events;
             var eventSubscription = new EventSubscription(eventsToMatch);
@@ -99,8 +99,8 @@ namespace Nethereum.LogProcessing.Tests
             var transferLog = TestData.Contracts.StandardContract.SampleTransferLog();
             var genericLog = new FilterLog();
 
-            Assert.True(eventSubscription.IsLogForEvent(transferLog));
-            Assert.False(eventSubscription.IsLogForEvent(genericLog));
+            Assert.True(await eventSubscription.IsLogForMeAsync(transferLog));
+            Assert.False(await eventSubscription.IsLogForMeAsync(genericLog));
         }
 
         [Fact]

@@ -12,21 +12,21 @@ namespace Nethereum.LogProcessing.Tests.Processors
     public class EventLogQueueProcessorTests
     {
         [Fact]
-        public void IsLogForEvent_WhenPredicateIsNull_ReturnsTrue()
+        public async Task IsLogForEvent_WhenPredicateIsNull_ReturnsTrue()
         {
             var queue = new Mock<IQueue>();
             var processor = new EventLogQueueProcessor(queue.Object);
             var transferEvent = TestData.Contracts.StandardContract.SampleTransferLog();
-            Assert.True(processor.IsLogForEvent(transferEvent));
+            Assert.True(await processor.IsLogForMeAsync(transferEvent));
         }
 
         [Fact]
-        public void IsLogForEvent_WhenPredicateIsNotNull_ReturnsPredicateResult()
+        public async Task IsLogForEvent_WhenPredicateIsNotNull_ReturnsPredicateResult()
         {
             var queue = new Mock<IQueue>();
             var processor = new EventLogQueueProcessor(queue.Object, predicate: log => false);
             var transferEvent = TestData.Contracts.StandardContract.SampleTransferLog();
-            Assert.False(processor.IsLogForEvent(transferEvent));
+            Assert.False(await processor.IsLogForMeAsync(transferEvent));
         }
 
         [Fact]

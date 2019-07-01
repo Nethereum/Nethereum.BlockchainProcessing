@@ -98,7 +98,7 @@ namespace Nethereum.BlockchainProcessing.Processing.Logs
                 return;
             }
 
-            var queues = Allocate(distinctLogs);
+            var queues = await Allocate(distinctLogs).ConfigureAwait(false);
 
             await ProcessQueuesAsync(queues, cancellationToken)
                 .ConfigureAwait(false);
@@ -124,15 +124,27 @@ namespace Nethereum.BlockchainProcessing.Processing.Logs
             }
         }
 
-        private Dictionary<ILogProcessor, IEnumerable<FilterLog>> Allocate(FilterLog[] logs)
+        private async Task<Dictionary<ILogProcessor, IEnumerable<FilterLog>>> Allocate(FilterLog[] logs)
         {
             _logger.AllocatingLogs(logs, _logProcessors);
 
-            var queues = _logProcessors
-                .ToDictionary(
-                    (processor) => processor, //key
-                    (processor) => logs.Where(processor.IsLogForEvent) // matching logs
-                );
+            var queues = new Dictionary<ILogProcessor, IEnumerable<FilterLog>>();
+
+            foreach(var processor in _logProcessors)
+            {
+                var logsForProcessor = new List<FilterLog>(logs.Length);
+
+                foreach(var log in logs)
+                {
+                    if(await processor.IsLogForMeAsync(log).ConfigureAwait(false))
+                    {
+                        logsForProcessor.Add(log);
+                    }
+                }
+
+                if(logsForProcessor.Any())
+                    queues.Add(processor, logsForProcessor);
+            }
 
             _logger.LogsAllocated(queues);
 

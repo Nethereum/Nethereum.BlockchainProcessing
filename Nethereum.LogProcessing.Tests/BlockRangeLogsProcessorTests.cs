@@ -35,12 +35,12 @@ namespace Nethereum.LogProcessing.Tests
 
             var logs = new[] { log1, log2, log3 };
 
-            log1Processor.Setup(p => p.IsLogForEvent(log1)).Returns(true);
-            log2Processor.Setup(p => p.IsLogForEvent(log2)).Returns(true);
+            log1Processor.Setup(p => p.IsLogForMeAsync(log1)).Returns(Task.FromResult(true));
+            log2Processor.Setup(p => p.IsLogForMeAsync(log2)).Returns(Task.FromResult(true));
 
             catchAllProcessor
-                .Setup(p => p.IsLogForEvent(It.IsAny<FilterLog>()))
-                .Returns(true);
+                .Setup(p => p.IsLogForMeAsync(It.IsAny<FilterLog>()))
+                .Returns(Task.FromResult(true));
 
             web3Mock.GetLogsMock
                 .Setup(p => p.SendRequestAsync(It.IsAny<NewFilterInput>(), null))
@@ -86,8 +86,8 @@ namespace Nethereum.LogProcessing.Tests
             var logsFromFilter2 = new[] { log2, duplicateLog };
 
             catchAllProcessor
-                .Setup(p => p.IsLogForEvent(It.IsAny<FilterLog>()))
-                .Returns(true);
+                .Setup(p => p.IsLogForMeAsync(It.IsAny<FilterLog>()))
+                .Returns(Task.FromResult(true));
 
             web3Mock.GetLogsMock
                 .Setup(p => p.SendRequestAsync(filter1, null))
@@ -150,8 +150,8 @@ namespace Nethereum.LogProcessing.Tests
             var log2 = new FilterLog() { TransactionHash = "y", LogIndex = new HexBigInteger(0) };
 
             catchAllProcessor
-                .Setup(p => p.IsLogForEvent(It.IsAny<FilterLog>()))
-                .Returns(true);
+                .Setup(p => p.IsLogForMeAsync(It.IsAny<FilterLog>()))
+                .Returns(Task.FromResult(true));
 
             web3Mock.GetLogsMock
                 .Setup(p => p.SendRequestAsync(filter1, null))
@@ -207,8 +207,8 @@ namespace Nethereum.LogProcessing.Tests
                 web3Mock.Web3, new[] { catchAllProcessor.Object });
 
             catchAllProcessor
-                .Setup(p => p.IsLogForEvent(It.IsAny<FilterLog>()))
-                .Returns(true);
+                .Setup(p => p.IsLogForMeAsync(It.IsAny<FilterLog>()))
+                .Returns(Task.FromResult(true));
 
             var logs = new[] { new FilterLog() };
 
@@ -223,7 +223,7 @@ namespace Nethereum.LogProcessing.Tests
             await logProcessor.ProcessAsync(new BlockRange(0, 10), cancellationToken.Token);
 
             catchAllProcessor
-                .Verify(p => p.IsLogForEvent(It.IsAny<FilterLog>()), Times.Never);
+                .Verify(p => p.IsLogForMeAsync(It.IsAny<FilterLog>()), Times.Never);
         }
 
         [Fact]
@@ -234,12 +234,12 @@ namespace Nethereum.LogProcessing.Tests
             var catchAllProcessor2 = new Mock<ILogProcessor>();
 
             catchAllProcessor1
-                .Setup(p => p.IsLogForEvent(It.IsAny<FilterLog>()))
-                .Returns(true);
+                .Setup(p => p.IsLogForMeAsync(It.IsAny<FilterLog>()))
+                .Returns(Task.FromResult(true));
 
             catchAllProcessor2
-                .Setup(p => p.IsLogForEvent(It.IsAny<FilterLog>()))
-                .Returns(true);
+                .Setup(p => p.IsLogForMeAsync(It.IsAny<FilterLog>()))
+                .Returns(Task.FromResult(true));
 
             var logProcessor = new BlockRangeLogsProcessor(
                 web3Mock.Web3, new[] { catchAllProcessor1.Object, catchAllProcessor2.Object });

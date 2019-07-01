@@ -10,7 +10,7 @@ namespace Nethereum.LogProcessing.Tests.Processors
     public class LogProcessorTests
     {
         [Fact]
-        public void IsLogForEvent_WhenTheEventMatchesReturnsTrue()
+        public async Task IsLogForEvent_WhenTheEventMatchesReturnsTrue()
         {
             EventLog<TestData.Contracts.StandardContract.TransferEvent>[] logsProcessed = null;
             var processor = new LogProcessor<TestData.Contracts.StandardContract.TransferEvent>((logs) => { logsProcessed = logs.ToArray(); return Task.CompletedTask; });
@@ -18,8 +18,8 @@ namespace Nethereum.LogProcessing.Tests.Processors
             var transferEvent = TestData.Contracts.StandardContract.SampleTransferLog();
             var nonTransferLog = new FilterLog();
 
-            Assert.True(processor.IsLogForEvent(transferEvent));
-            Assert.False(processor.IsLogForEvent(nonTransferLog));
+            Assert.True(await processor.IsLogForMeAsync(transferEvent));
+            Assert.False(await processor.IsLogForMeAsync(nonTransferLog));
         }
 
         [Fact]

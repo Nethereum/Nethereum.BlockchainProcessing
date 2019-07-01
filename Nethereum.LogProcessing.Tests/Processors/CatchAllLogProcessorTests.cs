@@ -13,10 +13,10 @@ namespace Nethereum.LogProcessing.Tests.Processors
     {
 
         [Fact]
-        public void IsLogForEvent_AlwaysReturnsTrue()
+        public async Task IsLogForEvent_AlwaysReturnsTrue()
         {
             var processor = new CatchAllFilterLogProcessor((logs) => Task.CompletedTask);
-            Assert.True(processor.IsLogForEvent(new FilterLog()));
+            Assert.True(await processor.IsLogForMeAsync(new FilterLog()));
         }
 
         [Fact]

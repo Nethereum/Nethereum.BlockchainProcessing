@@ -363,7 +363,7 @@ namespace Nethereum.LogProcessing.Tests
 
             var logsToProcess = new[] { new FilterLog() };
 
-            foreach (var log in logsToProcess) logProcessor.IsLogForEvent(log);
+            foreach (var log in logsToProcess) logProcessor.IsLogForMeAsync(log);
             await logProcessor.ProcessLogsAsync(logsToProcess);
 
             Assert.Equal(logsToProcess, logsQueried);
@@ -393,7 +393,7 @@ namespace Nethereum.LogProcessing.Tests
             var logProcessor = processor.Processors[0];
 
             var logsToProcess = new[] { new FilterLog() };
-            foreach (var log in logsToProcess) logProcessor.IsLogForEvent(log);
+            foreach (var log in logsToProcess) logProcessor.IsLogForMeAsync(log);
             await logProcessor.ProcessLogsAsync(logsToProcess);
 
             Assert.Equal(logsToProcess, logsQueried);

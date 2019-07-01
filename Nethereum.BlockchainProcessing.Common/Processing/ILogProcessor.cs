@@ -5,7 +5,7 @@ namespace Nethereum.BlockchainProcessing.Processing.Logs
 {
     public interface ILogProcessor
     {
-        bool IsLogForEvent(FilterLog log);
+        Task<bool> IsLogForMeAsync(FilterLog log);
         Task ProcessLogsAsync(params FilterLog[] eventLogs);
     }
 }

@@ -102,9 +102,9 @@ namespace Nethereum.BlockchainProcessing.Processing.Logs
         public IEventSubscriptionStateDto State { get; }
         public IEventMatcher Matcher { get; }
 
-        public bool IsLogForEvent(FilterLog log)
+        public Task<bool> IsLogForMeAsync(FilterLog log)
         {
-            return Matcher.IsMatch(log);
+            return Task.FromResult(Matcher.IsMatch(log));
         }
 
         public virtual Task ProcessLogsAsync(params FilterLog[] eventLogs)

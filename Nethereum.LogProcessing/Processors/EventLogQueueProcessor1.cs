@@ -21,7 +21,7 @@ namespace Nethereum.BlockchainProcessing.Processing.Logs
         public Predicate<FilterLog> Predicate { get; }
         public Func<FilterLog, object> Mapper { get; }
 
-        public virtual bool IsLogForEvent(FilterLog log) => Predicate(log);
+        public virtual Task<bool> IsLogForMeAsync(FilterLog log) => Task.FromResult(Predicate(log));
 
         public virtual async Task ProcessLogsAsync(params FilterLog[] eventLogs)
         {

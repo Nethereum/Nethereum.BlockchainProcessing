@@ -17,7 +17,7 @@ namespace Nethereum.BlockchainProcessing.Processing.Logs
         public ITransactionLogRepository Repository { get; }
         public Predicate<EventLog<TEventDto>> Predicate { get; }
 
-        public virtual bool IsLogForEvent(FilterLog log) => log.IsLogForEvent<TEventDto>();
+        public virtual Task<bool> IsLogForMeAsync(FilterLog log) => Task.FromResult(log.IsLogForEvent<TEventDto>());
 
         public virtual async Task ProcessLogsAsync(params FilterLog[] eventLogs)
         {
