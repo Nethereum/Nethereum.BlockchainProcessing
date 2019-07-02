@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 
 namespace Nethereum.BlockchainProcessing.Common.Processing
 {
-    
     public class Processor<T>: IProcessor<T>
     {
         public Func<T, Task<bool>> Criteria { get; protected set; }
@@ -24,6 +23,10 @@ namespace Nethereum.BlockchainProcessing.Common.Processing
         public virtual void AddProcessorHandler(Func<T,Task> action)
         {
             ProcessorHandlers.Add(action);
+        }
+        public virtual void AddProcessorHandler(IProcessorHandler<T> processorHandler)
+        {
+            ProcessorHandlers.Add(processorHandler.ExcecuteAsync);
         }
 
         public virtual async Task<bool> IsMatchAsync(T value)

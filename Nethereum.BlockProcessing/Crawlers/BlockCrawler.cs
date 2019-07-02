@@ -3,7 +3,6 @@ using Nethereum.BlockchainProcessing.Processing;
 using Nethereum.BlockchainProcessing.Processors.Transactions;
 using Nethereum.RPC.Eth.DTOs;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Nethereum.BlockchainProcessing.Nethereum.RPC.Eth.DTOs;
 using Nethereum.RPC.Eth.Services;
@@ -70,61 +69,6 @@ namespace Nethereum.BlockchainProcessing.Processors
      *   .SetTransactionStepMatchCriteria(tx => tx.IsFrom("x) && tx.IsForCreation(), async (tx) => dbLookup.(tx) address) tx
      *   .SetTransactionReceiptMatchCriteria(receipt.ContractAddress == "xx")
      */
-
-
-    public class CrawlerStepCompleted<T>
-    {
-        public CrawlerStepCompleted(IEnumerable<BlockchainProcessorExecutionSteps> executedStepsCollection, T stepData)
-        {
-            ExecutedStepsCollection = executedStepsCollection;
-            StepData = stepData;
-        }
-
-        public IEnumerable<BlockchainProcessorExecutionSteps> ExecutedStepsCollection { get; private set; }
-        public T StepData { get; private set; }
-
-    }
-
-    public abstract class CrawlerStep<TParentStep, TProcessStep>
-    {
-        protected IWeb3 Web3 { get; }
-
-        public CrawlerStep(
-            IWeb3 web3
-        )
-        {
-            Web3 = web3;
-        }
-
-        public abstract Task<TProcessStep> GetStepDataAsync(TParentStep parentStep);
-
-        public virtual async Task<CrawlerStepCompleted<TProcessStep>> ExecuteStepAsync(TParentStep parentStep, IEnumerable<BlockchainProcessorExecutionSteps> executionStepsCollection)
-        {
-            var processStepValue = await GetStepDataAsync(parentStep);
-            if (processStepValue == null) return null;
-            var stepsToProcesss =
-                await executionStepsCollection.FilterMatchingStepAsync(parentStep).ConfigureAwait(false);
-
-            if (stepsToProcesss.Any())
-            {
-                await stepsToProcesss.ExecuteCurrentStepAsync(parentStep);
-            }
-            return new CrawlerStepCompleted<TProcessStep>(stepsToProcesss, processStepValue);
-
-        }
-    }
-
-    public class BlockCrawler3 : CrawlerStep<BigInteger, BlockWithTransactions>
-    {
-        public BlockCrawler3(IWeb3 web3) : base(web3)
-        {
-
-        }
-        public override Task<BlockWithTransactions> GetStepDataAsync(BigInteger blockNumber)
-        {
-            return Web3.Eth.Blocks.GetBlockWithTransactionsByNumber.SendRequestAsync(blockNumber.ToHexBigInteger());
-        }
-    }
 
 
     public class BlockCrawler2

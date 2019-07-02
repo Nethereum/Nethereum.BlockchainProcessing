@@ -6,7 +6,7 @@ namespace Nethereum.BlockchainProcessing.Common.Processing
     public class BlockchainProcessorExecutionSteps
     {
         public IProcessor<Block> BlockStepProcessor = new Processor<Block>();
-        public IProcessor<Transaction> TransactionStepProcessor = new Processor<Transaction>();
+        public IProcessor<TransactionWithBlock> TransactionStepProcessor = new Processor<TransactionWithBlock>();
         public IProcessor<TransactionWithReceipt> TransactionReceiptStepProcessor = new Processor<TransactionWithReceipt>();
         public IProcessor<LogWithReceiptAndTransaction> FilterLogStepProcesor = new Processor<LogWithReceiptAndTransaction>();
 
@@ -17,7 +17,7 @@ namespace Nethereum.BlockchainProcessing.Common.Processing
             {
                 return (IProcessor<T>)BlockStepProcessor;
             }
-            else if (type == typeof(Transaction))
+            else if (type == typeof(TransactionWithBlock))
             {
                 return (IProcessor<T>)TransactionStepProcessor;
             }

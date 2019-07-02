@@ -4,38 +4,9 @@ using Nethereum.Web3;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Nethereum.BlockProcessing.Filters.Transactions;
-using Nethereum.BlockProcessing.ValueObjects;
 
 namespace Nethereum.BlockchainProcessing.Processors.Transactions
 {
-
-    public class TransactionCrawler : CrawlerStep<TransactionWithBlock, TransactionWithBlock>
-    {
-        public TransactionCrawler(IWeb3 web3) : base(web3)
-        {
-        }
-
-        public override Task<TransactionWithBlock> GetStepDataAsync(TransactionWithBlock parentStep)
-        {
-            return Task.FromResult(parentStep);
-        }
-    }
-
-    public class TransactionReceiptCrawler : CrawlerStep<TransactionWithBlock, TransactionWithReceipt>
-    {
-        public TransactionReceiptCrawler(IWeb3 web3) : base(web3)
-        {
-        }
-
-        public override async Task<TransactionWithReceipt> GetStepDataAsync(TransactionWithBlock transaction)
-        {
-            var receipt = await Web3.Eth.Transactions
-                .GetTransactionReceipt.SendRequestAsync(transaction.Transaction.TransactionHash)
-                .ConfigureAwait(false);
-            return new TransactionWithReceipt(transaction.Block, transaction.Transaction, receipt, receipt.HasErrors()?? false);
-        }
-    }
-
     public class TransactionProcessor : ITransactionProcessor
     {
         private readonly IValueTransactionProcessor _valueTransactionProcessor;
