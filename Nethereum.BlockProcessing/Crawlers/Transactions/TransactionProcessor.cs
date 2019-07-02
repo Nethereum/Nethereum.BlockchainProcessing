@@ -10,7 +10,7 @@ namespace Nethereum.BlockchainProcessing.Processors.Transactions
     public class TransactionProcessor : ITransactionProcessor
     {
         private readonly IValueTransactionProcessor _valueTransactionProcessor;
-        private readonly IContractCreationTransactionProcessor _contractCreationTransactionProcessor;
+        private readonly IContractCreationTransactionCrawler _contractCreationTransactionCrawler;
         private readonly ITransactionLogProcessor _transactionLogProcessor;
         private readonly List<ITransactionFilter> _transactionFilters;
         private readonly List<ITransactionReceiptFilter> _transactionReceiptFilters;
@@ -21,22 +21,22 @@ namespace Nethereum.BlockchainProcessing.Processors.Transactions
         public bool EnabledContractCreationProcessing { get; set; } = true;
         public bool EnabledContractProcessing { get; set; } = true;
         public bool EnabledValueProcessing { get; set; } = true;
-        public IContractTransactionProcessor ContractTransactionProcessor { get; }
+        public IContractTransactionCrawler ContractTransactionCrawler { get; }
 
         public TransactionProcessor(
             IWeb3 web3, 
-            IContractTransactionProcessor contractTransactionProcessor, 
+            IContractTransactionCrawler contractTransactionCrawler, 
             IValueTransactionProcessor valueTransactionProcessor, 
-            IContractCreationTransactionProcessor contractCreationTransactionProcessor,
+            IContractCreationTransactionCrawler contractCreationTransactionCrawler,
             ITransactionLogProcessor transactionLogProcessor,
             IEnumerable<ITransactionFilter> transactionFilters = null,
             IEnumerable<ITransactionReceiptFilter> transactionReceiptFilters = null,
             IEnumerable<ITransactionAndReceiptFilter> transactionAndReceiptFilters = null)
         {
             TransactionProxy = web3.Eth.Transactions;
-            ContractTransactionProcessor = contractTransactionProcessor;
+            ContractTransactionCrawler = contractTransactionCrawler;
             _valueTransactionProcessor = valueTransactionProcessor;
-            _contractCreationTransactionProcessor = contractCreationTransactionProcessor;
+            _contractCreationTransactionCrawler = contractCreationTransactionCrawler;
             _transactionLogProcessor = transactionLogProcessor;
             _transactionFilters = new List<ITransactionFilter>(
                 transactionFilters ?? new ITransactionFilter[0]);
@@ -72,7 +72,7 @@ namespace Nethereum.BlockchainProcessing.Processors.Transactions
                 return;
             }
 
-            if (await ContractTransactionProcessor.IsTransactionForContractAsync(tx))
+            if (await ContractTransactionCrawler.IsTransactionForContractAsync(tx))
             {
                 await ProcessContractTransaction(block, tx, receipt)
                     .ConfigureAwait(false);
@@ -98,7 +98,7 @@ namespace Nethereum.BlockchainProcessing.Processors.Transactions
             if (!EnabledContractProcessing) return;
 
             await
-                ContractTransactionProcessor.ProcessTransactionAsync(
+                ContractTransactionCrawler.ProcessTransactionAsync(
                         transactionSource, transactionReceipt, block.Timestamp)
                     .ConfigureAwait(false);
         }
@@ -108,7 +108,7 @@ namespace Nethereum.BlockchainProcessing.Processors.Transactions
             if (!EnabledContractCreationProcessing) return;
 
             await
-                _contractCreationTransactionProcessor.ProcessTransactionAsync(
+                _contractCreationTransactionCrawler.ProcessTransactionAsync(
                         transactionSource, transactionReceipt, block.Timestamp)
                     .ConfigureAwait(false);
         }

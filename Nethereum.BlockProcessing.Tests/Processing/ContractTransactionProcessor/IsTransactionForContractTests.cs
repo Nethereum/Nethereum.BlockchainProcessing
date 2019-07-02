@@ -16,7 +16,7 @@ namespace Nethereum.BlockProcessing.Tests
                 _transaction.To = toAddress;
                 InitProcessor();
 
-                Assert.False(await _processor.IsTransactionForContractAsync(_transaction));
+                Assert.False(await Crawler.IsTransactionForContractAsync(_transaction));
             }
 
             [Fact]
@@ -26,7 +26,7 @@ namespace Nethereum.BlockProcessing.Tests
                 InitProcessor();
                 _contractHandler.Setup(r => r.ExistsAsync(_transaction.To)).ReturnsAsync(false);
 
-                Assert.False(await _processor.IsTransactionForContractAsync(_transaction));
+                Assert.False(await Crawler.IsTransactionForContractAsync(_transaction));
             }
 
             [Fact]
@@ -36,7 +36,7 @@ namespace Nethereum.BlockProcessing.Tests
                 InitProcessor();
                 _contractHandler.Setup(r => r.ExistsAsync(_transaction.To)).ReturnsAsync(true);
 
-                Assert.True(await _processor.IsTransactionForContractAsync(_transaction));
+                Assert.True(await Crawler.IsTransactionForContractAsync(_transaction));
             }
         }
     }

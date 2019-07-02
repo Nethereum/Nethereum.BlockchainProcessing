@@ -11,8 +11,8 @@ namespace Nethereum.BlockchainProcessing.Handlers
     public class TransactionLogRouter : ITransactionLogHandler
     {
         private readonly List<
-            (Func<FilterLogWithReceiptAndTransaction, Task<bool>> condition, ITransactionLogHandler handler)> _handlers = 
-            new List<(Func<FilterLogWithReceiptAndTransaction, Task<bool>> condition, ITransactionLogHandler handler)>();
+            (Func<LogWithReceiptAndTransaction, Task<bool>> condition, ITransactionLogHandler handler)> _handlers = 
+            new List<(Func<LogWithReceiptAndTransaction, Task<bool>> condition, ITransactionLogHandler handler)>();
 
         public void AddHandler(ITransactionLogHandler handler)
         {
@@ -20,14 +20,14 @@ namespace Nethereum.BlockchainProcessing.Handlers
         }
 
         public void AddHandler(
-            Func<FilterLogWithReceiptAndTransaction, bool> condition, 
+            Func<LogWithReceiptAndTransaction, bool> condition, 
             ITransactionLogHandler handler)
         {
             _AddHandler(condition, handler);
         }
 
         public void AddHandler(
-            Func<FilterLogWithReceiptAndTransaction, Task<bool>> condition, 
+            Func<LogWithReceiptAndTransaction, Task<bool>> condition, 
             ITransactionLogHandler handler)
         {
             _AddHandler(condition, handler);
@@ -40,34 +40,34 @@ namespace Nethereum.BlockchainProcessing.Handlers
         }
 
         public void AddHandler<TEvent>(
-            Func<FilterLogWithReceiptAndTransaction, bool> condition, 
+            Func<LogWithReceiptAndTransaction, bool> condition, 
             ITransactionLogHandler<TEvent> handler) where TEvent: new()
         {
             _AddHandler((log) => log.IsForEvent<TEvent>() && condition(log), handler);
         }
 
         public void AddHandler<TEvent>(
-            Func<FilterLogWithReceiptAndTransaction, Task<bool>> condition, 
+            Func<LogWithReceiptAndTransaction, Task<bool>> condition, 
             ITransactionLogHandler<TEvent> handler) where TEvent: new()
         {
             _AddHandler(async (log) => log.IsForEvent<TEvent>() && await condition(log), handler);
         }
 
         private void _AddHandler(
-            Func<FilterLogWithReceiptAndTransaction, bool> condition, 
+            Func<LogWithReceiptAndTransaction, bool> condition, 
             ITransactionLogHandler handler)
         {
             AddHandler(t => Task.FromResult(condition(t)), handler);
         }
 
         private void _AddHandler(
-            Func<FilterLogWithReceiptAndTransaction, Task<bool>> condition, 
+            Func<LogWithReceiptAndTransaction, Task<bool>> condition, 
             ITransactionLogHandler handler)
         {
             _handlers.Add((condition, handler));
         }
 
-        public async Task HandleAsync(FilterLogWithReceiptAndTransaction filterLogWithReceiptAndTransactionLog)
+        public async Task HandleAsync(LogWithReceiptAndTransaction filterLogWithReceiptAndTransactionLog)
         {
             foreach (var (condition, handler) in _handlers)
             {

@@ -14,7 +14,7 @@ namespace Nethereum.BlockProcessing.Tests
         protected readonly Mock<IBlockHandler> MockBlockHandler;
         protected readonly Mock<ITransactionProcessor> MockTransactionProcessor;
         protected readonly List<IBlockFilter> BlockFilters;
-        protected readonly BlockProcessor BlockProcessor;
+        protected readonly BlockCrawler BlockCrawler;
         protected readonly Web3Mock Web3Mock;
 
         public BlockProcessorTestBase()
@@ -23,7 +23,7 @@ namespace Nethereum.BlockProcessing.Tests
             MockBlockHandler = new Mock<IBlockHandler>();
             MockTransactionProcessor = new Mock<ITransactionProcessor>();
             BlockFilters = new List<IBlockFilter>();
-            BlockProcessor = new BlockProcessor(
+            BlockCrawler = new BlockCrawler(
                 Web3Mock.Web3,
                 MockBlockHandler.Object,
                 MockTransactionProcessor.Object,

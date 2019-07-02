@@ -13,7 +13,7 @@ namespace Nethereum.BlockchainStore.Repositories
         public StorageProcessingStrategy(
             RepositoryHandlerContext repositoryHandlerContext,
             IBlockProgressRepository blockProgressRepository,
-            IBlockProcessor blockProcessor):base(blockProcessor, blockProgressRepository)
+            IBlockCrawler blockCrawler):base(blockCrawler, blockProgressRepository)
         {
             _repositoryHandlerContext = repositoryHandlerContext;
         }

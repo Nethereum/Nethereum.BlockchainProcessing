@@ -3,5 +3,5 @@ using Nethereum.BlockProcessing.ValueObjects;
 
 namespace Nethereum.BlockProcessing.Filters.Transactions
 {
-    public interface ITransactionLogFilter: IFilter<FilterLogWithReceiptAndTransaction>{}
+    public interface ITransactionLogFilter: IFilter<LogWithReceiptAndTransaction>{}
 }

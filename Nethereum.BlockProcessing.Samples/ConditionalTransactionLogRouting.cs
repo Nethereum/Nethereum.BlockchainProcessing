@@ -35,9 +35,9 @@ namespace Nethereum.BlockProcessing.Samples
 
         public class CatchAllEventLogHandler : ITransactionLogHandler
         {
-            public List<FilterLogWithReceiptAndTransaction> EventsHandled = new List<FilterLogWithReceiptAndTransaction>();
+            public List<LogWithReceiptAndTransaction> EventsHandled = new List<LogWithReceiptAndTransaction>();
 
-            public Task HandleAsync(FilterLogWithReceiptAndTransaction filterLogWithReceiptAndTransactionLog)
+            public Task HandleAsync(LogWithReceiptAndTransaction filterLogWithReceiptAndTransactionLog)
             {
                 EventsHandled.Add(filterLogWithReceiptAndTransactionLog);
                 return Task.CompletedTask;
@@ -46,10 +46,10 @@ namespace Nethereum.BlockProcessing.Samples
 
         public class SpecificEventLogHandler<TEvent> : ITransactionLogHandler<TEvent> where TEvent : new()
         {
-            public List<(FilterLogWithReceiptAndTransaction, EventLog<TransferEvent>)> EventsHandled = 
-                new List<(FilterLogWithReceiptAndTransaction, EventLog<TransferEvent>)>();
+            public List<(LogWithReceiptAndTransaction, EventLog<TransferEvent>)> EventsHandled = 
+                new List<(LogWithReceiptAndTransaction, EventLog<TransferEvent>)>();
 
-            public Task HandleAsync(FilterLogWithReceiptAndTransaction filterLogWithReceiptAndTransactionLog)
+            public Task HandleAsync(LogWithReceiptAndTransaction filterLogWithReceiptAndTransactionLog)
             {
                 var eventValues = filterLogWithReceiptAndTransactionLog.Decode<TransferEvent>();
                 EventsHandled.Add((filterLogWithReceiptAndTransactionLog, eventValues));

@@ -69,7 +69,120 @@ namespace Nethereum.BlockchainProcessing.Processors
      *   .SetTransactionStepMatchCriteria(tx => tx.IsFrom("x) && tx.IsForCreation(), async (tx) => dbLookup.(tx) address) tx
      *   .SetTransactionReceiptMatchCriteria(receipt.ContractAddress == "xx")
      */
-    public class BlockProcessor : IBlockProcessor
+
+
+    public class BlockCrawler2
+    {
+        private readonly IEnumerable<IProcessor<Block>> _blockStepProcessors;
+        protected IEthApiContractService BlockProxy { get; }
+        protected ITransactionProcessor TransactionProcessor { get; }
+
+        private readonly UniqueTransactionHashList _processedTransactions = new UniqueTransactionHashList();
+        private BigInteger _lastBlock;
+        private readonly object _sync = new object();
+
+        public BlockCrawler2(
+            IWeb3 web3,
+            IEnumerable<IProcessor<Block>> blockStepProcessors
+            //ITransactionProcessor transactionProcessor,
+        )
+        {
+            _blockStepProcessors = blockStepProcessors;
+            BlockProxy = web3.Eth;
+            //TransactionProcessor = transactionProcessor;
+        }
+
+        public bool ProcessTransactionsInParallel { get; set; } = true;
+
+        public virtual async Task ProcessBlockAsync(BigInteger blockNumber)
+        {
+            var block = await BlockProxy
+                .Blocks
+                .GetBlockWithTransactionsByNumber.SendRequestAsync(blockNumber.ToHexBigInteger())
+                .ConfigureAwait(false);
+
+            if (block == null)
+                throw new BlockNotFoundException(blockNumber);
+
+
+            if (await _blockStepProcessors.IsStepMatchAsync(block))
+            {
+                await BlockHandler.HandleAsync(block);
+
+                if (ProcessTransactionsInParallel)
+                    await ProcessTransactionsMultiThreaded(block).ConfigureAwait(false);
+                else
+                    await ProcessTransactions(block).ConfigureAwait(false);
+            }
+        }
+
+        public virtual async Task<BigInteger> GetMaxBlockNumberAsync()
+        {
+            var blockNumber = await BlockProxy.Blocks.GetBlockNumber.SendRequestAsync().ConfigureAwait(false);
+            return blockNumber.Value;
+        }
+
+        protected virtual void ClearCacheOfProcessedTransactions()
+        {
+            lock (_sync)
+            {
+                _processedTransactions.Clear();
+            }
+        }
+
+        protected virtual bool HasAlreadyBeenProcessed(Transaction transaction)
+        {
+            lock (_sync)
+            {
+                return _processedTransactions.Contains(transaction.TransactionHash);
+            }
+        }
+
+        protected virtual void MarkAsProcessed(Transaction transaction)
+        {
+            lock (_sync)
+            {
+                _processedTransactions.Add(transaction.TransactionHash);
+            }
+        }
+
+        protected virtual async Task ProcessTransactions(BlockWithTransactions block)
+        {
+            foreach (var txn in block.Transactions)
+            {
+                if (!HasAlreadyBeenProcessed(txn))
+                {
+                    await TransactionProcessor.ProcessTransactionAsync(block, txn)
+                        .ConfigureAwait(false);
+                    MarkAsProcessed(txn);
+                }
+            }
+        }
+
+        protected virtual async Task ProcessTransactionsMultiThreaded(BlockWithTransactions block)
+        {
+            var txTasks = new List<Task>(block.Transactions.Length);
+
+            foreach (var txn in block.Transactions)
+            {
+                if (!HasAlreadyBeenProcessed(txn))
+                {
+                    var task = TransactionProcessor.ProcessTransactionAsync(block, txn)
+                        .ContinueWith((t) =>
+                        {
+                            MarkAsProcessed(txn);
+                        });
+
+                    txTasks.Add(task);
+                }
+            }
+
+            await Task.WhenAll(txTasks).ConfigureAwait(false);
+        }
+    }
+
+
+    public class BlockCrawler : IBlockCrawler
     {
         protected IEthApiContractService BlockProxy { get; }
         protected IBlockHandler BlockHandler { get; }
@@ -80,7 +193,7 @@ namespace Nethereum.BlockchainProcessing.Processors
         private BigInteger _lastBlock;
         private readonly object _sync = new object();
 
-        public BlockProcessor(
+        public BlockCrawler(
             IWeb3 web3, 
             IBlockHandler blockHandler,
             ITransactionProcessor transactionProcessor, 

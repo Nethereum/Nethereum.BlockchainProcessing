@@ -18,7 +18,7 @@ namespace Nethereum.BlockProcessing.Tests
             private readonly Web3Mock _web3Mock = new Web3Mock();
             private readonly Mock<IContractHandler> _contractHandler = new Mock<IContractHandler>();
             private readonly Mock<ITransactionHandler> _transactionHandler = new Mock<ITransactionHandler>();
-            private ContractCreationTransactionProcessor _processor;
+            private ContractCreationTransactionCrawler _crawler;
 
             private readonly HexBigInteger _blockTimestamp =
                 new HexBigInteger(DateTimeOffset.UtcNow.ToUnixTimeSeconds());
@@ -32,9 +32,9 @@ namespace Nethereum.BlockProcessing.Tests
                 };
                 var receipt = new TransactionReceipt();
 
-                _processor = CreateProcessor();
+                _crawler = CreateProcessor();
 
-                await _processor.ProcessTransactionAsync(
+                await _crawler.ProcessTransactionAsync(
                     transaction, receipt, _blockTimestamp);
 
                 EnsureNothingWasProcessed(transaction, receipt);
@@ -54,9 +54,9 @@ namespace Nethereum.BlockProcessing.Tests
                 MockHandleContract(transaction, receipt, Code);
                 MockHandleTransaction(transaction, receipt, Code);
 
-                _processor = CreateProcessor();
+                _crawler = CreateProcessor();
 
-                await _processor.ProcessTransactionAsync(
+                await _crawler.ProcessTransactionAsync(
                     transaction, receipt, _blockTimestamp);
 
                 EnsureContractHandlerWasInvoked();
@@ -82,9 +82,9 @@ namespace Nethereum.BlockProcessing.Tests
 
                 MockHandleTransaction(transaction, receipt, code, failedContractCreation);
 
-                _processor = CreateProcessor();
+                _crawler = CreateProcessor();
 
-                await _processor.ProcessTransactionAsync(
+                await _crawler.ProcessTransactionAsync(
                     transaction, receipt, _blockTimestamp);
 
                 EnsureContractHandlerWasNotInvoked(transaction);
@@ -104,9 +104,9 @@ namespace Nethereum.BlockProcessing.Tests
                         Times.Never);
             }
 
-            private ContractCreationTransactionProcessor CreateProcessor()
+            private ContractCreationTransactionCrawler CreateProcessor()
             {
-                return new ContractCreationTransactionProcessor(
+                return new ContractCreationTransactionCrawler(
                     _web3Mock.Web3, _contractHandler.Object, _transactionHandler.Object);
             }
 

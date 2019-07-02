@@ -10,9 +10,9 @@ using Nethereum.Hex.HexTypes;
 
 namespace Nethereum.BlockchainProcessing.Processors.PostProcessors
 {
-    public class BlockPostProcessor : BlockProcessor
+    public class BlockPostCrawler : BlockCrawler
     {
-        public BlockPostProcessor(IWeb3 web3, IBlockHandler blockHandler, ITransactionProcessor transactionProcessor) 
+        public BlockPostCrawler(IWeb3 web3, IBlockHandler blockHandler, ITransactionProcessor transactionProcessor) 
             : base(web3, blockHandler, transactionProcessor)
         {
         }

@@ -7,7 +7,7 @@ namespace Nethereum.BlockchainProcessing.Common.Processing
     {
         void SetMatchCriteria(Func<T, bool> criteria);
         void SetMatchCriteria(Func<T, Task<bool>> criteria);
-        void AddProcessorHandler(Func<Task<T>> action);
+        void AddProcessorHandler(Func<T, Task> action);
         Task<bool> IsMatchAsync(T value);
         Task ExecuteAsync(T value);
     }

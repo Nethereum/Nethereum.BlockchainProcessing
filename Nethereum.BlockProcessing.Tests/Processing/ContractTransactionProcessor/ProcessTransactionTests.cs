@@ -30,7 +30,7 @@ namespace Nethereum.BlockProcessing.Tests
             InitProcessor();
 
             //execute
-            await _processor.ProcessTransactionAsync(_transaction, _receipt, _blockTimestamp);
+            await Crawler.ProcessTransactionAsync(_transaction, _receipt, _blockTimestamp);
 
             //assert
             EnsureHandleVmStackWasInvoked();
@@ -45,7 +45,7 @@ namespace Nethereum.BlockProcessing.Tests
             InitProcessor();
 
             //execute
-            await _processor.ProcessTransactionAsync(_transaction, _receipt, _blockTimestamp);
+            await Crawler.ProcessTransactionAsync(_transaction, _receipt, _blockTimestamp);
 
             //assert
             EnsureHandleTxLogWasNotInvoked();
@@ -66,7 +66,7 @@ namespace Nethereum.BlockProcessing.Tests
             InitProcessor();
 
             //execute
-            await _processor.ProcessTransactionAsync(_transaction, _receipt, _blockTimestamp);
+            await Crawler.ProcessTransactionAsync(_transaction, _receipt, _blockTimestamp);
 
             //assert
             EnsureHandleTransactionWasInvoked();
@@ -86,7 +86,7 @@ namespace Nethereum.BlockProcessing.Tests
 
             InitProcessor();
             //execute
-            await _processor.ProcessTransactionAsync(_transaction, _receipt, _blockTimestamp);
+            await Crawler.ProcessTransactionAsync(_transaction, _receipt, _blockTimestamp);
 
             //assert
             EnsureHandleVmStackWasInvoked();
@@ -104,7 +104,7 @@ namespace Nethereum.BlockProcessing.Tests
             InitProcessor(enableVmStackProcessing: false);
 
             //execute
-            await _processor.ProcessTransactionAsync(_transaction, _receipt, _blockTimestamp);
+            await Crawler.ProcessTransactionAsync(_transaction, _receipt, _blockTimestamp);
 
             //assert
             VerifyVmStackInfoHasNotBeenProcessed();

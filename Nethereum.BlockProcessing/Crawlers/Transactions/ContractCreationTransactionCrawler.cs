@@ -9,13 +9,13 @@ using Transaction = Nethereum.RPC.Eth.DTOs.Transaction;
 
 namespace Nethereum.BlockchainProcessing.Processors.Transactions
 {
-    public class ContractCreationTransactionProcessor : IContractCreationTransactionProcessor
+    public class ContractCreationTransactionCrawler : IContractCreationTransactionCrawler
     {
         private readonly IEthGetCode _getCodeProxy;
         private readonly IContractHandler _contractHandler;
         private readonly ITransactionHandler _transactionHandler;
 
-        public ContractCreationTransactionProcessor(
+        public ContractCreationTransactionCrawler(
           IWeb3 web3, 
           IContractHandler contractHandler, 
           ITransactionHandler transactionHandler)

@@ -31,7 +31,7 @@ namespace Nethereum.BlockchainStore.Search
 
         public int Pending => _currentBatch.Count;
 
-        public async Task HandleAsync(FilterLogWithReceiptAndTransaction filterLogWithReceiptAndTransactionLog)
+        public async Task HandleAsync(LogWithReceiptAndTransaction filterLogWithReceiptAndTransactionLog)
         {
             try
             {

@@ -9,13 +9,13 @@ namespace Nethereum.BlockchainProcessing.Processing
 {
     public static class BlockProcessorFactory
     {
-        public static IBlockProcessor Create(IWeb3 web3,
+        public static IBlockCrawler Create(IWeb3 web3,
             HandlerContainer handlers, FilterContainer filters = null, bool postVm = false, bool processTransactionsInParallel = true)
         {
             return Create(web3, new VmStackErrorCheckerWrapper(), handlers, filters, postVm, processTransactionsInParallel);
         }
 
-        public static IBlockProcessor Create(
+        public static IBlockCrawler Create(
             IWeb3 web3, IVmStackErrorChecker vmStackErrorChecker, 
             HandlerContainer handlers, FilterContainer filters = null, bool postVm = false, bool processTransactionsInParallel = true)
         {
@@ -24,11 +24,11 @@ namespace Nethereum.BlockchainProcessing.Processing
                 filters?.TransactionLogFilters,
                 handlers.TransactionLogHandler);
 
-            var contractTransactionProcessor = new ContractTransactionProcessor(
+            var contractTransactionProcessor = new ContractTransactionCrawler(
                 web3, vmStackErrorChecker, handlers.ContractHandler,
                 handlers.TransactionHandler, handlers.TransactionVmStackHandler);
 
-            var contractCreationTransactionProcessor = new ContractCreationTransactionProcessor(
+            var contractCreationTransactionProcessor = new ContractCreationTransactionCrawler(
                 web3, handlers.ContractHandler,
                 handlers.TransactionHandler);
 
@@ -46,14 +46,14 @@ namespace Nethereum.BlockchainProcessing.Processing
                 filters?.TransactionAndReceiptFilters);
 
             if (postVm)
-                return new BlockVmPostProcessor(
+                return new BlockVmPostCrawler(
                     web3, handlers.BlockHandler, transactionProcessor)
                 {
                     ProcessTransactionsInParallel = processTransactionsInParallel
                 };
 
-            transactionProcessor.ContractTransactionProcessor.EnabledVmProcessing = false;
-            return new BlockProcessor(
+            transactionProcessor.ContractTransactionCrawler.EnabledVmProcessing = false;
+            return new BlockCrawler(
                 web3, handlers.BlockHandler, transactionProcessor, filters?.BlockFilters)
             {
                 ProcessTransactionsInParallel = processTransactionsInParallel
