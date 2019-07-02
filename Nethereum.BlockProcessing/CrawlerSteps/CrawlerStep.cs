@@ -8,8 +8,8 @@ namespace Nethereum.BlockchainProcessing.Processors
 {
     public abstract class CrawlerStep<TParentStep, TProcessStep>
     {
+        //TODO: Disable step and / or handlers
         protected IWeb3 Web3 { get; }
-
         public CrawlerStep(
             IWeb3 web3
         )
