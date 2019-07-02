@@ -15,9 +15,9 @@ namespace Nethereum.BlockProcessing.Tests
     {
         readonly Web3Mock _web3Mock = new Web3Mock();
         private const string TxHash = "0xc185cc7b9f7862255b82fd41be561fdc94d030567d0b41292008095bf31c39b9";
-        readonly Mock<IContractTransactionProcessor> _mockContractTransactionProcessor = new Mock<IContractTransactionProcessor>();
+        readonly Mock<IContractTransactionCrawler> _mockContractTransactionProcessor = new Mock<IContractTransactionCrawler>();
         readonly Mock<IValueTransactionProcessor> _mockValueTransactionProcessor = new Mock<IValueTransactionProcessor>();
-        readonly Mock<IContractCreationTransactionProcessor> _mockContractCreationTransactionProcessor = new Mock<IContractCreationTransactionProcessor>();
+        readonly Mock<IContractCreationTransactionCrawler> _mockContractCreationTransactionProcessor = new Mock<IContractCreationTransactionCrawler>();
         readonly Mock<ITransactionLogProcessor> _mockTransactionLogProcessor = new Mock<ITransactionLogProcessor>();
         readonly List<ITransactionFilter> _transactionFilters = new List<ITransactionFilter>();
         readonly List<ITransactionReceiptFilter> _transactionReceiptFilters = new List<ITransactionReceiptFilter>();

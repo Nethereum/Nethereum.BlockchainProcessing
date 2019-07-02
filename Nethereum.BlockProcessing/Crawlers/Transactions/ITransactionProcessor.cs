@@ -10,6 +10,6 @@ namespace Nethereum.BlockchainProcessing.Processors.Transactions
         bool EnabledContractProcessing { get; set; }
         bool EnabledValueProcessing { get; set; }
 
-        IContractTransactionProcessor ContractTransactionProcessor { get; }
+        IContractTransactionCrawler ContractTransactionCrawler { get; }
     }
 }

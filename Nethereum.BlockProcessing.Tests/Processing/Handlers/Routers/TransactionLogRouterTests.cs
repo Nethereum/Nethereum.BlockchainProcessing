@@ -13,7 +13,7 @@ namespace Nethereum.BlockProcessing.Tests.Handlers.Routers
         private readonly Mock<ITransactionLogHandler> _mockTransactionLogHandler = new Mock<ITransactionLogHandler>();
         private readonly Mock<ITransactionLogHandler<TestEventDto>> _mockEventHandler = new Mock<ITransactionLogHandler<TestEventDto>>();
 
-        private readonly Mock<FilterLogWithReceiptAndTransaction> _mockLog = new Mock<FilterLogWithReceiptAndTransaction>();
+        private readonly Mock<LogWithReceiptAndTransaction> _mockLog = new Mock<LogWithReceiptAndTransaction>();
         private readonly TransactionLogRouter router = new TransactionLogRouter();
 
         [Fact]

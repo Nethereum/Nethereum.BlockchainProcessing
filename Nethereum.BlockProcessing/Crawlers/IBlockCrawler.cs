@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace Nethereum.BlockchainProcessing.Processors
 {
-    public interface IBlockProcessor
+    public interface IBlockCrawler
     {
         bool ProcessTransactionsInParallel { get;set; }
         Task ProcessBlockAsync(BigInteger blockNumber);

@@ -33,13 +33,13 @@ namespace Nethereum.BlockProcessing.Samples
 
         public class TransferEventHandler: ITransactionLogHandler<TransferEvent>
         {
-            public List<(FilterLogWithReceiptAndTransaction, EventLog<TransferEvent>)> TransferEventsHandled = 
-                new List<(FilterLogWithReceiptAndTransaction, EventLog<TransferEvent>)>();
+            public List<(LogWithReceiptAndTransaction, EventLog<TransferEvent>)> TransferEventsHandled = 
+                new List<(LogWithReceiptAndTransaction, EventLog<TransferEvent>)>();
 
-            public List<FilterLogWithReceiptAndTransaction> TransferEventsWithDifferentSignature = 
-                new List<FilterLogWithReceiptAndTransaction>();
+            public List<LogWithReceiptAndTransaction> TransferEventsWithDifferentSignature = 
+                new List<LogWithReceiptAndTransaction>();
 
-            public Task HandleAsync(FilterLogWithReceiptAndTransaction filterLogWithReceiptAndTransactionLog)
+            public Task HandleAsync(LogWithReceiptAndTransaction filterLogWithReceiptAndTransactionLog)
             {
                 try
                 {

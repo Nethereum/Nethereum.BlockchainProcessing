@@ -24,11 +24,11 @@ namespace Nethereum.BlockchainStore.Tests.Processing.ContractTransactionProcesso
         protected readonly List<ITransactionLogFilter> _transactionLogFilters = new List<ITransactionLogFilter>();
         protected readonly Transaction _transaction = new Transaction { TransactionHash = "0x19ce02e0b4fdf5cfee0ed21141b38c2d88113c58828c771e813ce2624af127cd", To = "0x1009b29f2094457d3dba62d1953efea58176ba27"};
         protected readonly TransactionReceipt _receipt = new TransactionReceipt {Status = new HexBigInteger(1)};
-        protected ContractTransactionProcessor _processor;
+        protected ContractTransactionCrawler Crawler;
 
         protected void InitProcessor(bool enableVmStackProcessing = true)
         {
-            _processor = new ContractTransactionProcessor(
+            Crawler = new ContractTransactionCrawler(
                 _web3Mock.Web3,
                 _vmStackErrorChecker.Object,
                 _contractHandler.Object,

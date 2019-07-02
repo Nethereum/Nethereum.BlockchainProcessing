@@ -6,11 +6,11 @@ namespace Nethereum.BlockchainProcessing.Processing
 {
     public class BlockchainProcessingStrategy : IBlockchainProcessingStrategy
     {
-        protected readonly IBlockProcessor BlockProcessor;
+        protected readonly IBlockCrawler BlockCrawler;
 
-        public ProcessingStrategy(IBlockProcessor blockProcessor, IBlockProgressRepository blockProgressRepository = null)
+        public BlockchainProcessingStrategy(IBlockCrawler blockCrawler, IBlockProgressRepository blockProgressRepository = null)
         {
-            BlockProcessor = blockProcessor;
+            BlockCrawler = blockCrawler;
             BlockProgressRepository = blockProgressRepository ?? new InMemoryBlockchainProgressRepository(null);
         }
 
@@ -28,9 +28,9 @@ namespace Nethereum.BlockchainProcessing.Processing
         public virtual Task WaitForNextBlock(uint retryNumber) => WaitStrategy.Apply(retryNumber);
         public virtual async Task ProcessBlockAsync(BigInteger blockNumber) 
         {
-            await BlockProcessor.ProcessBlockAsync(blockNumber).ConfigureAwait(false); 
+            await BlockCrawler.ProcessBlockAsync(blockNumber).ConfigureAwait(false); 
             await BlockProgressRepository.UpsertProgressAsync(blockNumber).ConfigureAwait(false);
         }
-        public virtual Task<BigInteger> GetMaxBlockNumberAsync() => BlockProcessor.GetMaxBlockNumberAsync();
+        public virtual Task<BigInteger> GetMaxBlockNumberAsync() => BlockCrawler.GetMaxBlockNumberAsync();
     }
 }

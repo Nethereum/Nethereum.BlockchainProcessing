@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Nethereum.BlockchainProcessing.Processors.PostProcessors
 {
-    public class BlockVmPostProcessor : BlockPostProcessor
+    public class BlockVmPostCrawler : BlockPostCrawler
     {
-        public BlockVmPostProcessor(IWeb3 web3, IBlockHandler blockHandler, ITransactionProcessor transactionProcessor) : base(web3, blockHandler, transactionProcessor)
+        public BlockVmPostCrawler(IWeb3 web3, IBlockHandler blockHandler, ITransactionProcessor transactionProcessor) : base(web3, blockHandler, transactionProcessor)
         {
         }
 
@@ -17,7 +17,7 @@ namespace Nethereum.BlockchainProcessing.Processors.PostProcessors
             TransactionProcessor.EnabledValueProcessing = false;
             TransactionProcessor.EnabledContractCreationProcessing = false;
             TransactionProcessor.EnabledContractProcessing = true;
-            TransactionProcessor.ContractTransactionProcessor.EnabledVmProcessing = true;
+            TransactionProcessor.ContractTransactionCrawler.EnabledVmProcessing = true;
             return base.ProcessBlockAsync(blockNumber);
         }
     }

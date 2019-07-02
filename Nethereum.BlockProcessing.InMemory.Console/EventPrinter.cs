@@ -14,7 +14,7 @@ namespace Nethereum.BlockchainProcessing.InMemory.Console
             _eventName = ABITypedRegistry.GetEvent<TEvent>().Name;
         }
 
-        public Task HandleAsync(FilterLogWithReceiptAndTransaction filterLogWithReceiptAndTransactionLog)
+        public Task HandleAsync(LogWithReceiptAndTransaction filterLogWithReceiptAndTransactionLog)
         {
             if (!filterLogWithReceiptAndTransactionLog.IsForEvent<TEvent>())
                 return Task.CompletedTask;

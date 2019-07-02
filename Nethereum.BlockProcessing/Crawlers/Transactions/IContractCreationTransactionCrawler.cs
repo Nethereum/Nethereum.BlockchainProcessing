@@ -4,15 +4,11 @@ using Nethereum.RPC.Eth.DTOs;
 
 namespace Nethereum.BlockchainProcessing.Processors.Transactions
 {
-    public interface IContractTransactionProcessor
+    public interface IContractCreationTransactionCrawler
     {
-        Task<bool> IsTransactionForContractAsync(Transaction transaction);
-
         Task ProcessTransactionAsync(
             Transaction transaction, 
-            TransactionReceipt transactionReceipt,
+            TransactionReceipt transactionReceipt, 
             HexBigInteger blockTimestamp);
-
-        bool EnabledVmProcessing { get; set; }
     }
 }

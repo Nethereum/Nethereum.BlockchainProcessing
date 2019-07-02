@@ -37,7 +37,7 @@ namespace Nethereum.BlockchainProcessing.Processors
             return false;
         }
         //TODO: JB mOVE TO TXN EXTENSION
-        public static IEnumerable<FilterLogWithReceiptAndTransaction> GetTransactionLogs(this Transaction transaction, TransactionReceipt receipt)
+        public static IEnumerable<LogWithReceiptAndTransaction> GetTransactionLogs(this Transaction transaction, TransactionReceipt receipt)
         {
             for (var i = 0; i < receipt.Logs?.Count; i++)
             {
@@ -46,7 +46,7 @@ namespace Nethereum.BlockchainProcessing.Processors
                     var typedLog = log.ToObject<FilterLog>();
 
                     yield return
-                        new FilterLogWithReceiptAndTransaction(transaction, receipt, typedLog);
+                        new LogWithReceiptAndTransaction(transaction, receipt, typedLog);
                 }
             }
         }

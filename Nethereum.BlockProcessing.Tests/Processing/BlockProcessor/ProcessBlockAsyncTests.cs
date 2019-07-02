@@ -23,7 +23,7 @@ namespace Nethereum.BlockProcessing.Tests
 
                 //execute
                 await Assert.ThrowsAsync<BlockNotFoundException>(
-                    async () => await BlockProcessor.ProcessBlockAsync(BlockNumber));
+                    async () => await BlockCrawler.ProcessBlockAsync(BlockNumber));
             }
         }
 
@@ -54,7 +54,7 @@ namespace Nethereum.BlockProcessing.Tests
             public async Task Invokes_BlockHandler_And_TransactionProcessor()
             {
                 //execute
-                await BlockProcessor.ProcessBlockAsync(BlockNumber);
+                await BlockCrawler.ProcessBlockAsync(BlockNumber);
 
                 //assert
                 MockBlockHandler.Verify(b => b.HandleAsync(_stubBlock), Times.Once);
@@ -75,7 +75,7 @@ namespace Nethereum.BlockProcessing.Tests
                 BlockFilters.Add(matchingBlockFilter.Object);
 
                 //execute
-                await BlockProcessor.ProcessBlockAsync(BlockNumber);
+                await BlockCrawler.ProcessBlockAsync(BlockNumber);
 
                 //assert
                 matchingBlockFilter.Verify(b => b.IsMatchAsync(_stubBlock), Times.Once);
@@ -98,7 +98,7 @@ namespace Nethereum.BlockProcessing.Tests
                 BlockFilters.Add(nonMatchingFilter.Object);
 
                 //execute
-                await BlockProcessor.ProcessBlockAsync(BlockNumber);
+                await BlockCrawler.ProcessBlockAsync(BlockNumber);
 
                 //assert
                 nonMatchingFilter.Verify(b => b.IsMatchAsync(_stubBlock), Times.Once);
@@ -115,8 +115,8 @@ namespace Nethereum.BlockProcessing.Tests
             public async Task When_Reprocessing_The_Previous_Block_Will_Ignore_Transactions_Already_Processed()
             {
                 //execute same block twice
-                await BlockProcessor.ProcessBlockAsync(BlockNumber);
-                await BlockProcessor.ProcessBlockAsync(BlockNumber);
+                await BlockCrawler.ProcessBlockAsync(BlockNumber);
+                await BlockCrawler.ProcessBlockAsync(BlockNumber);
 
                 //assert
                 MockTransactionProcessor

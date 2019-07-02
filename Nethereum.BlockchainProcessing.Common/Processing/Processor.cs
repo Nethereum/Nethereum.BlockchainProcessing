@@ -4,10 +4,11 @@ using System.Threading.Tasks;
 
 namespace Nethereum.BlockchainProcessing.Common.Processing
 {
+    
     public class Processor<T>: IProcessor<T>
     {
         public Func<T, Task<bool>> Criteria { get; protected set; }
-        protected List<Func<Task<T>>> ProcessorHandlers { get; set; } = new List<Func<Task<T>>>();
+        protected List<Func<T,Task>> ProcessorHandlers { get; set; } = new List<Func<T, Task>>();
         public virtual void SetMatchCriteria(Func<T, bool> criteria)
         {
             Func<T, Task<bool>> asyncCriteria = async (t) => criteria(t);
@@ -20,26 +21,27 @@ namespace Nethereum.BlockchainProcessing.Common.Processing
             Criteria = criteria;
         }
 
-        public virtual void AddProcessorHandler(Func<Task<T>> action)
+        public virtual void AddProcessorHandler(Func<T,Task> action)
         {
             ProcessorHandlers.Add(action);
         }
 
-        public virtual Task<bool> IsMatchAsync(T value)
+        public virtual async Task<bool> IsMatchAsync(T value)
         {
-            return Criteria(value);
+            if (Criteria == null) return true;
+            return await Criteria(value).ConfigureAwait(false);
         }
 
-        public virtual Task ExecuteAsync(T value)
+        public virtual async Task ExecuteAsync(T value)
         {
-            //TODO: JB
-            throw new NotImplementedException();
+            if (await IsMatchAsync(value))
+            {
+                foreach (var x in ProcessorHandlers)
+                {
+                    await x(value).ConfigureAwait(false);
+                }
+            }
         }
 
-        public virtual Task ExecuteParallelAsync(T value)
-        {
-            //TODO: JB
-            throw new NotImplementedException();
-        }
     }
 }

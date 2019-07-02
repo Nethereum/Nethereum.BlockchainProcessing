@@ -1,0 +1,36 @@
+﻿using Nethereum.BlockProcessing.ValueObjects;
+using Nethereum.RPC.Eth.DTOs;
+
+namespace Nethereum.BlockchainProcessing.Common.Processing
+{
+    public class BlockchainProcessorExecutionSteps
+    {
+        public IProcessor<Block> BlockStepProcessor = new Processor<Block>();
+        public IProcessor<Transaction> TransactionStepProcessor = new Processor<Transaction>();
+        public IProcessor<TransactionWithReceipt> TransactionReceiptStepProcessor = new Processor<TransactionWithReceipt>();
+        public IProcessor<LogWithReceiptAndTransaction> FilterLogStepProcesor = new Processor<LogWithReceiptAndTransaction>();
+
+        public virtual IProcessor<T>  GetStep<T>()
+        {
+            var type = typeof(T);
+            if (type == typeof(Block))
+            {
+                return (IProcessor<T>)BlockStepProcessor;
+            }
+            else if (type == typeof(Transaction))
+            {
+                return (IProcessor<T>)TransactionStepProcessor;
+            }
+            else if (type == typeof(TransactionWithReceipt))
+            {
+                return (IProcessor<T>)TransactionReceiptStepProcessor;
+            }
+            else if (type == typeof(LogWithReceiptAndTransaction))
+            {
+                return (IProcessor<T>)FilterLogStepProcesor;
+            }
+            
+            return null;
+        }
+    }
+}

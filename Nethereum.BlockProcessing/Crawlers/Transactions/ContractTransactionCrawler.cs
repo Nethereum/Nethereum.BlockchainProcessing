@@ -11,7 +11,7 @@ using Transaction = Nethereum.RPC.Eth.DTOs.Transaction;
 
 namespace Nethereum.BlockchainProcessing.Processors.Transactions
 {
-    public class ContractTransactionProcessor : IContractTransactionProcessor
+    public class ContractTransactionCrawler : IContractTransactionCrawler
     {
         private readonly IWeb3 _web3;
         private readonly IVmStackErrorChecker _vmStackErrorChecker;
@@ -19,7 +19,7 @@ namespace Nethereum.BlockchainProcessing.Processors.Transactions
         private readonly ITransactionHandler _transactionHandler;
         private readonly ITransactionVMStackHandler _transactionVmStackHandler;
 
-        public ContractTransactionProcessor(
+        public ContractTransactionCrawler(
           IWeb3 web3, 
           IVmStackErrorChecker vmStackErrorChecker,
           IContractHandler contractHandler,
