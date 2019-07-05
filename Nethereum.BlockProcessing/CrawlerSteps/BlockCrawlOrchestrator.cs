@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Numerics;
+using System.Runtime.Serialization;
 using System.Threading.Tasks;
 using Nethereum.BlockchainProcessing.Common.Processing;
 using Nethereum.BlockchainProcessing.Processors.Transactions;
@@ -9,17 +11,14 @@ using Nethereum.Web3;
 
 namespace Nethereum.BlockchainProcessing.Processors
 {
-    public interface IBlockCrawlOrchestrator
-    {
-        Task CrawlBlock(BigInteger bigInteger);
-    }
-    public class BlockCrawlOrchestrator: IBlockCrawlOrchestrator
+    public class BlockCrawlOrchestrator: IBlockchainProcessingOrchestrator
     {
         protected IWeb3 Web3 { get; set; }
         public IEnumerable<BlockchainProcessorExecutionSteps> ExecutionStepsCollection { get; }
         protected BlockCrawlerStep BlockCrawlerStep { get; }
         protected TransactionWithBlockCrawlerStep TransactionWithBlockCrawlerStep { get; }
         protected TransactionWithReceiptCrawlerStep TransactionWithReceiptCrawlerStep { get; }
+        protected ContractCreatedCrawlerStep ContractCreatedCrawlerStep { get; }
 
         public BlockCrawlOrchestrator(IWeb3 web3, IEnumerable<BlockchainProcessorExecutionSteps> executionStepsCollection)
         {
@@ -28,6 +27,7 @@ namespace Nethereum.BlockchainProcessing.Processors
             BlockCrawlerStep = new BlockCrawlerStep(web3);
             TransactionWithBlockCrawlerStep = new TransactionWithBlockCrawlerStep(web3);
             TransactionWithReceiptCrawlerStep = new TransactionWithReceiptCrawlerStep(web3);
+            ContractCreatedCrawlerStep = new ContractCreatedCrawlerStep(web3);
         }
 
         public virtual async Task CrawlBlock(BigInteger blockNumber)
@@ -53,10 +53,36 @@ namespace Nethereum.BlockchainProcessing.Processors
             await CrawlTransactionReceipt(currentStepCompleted);
         }
 
-        protected virtual async Task CrawlTransactionReceipt(CrawlerStepCompleted<TransactionWithBlock> currentStepCompleted)
+        protected virtual async Task CrawlTransactionReceipt(CrawlerStepCompleted<TransactionWithBlock> completedStep)
         {
-            await TransactionWithReceiptCrawlerStep.ExecuteStepAsync(currentStepCompleted.StepData,
-                currentStepCompleted.ExecutedStepsCollection);
+           var currentStepCompleted = await TransactionWithReceiptCrawlerStep.ExecuteStepAsync(completedStep.StepData,
+                completedStep.ExecutedStepsCollection);
+            if(currentStepCompleted != null && currentStepCompleted.StepData.IsForContractCreation())
+            {
+                await ContractCreatedCrawlerStep.ExecuteStepAsync(currentStepCompleted.StepData, completedStep.ExecutedStepsCollection);
+            }
+        }
+
+        public async Task<OrchestrationProgress> ProcessAsync(BigInteger fromNumber, BigInteger toNumber)
+        {
+            var progress = new OrchestrationProgress();
+            try
+            {
+                var currentBlockNumber = fromNumber;
+                while (currentBlockNumber <= toNumber)
+                {
+
+                    await CrawlBlock(currentBlockNumber);
+                    progress.BlockNumberProcessTo = currentBlockNumber;
+                    currentBlockNumber = currentBlockNumber + 1;
+                }
+            }
+            catch (Exception ex)
+            {
+                progress.Exception = ex;
+            }
+
+            return progress;
         }
     }
 }

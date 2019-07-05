@@ -1,9 +1,12 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using Nethereum.BlockchainProcessing.Common.Processing;
 using Nethereum.BlockProcessing.ValueObjects;
 using Nethereum.Web3;
 
 namespace Nethereum.BlockchainProcessing.Processors.Transactions
 {
+
     public class TransactionWithReceiptCrawlerStep : CrawlerStep<TransactionWithBlock, TransactionWithReceipt>
     {
         public TransactionWithReceiptCrawlerStep(IWeb3 web3) : base(web3)
@@ -18,4 +21,7 @@ namespace Nethereum.BlockchainProcessing.Processors.Transactions
             return new TransactionWithReceipt(transaction.Block, transaction.Transaction, receipt, receipt.HasErrors()?? false);
         }
     }
+
+
+
 }

@@ -4,6 +4,6 @@ namespace Nethereum.BlockchainProcessing.Common.Processing
 {
     public interface IProcessorHandler<T>
     {
-        Task ExcecuteAsync(T value);
+        Task ExecuteAsync(T value);
     }
 }

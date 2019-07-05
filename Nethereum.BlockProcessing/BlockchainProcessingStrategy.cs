@@ -1,4 +1,5 @@
 ﻿using Nethereum.BlockchainProcessing.Processors;
+using Nethereum.Utils;
 using System.Numerics;
 using System.Threading.Tasks;
 

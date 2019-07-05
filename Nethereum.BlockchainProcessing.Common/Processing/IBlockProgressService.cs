@@ -9,4 +9,6 @@ namespace Nethereum.BlockchainProcessing.Processing
         Task SaveLastBlockProcessedAsync(BigInteger blockNumber);
         Task<BlockRange?> GetNextBlockRangeToProcessAsync(uint maxBlocksToProcessInBatch);
     }
+
+   
 }

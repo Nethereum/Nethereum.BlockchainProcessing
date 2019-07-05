@@ -9,7 +9,7 @@ namespace Nethereum.BlockchainProcessing.Common.Processing
         public IProcessor<TransactionWithBlock> TransactionStepProcessor = new Processor<TransactionWithBlock>();
         public IProcessor<TransactionWithReceipt> TransactionReceiptStepProcessor = new Processor<TransactionWithReceipt>();
         public IProcessor<LogWithReceiptAndTransaction> FilterLogStepProcesor = new Processor<LogWithReceiptAndTransaction>();
-
+        public IProcessor<ContractCreationTransaction> ContractCreationStepProcessor = new Processor<ContractCreationTransaction>();
         public virtual IProcessor<T>  GetStep<T>()
         {
             var type = typeof(T);
@@ -29,7 +29,11 @@ namespace Nethereum.BlockchainProcessing.Common.Processing
             {
                 return (IProcessor<T>)FilterLogStepProcesor;
             }
-            
+            else if (type == typeof(ContractCreationTransaction))
+            {
+                return (IProcessor<T>)ContractCreationStepProcessor;
+            }
+
             return null;
         }
     }
