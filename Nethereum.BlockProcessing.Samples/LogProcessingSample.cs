@@ -357,11 +357,11 @@ namespace Nethereum.BlockProcessing.Samples
             Assert.Equal(168, balances.Count);
 
             // ** if you require continual processing 
-            // this will use the progress repository to control which block to start from
+            // the progress repository will control which block to start from
             // it will keep processing until the cancellation token is cancelled
             // await processor.ExecuteAsync(cancellationTokenSource.Token);
 
-            // ** if you want to run continually - BUT start at a specific block (not 0)
+            // ** if you want to run continually - BUT start at a specific block (not 0 or wherever your progress repo is currently at)
             //await processor.ExecuteAsync(cancellationToken: cancellationTokenSource.Token, startAtBlockNumberIfNotProcessed: blockToStartAt);
 
         }
