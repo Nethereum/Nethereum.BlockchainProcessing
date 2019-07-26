@@ -6,10 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Nethereum.LogProcessing\Nethereum.LogProcessing.csproj" />
-    <ProjectReference Include="..\Nethereum.BlockchainStore.Azure.BlockProcessing\Nethereum.BlockchainStore.Azure.BlockProcessing.csproj" />
-    <ProjectReference Include="..\Nethereum.BlockchainStore.Azure.BlockProgress\Nethereum.BlockchainStore.Azure.BlockProgress.csproj" />
     <ProjectReference Include="..\Nethereum.BlockchainStore.AzureTables.Base\Nethereum.BlockchainStore.AzureTables.Base.csproj" />
-    <ProjectReference Include="..\Nethereum.BlockchainStore\Nethereum.BlockchainStore.csproj" />
   </ItemGroup>
 
 </Project>
