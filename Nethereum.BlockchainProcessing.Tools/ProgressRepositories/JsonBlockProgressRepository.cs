@@ -1,11 +1,30 @@
 ﻿using Nethereum.BlockchainProcessing.ProgressRepositories;
 using Newtonsoft.Json;
+using System;
 using System.IO;
 using System.Numerics;
 using System.Threading.Tasks;
 
 namespace Nethereum.BlockchainProcessing.Tools
 {
+    public class JsonBlockProgressRepositoryBase : IBlockProgressRepository
+    {
+        public JsonBlockProgressRepositoryBase(Func<string, Task> jsonWriter, Func<string> jsonRetriever)
+        {
+
+        }
+
+        public Task<BigInteger?> GetLastBlockNumberProcessedAsync()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Task UpsertProgressAsync(BigInteger blockNumber)
+        {
+            throw new System.NotImplementedException();
+        }
+    }
+
     public class JsonBlockProgressRepository : IBlockProgressRepository
     {
         public class BlockProcessingProgress

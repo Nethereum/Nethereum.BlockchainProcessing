@@ -40,7 +40,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dynamic", "Dynamic", "{223C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nethereum.BlockchainStore.Azure.LogProcessor.Db", "Storage\Nethereum.BlockchainStore.Azure.LogProcessor.Db\Nethereum.BlockchainStore.Azure.LogProcessor.Db.csproj", "{D5662D70-016C-4B40-8FD1-E69DA24CF70A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nethereum.BlockchainProcessing.Tools", "Nethereum.BlockchainProcessing.Tools\Nethereum.BlockchainProcessing.Tools.csproj", "{4D1F3096-0D53-4E12-B946-BDD9B96214B3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nethereum.BlockchainProcessing.Tools", "Nethereum.BlockchainProcessing.Tools\Nethereum.BlockchainProcessing.Tools.csproj", "{4D1F3096-0D53-4E12-B946-BDD9B96214B3}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nethereum.BlockchainProcessing", "..\nethereum\src\Nethereum.BlockchainProcessing\Nethereum.BlockchainProcessing.csproj", "{8F1CA7A2-2703-4B13-9954-58A6B8042B12}"
 EndProject
@@ -64,19 +64,23 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nethereum.Contracts", "..\n
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nethereum.KeyStore", "..\nethereum\src\Nethereum.KeyStore\Nethereum.KeyStore.csproj", "{62ECD79A-9BFB-45EE-ADEE-E6660D252A72}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nethereum.BlockchainProcessing.Test.Utils", "Nethereum.BlockchainProcessing.Test.Utils\Nethereum.BlockchainProcessing.Test.Utils.csproj", "{111608A0-404F-4087-8CD7-ACBA595D87ED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nethereum.BlockchainProcessing.Test.Utils", "Nethereum.BlockchainProcessing.Test.Utils\Nethereum.BlockchainProcessing.Test.Utils.csproj", "{111608A0-404F-4087-8CD7-ACBA595D87ED}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nethereum.Web3", "..\nethereum\src\Nethereum.Web3\Nethereum.Web3.csproj", "{031F3E50-7429-4A0F-BF26-E8878519780D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nethereum.BlockchainStore.AzureTables.Base", "..\Nethereum.BlockchainStorage\src\Nethereum.BlockchainStore.AzureTables.Base\Nethereum.BlockchainStore.AzureTables.Base.csproj", "{D5E946EA-DDD8-4BBD-B400-27A5CF92ED4A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nethereum.BlockchainProcessing.Tools.Tests", "Nethereum.BlockchainProcessing.Tools.Tests\Nethereum.BlockchainProcessing.Tools.Tests.csproj", "{6F26C9AB-C70D-41BB-AE4E-C62D63BA7C16}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nethereum.BlockchainProcessing.Tools.Tests", "Nethereum.BlockchainProcessing.Tools.Tests\Nethereum.BlockchainProcessing.Tools.Tests.csproj", "{6F26C9AB-C70D-41BB-AE4E-C62D63BA7C16}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Utils", "Utils", "{C14CE4F4-F605-4B5E-98BF-3A20D4AAF9DF}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Configuration.Utils", "..\Nethereum.BlockchainStorage\src\Nethereum.Configuration.Utils\Microsoft.Configuration.Utils.csproj", "{EFD45CA4-510A-4F8F-BC42-7229D273B2E9}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Logging.Utils", "..\Nethereum.BlockchainStorage\src\Nethereum.Logging.Utils\Microsoft.Logging.Utils.csproj", "{3BE4EA3D-75F5-4646-BB8A-1A2A98789495}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Playground", "Playground", "{D825028C-BDD8-4843-B704-5D15B81E98A0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlaygroundSamples", "PlaygroundSamples\PlaygroundSamples.csproj", "{41B9849E-9C03-4A6D-BA8B-925EF00B82AB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -176,6 +180,10 @@ Global
 		{3BE4EA3D-75F5-4646-BB8A-1A2A98789495}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3BE4EA3D-75F5-4646-BB8A-1A2A98789495}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3BE4EA3D-75F5-4646-BB8A-1A2A98789495}.Release|Any CPU.Build.0 = Release|Any CPU
+		{41B9849E-9C03-4A6D-BA8B-925EF00B82AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41B9849E-9C03-4A6D-BA8B-925EF00B82AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41B9849E-9C03-4A6D-BA8B-925EF00B82AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41B9849E-9C03-4A6D-BA8B-925EF00B82AB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -208,6 +216,7 @@ Global
 		{6F26C9AB-C70D-41BB-AE4E-C62D63BA7C16} = {98B1E95E-E41C-4F2F-AB50-E79AEA0B005C}
 		{EFD45CA4-510A-4F8F-BC42-7229D273B2E9} = {C14CE4F4-F605-4B5E-98BF-3A20D4AAF9DF}
 		{3BE4EA3D-75F5-4646-BB8A-1A2A98789495} = {C14CE4F4-F605-4B5E-98BF-3A20D4AAF9DF}
+		{41B9849E-9C03-4A6D-BA8B-925EF00B82AB} = {D825028C-BDD8-4843-B704-5D15B81E98A0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E8BDA708-C821-4538-93BC-8FC3DCC98B7B}
