@@ -1,11 +1,12 @@
-﻿using Nethereum.BlockchainProcessing.Handlers;
-using Nethereum.BlockchainProcessing.Processing.Logs.Configuration;
+﻿using Nethereum.BlockchainProcessing.Processing.Logs.Configuration;
+using Nethereum.BlockchainProcessing.Processor;
+using Nethereum.RPC.Eth.DTOs;
 using System.Threading.Tasks;
 
 namespace Nethereum.BlockchainProcessing.Processing.Logs.Handling
 {
     public interface ISubscriberStorageFactory
     {
-        Task<ILogHandler> GetLogRepositoryHandlerAsync(ISubscriberStorageDto dto);
+        Task<IProcessorHandler<FilterLog>> GetLogRepositoryHandlerAsync(ISubscriberStorageDto dto);
     }
 }

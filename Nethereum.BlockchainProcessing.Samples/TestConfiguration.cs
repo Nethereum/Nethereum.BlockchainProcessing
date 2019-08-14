@@ -2,7 +2,7 @@
 using Nethereum.Microsoft.Configuration.Utils;
 using System;
 
-namespace Nethereum.LogProcessing.Samples
+namespace Nethereum.BlockchainProcessing.Samples
 {
     public static class TestConfiguration
     {

@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Nethereum.BlockchainStore.AzureTables" Version="3.0.0-CI-20190813-165959" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Nethereum.LogProcessing.Dynamic\Nethereum.LogProcessing.Dynamic.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,4 +1,5 @@
-﻿using Nethereum.BlockchainProcessing.Handlers;
+﻿using Nethereum.BlockchainProcessing.Processor;
+using Nethereum.RPC.Eth.DTOs;
 using System.Threading.Tasks;
 
 namespace Nethereum.BlockchainProcessing.Processing.Logs.Handling.Handlers.Handlers
@@ -8,16 +9,16 @@ namespace Nethereum.BlockchainProcessing.Processing.Logs.Handling.Handlers.Handl
         public StorageHandler(
             IEventSubscription subscription, 
             long id, 
-            ILogHandler logHandler) :base(subscription, id)
+            IProcessorHandler<FilterLog> logHandler) :base(subscription, id)
         {
             LogHandler = logHandler;
         }
 
-        public ILogHandler LogHandler { get; }
+        public IProcessorHandler<FilterLog> LogHandler { get; }
 
         public async Task<bool> HandleAsync(DecodedEvent decodedEvent)
         {
-            await LogHandler.HandleAsync(decodedEvent.Log).ConfigureAwait(false);
+            await LogHandler.ExecuteAsync(decodedEvent.Log).ConfigureAwait(false);
             return true;
         }
 

@@ -47,11 +47,11 @@ namespace Nethereum.BlockchainProcessing.Processing.Logs
             EventHandlerFactory = eventHandlerFactory;
         }
 
-        public async Task<List<IEventSubscription>> LoadAsync(long partitionId)
+        public async Task<List<EventSubscription>> LoadAsync(long partitionId)
         {
             var subscriberConfigurations = await ConfigurationRepository.Subscribers.GetManyAsync(partitionId).ConfigureAwait(false);
 
-            var eventSubscriptions = new List<IEventSubscription>(subscriberConfigurations.Length);
+            var eventSubscriptions = new List<EventSubscription>(subscriberConfigurations.Length);
 
             foreach (var subscriberConfiguration in subscriberConfigurations.Where(c => !c.Disabled))
             {

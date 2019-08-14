@@ -1,4 +1,5 @@
 ﻿using Nethereum.BlockchainProcessing.Processing.Logs.Configuration;
+using Nethereum.Contracts.Services;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -10,36 +11,55 @@ namespace Nethereum.BlockchainProcessing.Processing.Logs.Handling.Handlers
         public ContractQueryEventHandler(
             IEventSubscription subscription, 
             long id,
-            IContractQuery contractQueryProxy, 
+            IEthApiContractService ethApi, 
             ContractQueryConfiguration queryConfig):base(subscription, id)
         {
-            Proxy = contractQueryProxy ?? throw new System.ArgumentNullException(nameof(contractQueryProxy));
+            EthApi = ethApi ?? throw new System.ArgumentNullException(nameof(ethApi));
             Configuration = queryConfig ?? throw new System.ArgumentNullException(nameof(queryConfig));
         }
 
-        public IContractQuery Proxy { get; }
+        public IEthApiContractService EthApi { get; }
         public ContractQueryConfiguration Configuration { get; }
 
         public async Task<bool> HandleAsync(DecodedEvent decodedEvent)
         {
-            var contractAddress = GetContractAddress(decodedEvent);
-            if(contractAddress == null) return false;
+            try 
+            { 
+                var contractAddress = GetContractAddress(decodedEvent);
+                if(contractAddress == null) return false;
 
-            var functionInputs = BuildFunctionInputs(decodedEvent);
+                var functionInputs = BuildFunctionInputs(decodedEvent);
 
-            var result = await Proxy.Query(contractAddress, Configuration.Contract.Abi, Configuration.Query.FunctionSignature, functionInputs).ConfigureAwait(false);
+                var function = EthApi.GetContract(Configuration.Contract.Abi, contractAddress)
+                    .GetFunctionBySignature(Configuration.Query.FunctionSignature);
 
-            if(!string.IsNullOrEmpty(Configuration.Query.EventStateOutputName))
-            {
-                decodedEvent.State[Configuration.Query.EventStateOutputName] = result;
+                var result = await function
+                    .CallDecodingToDefaultAsync(functionInputs)
+                    .ConfigureAwait(false);
+
+
+                var firstValue = result.FirstOrDefault()?.Result;
+
+                if(!string.IsNullOrEmpty(Configuration.Query.EventStateOutputName))
+                {
+                    decodedEvent.State[Configuration.Query.EventStateOutputName] = firstValue;
+                }
+
+                if (!string.IsNullOrEmpty(Configuration.Query.SubscriptionStateOutputName))
+                {
+                    Subscription.State.Set(Configuration.Query.SubscriptionStateOutputName, firstValue);
+                }
+
+                return true;
             }
-
-            if (!string.IsNullOrEmpty(Configuration.Query.SubscriptionStateOutputName))
+            catch (System.ArgumentOutOfRangeException)
             {
-                Subscription.State.Set(Configuration.Query.SubscriptionStateOutputName, result);
+                return false;
             }
-
-            return true;
+            catch(System.OverflowException)
+            {
+                return false;
+            }
         }
 
         private object[] BuildFunctionInputs(DecodedEvent decodedEvent)

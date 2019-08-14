@@ -2,7 +2,9 @@
 using Nethereum.BlockchainProcessing.Processing.Logs.Configuration;
 using Nethereum.BlockchainProcessing.Processing.Logs.Handling;
 using Nethereum.BlockchainProcessing.Processing.Logs.Matching;
+using Nethereum.BlockchainProcessing.Processor;
 using Nethereum.RPC.Eth.DTOs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -30,10 +32,10 @@ namespace Nethereum.BlockchainProcessing.Processing.Logs
             
         }
 
-        public override Task ProcessLogsAsync(params FilterLog[] eventLogs)
+        protected override Task ExecuteInternalAsync(FilterLog value)
         {
             State.Increment("HandlerInvocations");
-            return HandlerManager.HandleAsync<TEvent>(this, Matcher.Abis.First(), eventLogs);
+            return HandlerManager.HandleAsync<TEvent>(this, Matcher.Abis.First(), value);
         }
     }
 
@@ -42,7 +44,7 @@ namespace Nethereum.BlockchainProcessing.Processing.Logs
     /// Designed to be instantiated from DB configuration data
     /// </summary>
 
-    public class EventSubscription : IEventSubscription
+    public class EventSubscription : ProcessorHandler<FilterLog>, IEventSubscription
     {
         public EventSubscription(
             EventABI[] eventAbis, 
@@ -102,15 +104,15 @@ namespace Nethereum.BlockchainProcessing.Processing.Logs
         public IEventSubscriptionStateDto State { get; }
         public IEventMatcher Matcher { get; }
 
-        public Task<bool> IsLogForMeAsync(FilterLog log)
-        {
-            return Task.FromResult(Matcher.IsMatch(log));
-        }
-
-        public virtual Task ProcessLogsAsync(params FilterLog[] eventLogs)
+        protected override Task ExecuteInternalAsync(FilterLog value)
         {
             State.Increment("HandlerInvocations");
-            return HandlerManager.HandleAsync(this, Matcher.Abis, eventLogs);
+            return HandlerManager.HandleAsync(this, Matcher.Abis, value);
+        }
+
+        public override Task<bool> IsMatchAsync(FilterLog value)
+        {
+            return Task.FromResult(Matcher.IsMatch(value));
         }
     }
 }

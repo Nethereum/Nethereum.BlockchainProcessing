@@ -5,6 +5,6 @@ namespace Nethereum.BlockchainProcessing.Processing.Logs.Handling
     public interface ISubscriberSearchIndex
     {
         string Name {get;}
-        Task Index(DecodedEvent decodedEvent);
+        Task IndexAsync(DecodedEvent decodedEvent);
     }
 }

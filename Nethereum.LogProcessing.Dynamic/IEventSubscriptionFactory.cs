@@ -5,6 +5,6 @@ namespace Nethereum.BlockchainProcessing.Processing.Logs
 {
     public interface IEventSubscriptionFactory
     {
-        Task<List<IEventSubscription>> LoadAsync(long partitionId);
+        Task<List<EventSubscription>> LoadAsync(long partitionId);
     }
 }

@@ -1,6 +1,6 @@
 ﻿using Nethereum.ABI.FunctionEncoding.Attributes;
-using Nethereum.BlockchainProcessing;
 using Nethereum.Contracts;
+using System.Linq;
 using System.Numerics;
 using System.Threading.Tasks;
 using Xunit;
@@ -13,14 +13,17 @@ namespace Nethereum.LogProcessing.Samples
         private const string BlockchainUrl = TestConfiguration.BlockchainUrls.Infura.Rinkeby;
 
         [Fact]
-        public async Task DynamicContractQuerying_NoParams_Returns_uint256()
+        public async Task DynamicContractQuerying_NoParams_Returns_BigInteger()
         {
             var signature_totalSupply = "18160ddd";
             var contractAddress = "0x78c1301520edff0bb14314c64987a71fa5efa407";
             var web3 = new Web3.Web3(BlockchainUrl);
-            var queryHelper = new ContractQueryHelper(web3);
-            var decoded = await queryHelper.Query(contractAddress, StandardContractAbi, signature_totalSupply);
-            Assert.IsType<BigInteger>(decoded);
+
+            var decoded = await web3.Eth.GetContract(StandardContractAbi, contractAddress)
+                .GetFunctionBySignature(signature_totalSupply)
+                .CallDecodingToDefaultAsync();
+
+            Assert.IsType<BigInteger>(decoded.FirstOrDefault()?.Result);
         }
 
         [Fact]
@@ -30,8 +33,10 @@ namespace Nethereum.LogProcessing.Samples
             var contractAddress = "0x78c1301520edff0bb14314c64987a71fa5efa407";
 
             var web3 = new Web3.Web3(BlockchainUrl);
-            var queryHelper = new ContractQueryHelper(web3);
-            var decoded = await queryHelper.Query(contractAddress, StandardContractAbi, signature_name);
+
+            var decoded = await web3.Eth.GetContract(StandardContractAbi, contractAddress)
+                .GetFunctionBySignature(signature_name)
+                .CallAsync<string>();
 
             Assert.Equal("JGX", decoded);  
         }
@@ -53,10 +58,11 @@ namespace Nethereum.LogProcessing.Samples
             var contractHandler = web3.Eth.GetContractHandler(contractAddress);
             var contractHandlerResult = await contractHandler.QueryAsync<NameFunction, string>();
 
-            var queryHelper = new ContractQueryHelper(web3);
-            var queryHelperResult = await queryHelper.Query(contractAddress, StandardContractAbi, signature_name);
+            var queryHelperResult = await web3.Eth.GetContract(StandardContractAbi, contractAddress)
+                .GetFunctionBySignature(signature_name)
+                .CallAsync<string>();
 
-            Assert.Equal(string.Empty, queryHelperResult);
+            Assert.Null(queryHelperResult);
         }
 
         [Fact]
@@ -67,9 +73,11 @@ namespace Nethereum.LogProcessing.Samples
             var functionInput = new object[]{"0xa13210c21fbbed075ec210a71b477a81cb3da7d8"}; // _owner parameter - type: address
 
             var web3 = new Web3.Web3(BlockchainUrl);
-            var queryHelper = new ContractQueryHelper(web3);
 
-            var decoded = await queryHelper.Query(contractAddress, StandardContractAbi, signature_balanceOf, functionInput);
+            var decoded = await web3.Eth.GetContract(StandardContractAbi, contractAddress)
+                .GetFunctionBySignature(signature_balanceOf)
+                .CallAsync<BigInteger>(functionInput);
+
             Assert.IsType<BigInteger>(decoded);
         }
     }

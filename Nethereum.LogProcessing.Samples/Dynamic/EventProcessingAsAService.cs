@@ -1,15 +1,14 @@
-﻿using Nethereum.BlockchainProcessing.Processing;
-using Nethereum.BlockchainProcessing.Processing.Logs;
+﻿using Nethereum.BlockchainProcessing.Processing.Logs;
 using Nethereum.BlockchainProcessing.Processing.Logs.Configuration;
+using Nethereum.BlockchainProcessing.Processing.Logs.Handling.Handlers;
 using Nethereum.BlockchainProcessing.Queue.Azure.Processing.Logs;
 using Nethereum.BlockchainStore.AzureTables.Bootstrap;
 using Nethereum.BlockchainStore.AzureTables.Factories;
+using Nethereum.BlockchainStore.Search;
 using Nethereum.BlockchainStore.Search.Azure;
-using Nethereum.Contracts;
 using Nethereum.Hex.HexTypes;
 using System.Collections.Generic;
 using System.Linq;
-using System.Numerics;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -18,8 +17,8 @@ namespace Nethereum.LogProcessing.Samples.SAS
     public class EventProcessingAsAService
     {
         const long PARTITION = 1;
-        const ulong MIN_BLOCK_NUMBER = 4063361;
-        const uint MAX_BLOCKS_PER_BATCH = 10;
+        const ulong BLOCK_FROM = 4063361;
+        const ulong BLOCK_TO = 4063370;
         const string AZURE_SEARCH_SERVICE_NAME = "blockchainsearch";
 
         [Fact]
@@ -36,48 +35,59 @@ namespace Nethereum.LogProcessing.Samples.SAS
 
             // search components
             var searchService = new AzureSearchService(serviceName: AZURE_SEARCH_SERVICE_NAME, searchApiKey: azureSearchKey);
-            var searchIndexFactory = new AzureSubscriberSearchIndexFactory(searchService);
+
+            var subscriberSearchIndexFactory = new SubscriberSearchIndexFactory(async indexName => 
+            { 
+                if(await searchService.IndexExistsAsync(indexName) == false)
+                {
+                    //TODO: REPLACE THIS WITH Nethereum.BlockchainStore.Search.Azure.EventToGenericSearchDocMapper
+
+                    await searchService.CreateIndexAsync(EventToGenericSearchDocMapper.CreateAzureIndexDefinition(indexName));
+                }
+                    
+                return searchService.CreateIndexer<DecodedEvent, GenericSearchDocument>(
+                    indexName, decodedEvent => EventToGenericSearchDocMapper.Map(decodedEvent, decodedEvent.State));
+            });
 
             // queue components
-            var queueFactory = new AzureSubscriberQueueFactory(azureStorageConnectionString);
+            //AzureStorageQueueFactory
+            var azureQueueFactory = new AzureStorageQueueFactory(azureStorageConnectionString);
+
+            var subscriberQueueFactory = new SubscriberQueueFactory(
+                queueName => azureQueueFactory.GetOrCreateQueueAsync(queueName));
 
             // subscriber repository
             var repositoryFactory = new AzureTablesSubscriberRepositoryFactory(azureStorageConnectionString);
 
             // load subscribers and event subscriptions
             var eventSubscriptionFactory = new EventSubscriptionFactory(
-                web3, configurationRepository, queueFactory, searchIndexFactory, repositoryFactory);
+                web3, configurationRepository, subscriberQueueFactory, subscriberSearchIndexFactory, repositoryFactory);
 
-            List<IEventSubscription> eventSubscriptions = await eventSubscriptionFactory.LoadAsync(PARTITION);
+            var eventSubscriptions = await eventSubscriptionFactory.LoadAsync(PARTITION);
 
             // progress repo (dictates which block ranges to process next)
             // maintain separate progress per partition via a prefix
-            var storageCloudSetup = new BlockProgressCloudTableSetup(azureStorageConnectionString, prefix: $"Partition{PARTITION}");
+            var storageCloudSetup = new AzureTablesRepositoryFactory(azureStorageConnectionString, prefix: $"Partition{PARTITION}");
             var blockProgressRepo = storageCloudSetup.CreateBlockProgressRepository();
 
-            // load service
-            var progressService = new BlockProgressService(web3, MIN_BLOCK_NUMBER, blockProgressRepo);
-            var logProcessor = new BlockRangeLogsProcessor(web3, eventSubscriptions);
-            var batchProcessorService = new LogsProcessor(logProcessor, progressService, MAX_BLOCKS_PER_BATCH);
+            var logProcessor = web3.Processing.Logs.CreateProcessor(
+                logProcessors: eventSubscriptions, blockProgressRepository: blockProgressRepo);
 
             // execute
-            BlockRange? rangeProcessed;
             try
             {
                 var ctx = new System.Threading.CancellationTokenSource();
-                rangeProcessed = await batchProcessorService.ProcessOnceAsync(ctx.Token);
+                await logProcessor.ExecuteAsync(BLOCK_TO, ctx.Token, BLOCK_FROM);
             }
             finally
             {
-                await ClearDown(configurationContext, storageCloudSetup, searchService, queueFactory, repositoryFactory);
+                await ClearDown(configurationContext, storageCloudSetup, searchService, azureQueueFactory, repositoryFactory);
             }
 
             // save event subscription state
             await configurationRepository.EventSubscriptionStates.UpsertAsync(eventSubscriptions.Select(s => s.State));
             
             // assertions
-            Assert.NotNull(rangeProcessed);
-            Assert.Equal((ulong)10, rangeProcessed.Value.BlockCount);
 
             var subscriptionState1 = configurationContext.GetEventSubscriptionState(eventSubscriptionId: 1); // interested in transfers with contract queries and aggregations
             var subscriptionState2 = configurationContext.GetEventSubscriptionState(eventSubscriptionId: 2); // interested in transfers with simple aggregation
@@ -91,16 +101,16 @@ namespace Nethereum.LogProcessing.Samples.SAS
             Assert.Equal("0xe63e9422dedf84d0ce13f9f75ebfd86333ce917b2572925fbdd51b51caf89b77", txForSpecificAddress[1]);
 
             var blockNumbersForSpecificAddress = (List<HexBigInteger>)subscriptionState3.Values["AllBlockNumbers"];
-            Assert.Equal((BigInteger)4063362, blockNumbersForSpecificAddress[0].Value);
-            Assert.Equal((BigInteger)4063362, blockNumbersForSpecificAddress[1].Value);
+            Assert.Equal(4063362, blockNumbersForSpecificAddress[0].Value);
+            Assert.Equal(4063362, blockNumbersForSpecificAddress[1].Value);
 
         }
 
         private async Task ClearDown(
-            EventProcessingConfigContext repo, 
-            BlockProgressCloudTableSetup cloudTableSetup, 
-            IAzureSearchService searchService, 
-            AzureSubscriberQueueFactory subscriberQueueFactory,
+            EventProcessingConfigContext repo,
+            AzureTablesRepositoryFactory cloudTableSetup, 
+            IAzureSearchService searchService,
+            AzureStorageQueueFactory subscriberQueueFactory,
             AzureTablesSubscriberRepositoryFactory azureTablesSubscriberRepositoryFactory)
         {
             foreach(var index in repo.SubscriberSearchIndexes) 
@@ -110,8 +120,7 @@ namespace Nethereum.LogProcessing.Samples.SAS
 
             foreach (var queue in repo.SubscriberSearchIndexes)
             {
-                var qRef = subscriberQueueFactory.CloudQueueClient.GetQueueReference(queue.Name);
-                await qRef.DeleteIfExistsAsync();
+                await subscriberQueueFactory.DeleteQueueAsync(queue.Name);
             }
 
             await cloudTableSetup.GetCountersTable().DeleteIfExistsAsync();

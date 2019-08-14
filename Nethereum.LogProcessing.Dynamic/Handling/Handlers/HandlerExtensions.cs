@@ -1,15 +1,17 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Nethereum.BlockchainProcessing.Processing.Logs.Handling.Handlers.Handlers;
+using Nethereum.BlockchainProcessing.Processor;
+using Nethereum.BlockchainProcessing.Queue;
+using Nethereum.Contracts;
+using Nethereum.RPC.Eth.DTOs;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Linq;
-using Nethereum.Contracts;
-using Nethereum.BlockchainProcessing.Processing.Logs.Handling.Handlers.Handlers;
-using Nethereum.BlockchainProcessing.Handlers;
 
 namespace Nethereum.BlockchainProcessing.Processing.Logs.Handling.Handlers
 {
     public static class HandlerExtensions 
     {
-        public static void AddStorageHandler(this EventSubscription subscription, ILogHandler logHandler, long id = 0)
+        public static void AddStorageHandler(this EventSubscription subscription, IProcessorHandler<FilterLog> logHandler, long id = 0)
         {
             subscription.AddHandler(new StorageHandler(subscription, id, logHandler));
         }

@@ -1,5 +1,4 @@
-﻿using Nethereum.BlockchainProcessing.Processing.Logs;
-using Nethereum.BlockchainProcessing.Processing.Logs.Configuration;
+﻿using Nethereum.BlockchainProcessing.Processing.Logs.Configuration;
 using Nethereum.BlockchainProcessing.Processing.Logs.Handling;
 using Nethereum.BlockchainStore.AzureTables.Bootstrap.EventProcessingConfiguration;
 using Nethereum.BlockchainStore.AzureTables.Repositories.EventProcessingConfiguration;

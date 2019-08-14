@@ -1,6 +1,7 @@
 ﻿using Nethereum.BlockchainProcessing.Processing.Logs.Configuration;
 using Nethereum.BlockchainProcessing.Processing.Logs.Handling.Handlers;
 using Nethereum.BlockchainProcessing.Processing.Logs.Handling.Handlers.Handlers;
+using Nethereum.Contracts.Services;
 using Nethereum.RPC.Eth.Transactions;
 using Nethereum.Web3;
 using System;
@@ -18,9 +19,9 @@ namespace Nethereum.BlockchainProcessing.Processing.Logs.Handling
             ISubscriberSearchIndexFactory subscriberSearchIndexFactory = null,
             ISubscriberStorageFactory subscriberRepositoryFactory = null)
             :this(
+                 web3.Eth,
                  configRepo.EventSubscriptionStates, 
-                 configRepo.EventContractQueries, 
-                 new ContractQueryHelper(web3.Eth),  
+                 configRepo.EventContractQueries,  
                  configRepo.EventAggregators, 
                  web3.Eth.Transactions.GetTransactionByHash, 
                  configRepo.SubscriberQueues,
@@ -34,9 +35,9 @@ namespace Nethereum.BlockchainProcessing.Processing.Logs.Handling
         }
 
         public EventHandlerFactory(
+            IEthApiContractService ethApi,
             IEventSubscriptionStateRepository stateFactory, 
             IEventContractQueryConfigurationRepository contractQueryFactory = null,
-            IContractQuery contractQueryHandler = null,
             IEventAggregatorRepository eventAggregatorRepository = null,
             IEthGetTransactionByHash getTransactionProxy = null,
             ISubscriberQueueRepository subscriberQueueRepository = null,
@@ -47,9 +48,9 @@ namespace Nethereum.BlockchainProcessing.Processing.Logs.Handling
             ISubscriberStorageRepository subscriberStorageRepository = null,
             ISubscriberStorageFactory subscriberRepositoryFactory = null)
         {
+            EthApi = ethApi;
             StateFactory = stateFactory;
             ContractQueryFactory = contractQueryFactory;
-            ContractQueryHandler = contractQueryHandler;
             EventAggregatorRepository = eventAggregatorRepository;
             GetTransactionProxy = getTransactionProxy;
             SubscriberQueueRepository = subscriberQueueRepository;
@@ -61,9 +62,10 @@ namespace Nethereum.BlockchainProcessing.Processing.Logs.Handling
             SubscriberRepositoryFactory = subscriberRepositoryFactory;
         }
 
+        public IEthApiContractService EthApi { get; }
         public IEventSubscriptionStateRepository StateFactory { get; }
         public IEventContractQueryConfigurationRepository ContractQueryFactory { get; }
-        public IContractQuery ContractQueryHandler { get; }
+
         public IEventAggregatorRepository EventAggregatorRepository { get; }
         public IEthGetTransactionByHash GetTransactionProxy { get; }
         public ISubscriberQueueRepository SubscriberQueueRepository { get; }
@@ -90,9 +92,9 @@ namespace Nethereum.BlockchainProcessing.Processing.Logs.Handling
 
                 case EventHandlerType.ContractQuery:
                     CheckDependency(ContractQueryFactory);
-                    CheckDependency(ContractQueryHandler);
+                    CheckDependency(EthApi);
                     var queryConfig = await ContractQueryFactory.GetAsync(subscription.SubscriberId, config.Id).ConfigureAwait(false);
-                    return new ContractQueryEventHandler(subscription, config.Id, ContractQueryHandler, queryConfig);
+                    return new ContractQueryEventHandler(subscription, config.Id, EthApi, queryConfig);
 
                 case EventHandlerType.Queue:
                     CheckDependency(SubscriberQueueFactory);
