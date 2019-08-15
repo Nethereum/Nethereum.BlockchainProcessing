@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Nethereum.BlockchainProcessing.Queue" Version="3.0.0-CI-20190815-102558" />
+    <PackageReference Include="Nethereum.BlockchainStore.Search" Version="3.0.0-CI-20190815-102558" />
+    <PackageReference Include="Nethereum.Web3" Version="3.4.0" />
+  </ItemGroup>
+
+</Project>

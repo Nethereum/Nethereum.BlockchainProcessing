@@ -1,0 +1,78 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28721.148
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A7C2B9B7-E71D-45D7-B9D9-3852BD66DF52}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "buildConf", "buildConf", "{02E07FCC-431E-4110-A968-0864C54640C7}"
+	ProjectSection(SolutionItems) = preProject
+		buildConf\Generic-CodeGen.props = buildConf\Generic-CodeGen.props
+		buildConf\Generic.props = buildConf\Generic.props
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nethereum.LogProcessing.Dynamic", "Nethereum.LogProcessing.Dynamic\Nethereum.LogProcessing.Dynamic.csproj", "{13EDC235-F6D3-455A-9582-2F9D05B2821A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nethereum.LogProcessing.Dynamic.Tests", "Nethereum.LogProcessing.Dynamic.Tests\Nethereum.LogProcessing.Dynamic.Tests.csproj", "{1DA9C0B4-9F7C-4D7D-B879-D35E4207CFBF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Utils", "Utils", "{C14CE4F4-F605-4B5E-98BF-3A20D4AAF9DF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Playground", "Playground", "{D825028C-BDD8-4843-B704-5D15B81E98A0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlaygroundSamples", "PlaygroundSamples\PlaygroundSamples.csproj", "{41B9849E-9C03-4A6D-BA8B-925EF00B82AB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nethereum.Microsoft.Configuration.Utils", "..\..\Nethereum.BlockchainStorage\src\Nethereum.Configuration.Utils\Nethereum.Microsoft.Configuration.Utils.csproj", "{A3B7D347-6614-40F3-AB81-3E1FC58342B4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nethereum.LogProcessing.Dynamic.Db.Azure", "Nethereum.LogProcessing.Dynamic.Db.Azure\Nethereum.LogProcessing.Dynamic.Db.Azure.csproj", "{B2A03D93-7178-4BA9-8530-5FCCCD0AAFEF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nethereum.BlockchainProcessing.Samples", "Nethereum.BlockchainProcessing.Samples\Nethereum.BlockchainProcessing.Samples.csproj", "{B09C548E-D2B0-4322-B339-88257E4CC2CA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nethereum.LogProcessing.Dynamic.IntegrationTests", "Nethereum.LogProcessing.Dynamic.IntegrationTests\Nethereum.LogProcessing.Dynamic.IntegrationTests.csproj", "{DDBC0ABA-3084-4007-93C4-C5675E3D9C4F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{13EDC235-F6D3-455A-9582-2F9D05B2821A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13EDC235-F6D3-455A-9582-2F9D05B2821A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13EDC235-F6D3-455A-9582-2F9D05B2821A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13EDC235-F6D3-455A-9582-2F9D05B2821A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1DA9C0B4-9F7C-4D7D-B879-D35E4207CFBF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DA9C0B4-9F7C-4D7D-B879-D35E4207CFBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DA9C0B4-9F7C-4D7D-B879-D35E4207CFBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DA9C0B4-9F7C-4D7D-B879-D35E4207CFBF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{41B9849E-9C03-4A6D-BA8B-925EF00B82AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41B9849E-9C03-4A6D-BA8B-925EF00B82AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41B9849E-9C03-4A6D-BA8B-925EF00B82AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41B9849E-9C03-4A6D-BA8B-925EF00B82AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3B7D347-6614-40F3-AB81-3E1FC58342B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3B7D347-6614-40F3-AB81-3E1FC58342B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3B7D347-6614-40F3-AB81-3E1FC58342B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3B7D347-6614-40F3-AB81-3E1FC58342B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2A03D93-7178-4BA9-8530-5FCCCD0AAFEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2A03D93-7178-4BA9-8530-5FCCCD0AAFEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2A03D93-7178-4BA9-8530-5FCCCD0AAFEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2A03D93-7178-4BA9-8530-5FCCCD0AAFEF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B09C548E-D2B0-4322-B339-88257E4CC2CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B09C548E-D2B0-4322-B339-88257E4CC2CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B09C548E-D2B0-4322-B339-88257E4CC2CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B09C548E-D2B0-4322-B339-88257E4CC2CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DDBC0ABA-3084-4007-93C4-C5675E3D9C4F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DDBC0ABA-3084-4007-93C4-C5675E3D9C4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DDBC0ABA-3084-4007-93C4-C5675E3D9C4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DDBC0ABA-3084-4007-93C4-C5675E3D9C4F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{02E07FCC-431E-4110-A968-0864C54640C7} = {A7C2B9B7-E71D-45D7-B9D9-3852BD66DF52}
+		{41B9849E-9C03-4A6D-BA8B-925EF00B82AB} = {D825028C-BDD8-4843-B704-5D15B81E98A0}
+		{A3B7D347-6614-40F3-AB81-3E1FC58342B4} = {C14CE4F4-F605-4B5E-98BF-3A20D4AAF9DF}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E8BDA708-C821-4538-93BC-8FC3DCC98B7B}
+	EndGlobalSection
+EndGlobal

@@ -2,14 +2,10 @@
 
 ## Summary
 
-WARNING - WORK IN PROGRESS!
+Most of the processing code has moved into the Nethereum core repo (Aug 2019), so it will be accessible from the Nethereum.Web3 nuget.
+https://github.com/Nethereum/Nethereum/tree/master/src/Nethereum.BlockchainProcessing
 
-We are currently refactoring and moving blockchain processing code between repositories.  
-
-Most of the processing code is moving into the Nethereum core, so it will be accessible from the Nethereum.Web3 nuget.
-https://github.com/Nethereum/Nethereum.BlockchainProcessing/
-
-The storage adapters have moved to the Nethereum.BlockchainStorage repo (where possible we have retained the history).
+The storage adapters have moved to the Nethereum.BlockchainStorage repo (July 2019) (where possible we have retained the history).
 https://github.com/Nethereum/Nethereum.BlockchainStorage/
 
-This repository will continue to be used for processing samples and more specialized processing components.
+What remains here are samples for blockchain processing and some experimental projects.
