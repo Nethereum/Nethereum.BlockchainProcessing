@@ -26,7 +26,7 @@ namespace Nethereum.BlockchainProcessing.Common.Processing
         }
         public virtual void AddProcessorHandler(IProcessorHandler<T> processorHandler)
         {
-            ProcessorHandlers.Add(processorHandler.ExcecuteAsync);
+            ProcessorHandlers.Add(processorHandler.ExecuteAsync);
         }
 
         public virtual async Task<bool> IsMatchAsync(T value)
