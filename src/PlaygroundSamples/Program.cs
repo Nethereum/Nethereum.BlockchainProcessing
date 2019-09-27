@@ -6,7 +6,7 @@ namespace PlaygroundSamples
     {
         static void Main(string[] args)
         {
-            LogProcessing_OneContractManyEventsAsync.Main(null).Wait();
+            LogProcessing_WithInDepthSetup.Main(null).Wait();
             Console.WriteLine("Hello World!");
         }
     }
